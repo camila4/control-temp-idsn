@@ -6,42 +6,27 @@
 <title>Control T° y HR — IDSN</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
-
-:root {
-  --verde:#2EAA6E;
-  --verde-oscuro:#1A7A4A;
-  --verde-claro:#E8F8F0;
-  --verde-medio:#C6EDD9;
-  --amarillo:#F5D000;
-  --amarillo-claro:#FFFBE6;
-  --morado:#4A3F8F;
-  --morado-claro:#EEEDF9;
-  --rojo:#DC2626;--rojo-claro:#FEE2E2;
-  --naranja:#D97706;--naranja-claro:#FEF3C7;
-  --gris-50:#F8FAFC;--gris-100:#F1F5F9;--gris-200:#E2E8F0;
-  --gris-400:#94A3B8;--gris-600:#475569;--gris-800:#1E293B;
-  --blanco:#FFFFFF;
+:root{
+  --verde:#2EAA6E;--verde-oscuro:#1A7A4A;--verde-claro:#E8F8F0;--verde-medio:#C6EDD9;
+  --rojo:#DC2626;--rojo-claro:#FEE2E2;--naranja:#D97706;--naranja-claro:#FEF3C7;
+  --gris-50:#F8FAFC;--gris-100:#F1F5F9;--gris-200:#E2E8F0;--gris-400:#94A3B8;
+  --gris-600:#475569;--gris-800:#1E293B;--blanco:#FFFFFF;
   --sombra:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
   --sombra-md:0 4px 12px rgba(0,0,0,0.1);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--gris-50);color:var(--gris-800);min-height:100vh;}
-
-/* HEADER */
 .header{background:linear-gradient(135deg,var(--verde-oscuro) 0%,var(--verde) 100%);color:white;padding:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,122,74,0.35);}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;}
 .header-brand{display:flex;align-items:center;gap:10px;}
 .header-icon{width:38px;height:38px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.header-texts h1{font-size:15px;font-weight:700;letter-spacing:-0.01em;}
+.header-texts h1{font-size:15px;font-weight:700;}
 .header-texts p{font-size:11px;opacity:0.75;margin-top:1px;}
-.btn-admin{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;}
-.btn-admin:hover{background:rgba(255,255,255,0.25);}
-
-/* MAIN */
+.btn-admin{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
 .main{max-width:480px;margin:0 auto;padding:16px 14px 50px;}
-
-/* MENU INICIAL */
-.menu-screen{padding:8px 0;}
+.datetime-bar{background:var(--blanco);border:1px solid var(--gris-200);border-radius:10px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--sombra);}
+.datetime-label{font-size:11px;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
+.datetime-value{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--verde-oscuro);}
 .menu-title{font-size:13px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
 .menu-card{background:var(--blanco);border:1.5px solid var(--gris-200);border-radius:14px;padding:20px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:16px;box-shadow:var(--sombra);}
 .menu-card:hover{border-color:var(--verde);box-shadow:0 4px 16px rgba(46,170,110,0.15);transform:translateY(-1px);}
@@ -50,38 +35,23 @@ body{font-family:'Inter',sans-serif;background:var(--gris-50);color:var(--gris-8
 .menu-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
 .menu-icon.verde{background:var(--verde-claro);}
 .menu-icon.gris{background:var(--gris-100);}
-.menu-info{}
 .menu-info h3{font-size:16px;font-weight:700;margin-bottom:3px;}
 .menu-info p{font-size:12px;color:var(--gris-400);line-height:1.4;}
 .menu-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;margin-top:6px;display:inline-block;}
 .badge-activo{background:var(--verde-claro);color:var(--verde-oscuro);}
 .badge-pronto{background:var(--gris-100);color:var(--gris-400);}
 .menu-arrow{margin-left:auto;color:var(--gris-400);font-size:18px;flex-shrink:0;}
-
-/* DATETIME */
-.datetime-bar{background:var(--blanco);border:1px solid var(--gris-200);border-radius:10px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--sombra);}
-.datetime-label{font-size:11px;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
-.datetime-value{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--verde-oscuro);}
-
-/* BREADCRUMB */
 .breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
-.btn-back{background:var(--verde-claro);color:var(--verde-oscuro);border:none;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;}
+.btn-back{background:var(--verde-claro);color:var(--verde-oscuro);border:none;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 .breadcrumb-text{font-size:13px;color:var(--gris-400);}
-
-/* CARD */
 .card{background:var(--blanco);border:1px solid var(--gris-200);border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:var(--sombra);}
 .card-title{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
-
-/* FIELDS */
 .field{margin-bottom:13px;}
 .field:last-child{margin-bottom:0;}
 label{display:block;font-size:13px;font-weight:500;color:var(--gris-600);margin-bottom:5px;}
 label .req{color:var(--rojo);margin-left:2px;}
-select,input[type="text"],input[type="number"],input[type="password"],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--gris-200);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:var(--gris-800);background:var(--blanco);transition:border-color 0.15s,box-shadow 0.15s;-webkit-appearance:none;}
+select,input[type="text"],input[type="number"],input[type="password"],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--gris-200);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:var(--gris-800);background:var(--blanco);transition:border-color 0.15s;-webkit-appearance:none;}
 select:focus,input:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(46,170,110,0.15);}
-.field-hint{font-size:11px;color:var(--gris-400);margin-top:4px;}
-
-/* EQUIPOS CHIPS */
 .equipos-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .equipo-chip{border:1.5px solid var(--gris-200);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all 0.15s;background:var(--blanco);text-align:left;font-family:'Inter',sans-serif;width:100%;}
 .equipo-chip:hover{border-color:var(--verde);background:var(--verde-claro);}
@@ -89,59 +59,40 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--verde);b
 .equipo-chip-code{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--verde-oscuro);}
 .equipo-chip-lugar{font-size:11px;color:var(--gris-600);margin-top:2px;}
 .equipo-chip-badge{font-size:10px;color:var(--naranja);font-weight:600;margin-top:2px;}
-
-/* LUGARES CHIPS */
 .lugares-grid{display:grid;grid-template-columns:1fr;gap:7px;}
 .lugar-chip{border:1.5px solid var(--gris-200);border-radius:8px;padding:11px 14px;cursor:pointer;transition:all 0.15s;background:var(--blanco);text-align:left;font-family:'Inter',sans-serif;width:100%;display:flex;align-items:center;gap:10px;}
 .lugar-chip:hover{border-color:var(--verde);background:var(--verde-claro);}
 .lugar-chip.selected{border-color:var(--verde);background:var(--verde-claro);box-shadow:0 0 0 2px rgba(46,170,110,0.2);}
-.lugar-chip-icon{font-size:18px;}
-.lugar-chip-name{font-size:14px;font-weight:500;color:var(--gris-800);}
-
-/* LUGAR SELECCIONADO */
 .lugar-info{background:var(--verde-claro);border:1px solid var(--verde-medio);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--verde-oscuro);font-weight:500;}
-
-/* MEDICIONES */
 .mediciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .medicion-card{background:var(--gris-50);border:1.5px solid var(--gris-200);border-radius:10px;padding:14px;}
 .medicion-icon{font-size:20px;margin-bottom:6px;}
 .medicion-label{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
 .medicion-card input{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;padding:8px 10px;text-align:center;background:var(--blanco);}
 .medicion-unit{text-align:center;font-size:11px;color:var(--gris-400);margin-top:4px;font-weight:500;}
-
-/* BTN */
-.btn-submit{width:100%;background:var(--verde);color:white;border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;margin-top:4px;letter-spacing:-0.01em;}
+.btn-submit{width:100%;background:var(--verde);color:white;border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;margin-top:4px;}
 .btn-submit:hover{background:var(--verde-oscuro);}
 .btn-submit:disabled{background:var(--gris-400);cursor:not-allowed;}
-
-/* SUCCESS */
 .success-screen{display:none;text-align:center;padding:40px 16px;}
 .success-icon{width:76px;height:76px;background:var(--verde-claro);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 20px;}
 .success-title{font-size:22px;font-weight:700;color:var(--verde-oscuro);margin-bottom:8px;}
 .success-sub{font-size:14px;color:var(--gris-600);margin-bottom:28px;line-height:1.7;}
 .btn-nuevo{background:var(--verde);color:white;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-
-/* OVERLAY */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;}
 .overlay.show{display:flex;}
 .panel{background:var(--blanco);width:100%;max-height:90vh;border-radius:20px 20px 0 0;overflow-y:auto;padding:20px;}
 .panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--gris-200);}
 .panel-title{font-size:17px;font-weight:700;}
 .btn-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--gris-100);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
-
-/* TABS */
 .tabs{display:flex;gap:5px;margin-bottom:18px;background:var(--gris-100);padding:4px;border-radius:10px;}
 .tab{flex:1;padding:8px 4px;border:none;background:transparent;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--gris-600);transition:all 0.15s;}
 .tab.active{background:var(--blanco);color:var(--verde-oscuro);font-weight:600;box-shadow:var(--sombra);}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
-
-/* ADMIN EQUIPOS */
 .area-admin{border:1px solid var(--gris-200);border-radius:10px;margin-bottom:12px;overflow:hidden;}
 .area-admin-header{background:var(--gris-50);padding:12px 15px;font-size:13px;font-weight:600;color:var(--gris-600);cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:none;width:100%;font-family:'Inter',sans-serif;text-align:left;}
 .area-admin-body{padding:14px;display:none;}
 .area-admin-body.open{display:block;}
-
 .equipo-admin-row{border:1px solid var(--gris-200);border-radius:10px;padding:14px;margin-bottom:10px;}
 .equipo-admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .equipo-admin-code{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;}
@@ -149,38 +100,28 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--verde);b
 .estado-activo{background:var(--verde-claro);color:var(--verde-oscuro);}
 .estado-calibracion{background:var(--naranja-claro);color:var(--naranja);}
 .estado-dañado{background:var(--rojo-claro);color:var(--rojo);}
-
 .toggle-group{display:flex;gap:6px;margin-bottom:12px;}
 .toggle-btn{flex:1;padding:7px 4px;border:1.5px solid var(--gris-200);border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;background:var(--blanco);font-family:'Inter',sans-serif;transition:all 0.15s;color:var(--gris-600);}
 .toggle-btn.sel-activo{border-color:var(--verde);background:var(--verde-claro);color:var(--verde-oscuro);}
 .toggle-btn.sel-calibracion{border-color:var(--naranja);background:var(--naranja-claro);color:var(--naranja);}
 .toggle-btn.sel-dañado{border-color:var(--rojo);background:var(--rojo-claro);color:var(--rojo);}
-
-/* LUGARES LIST */
 .lugares-admin-list{margin-top:8px;}
 .lugar-admin-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .lugar-admin-row input{flex:1;font-size:13px;padding:7px 10px;}
 .btn-del{width:32px;height:32px;border:none;background:var(--rojo-claro);color:var(--rojo);border-radius:7px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .btn-add-lugar{background:var(--verde-claro);color:var(--verde-oscuro);border:1px dashed var(--verde);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;width:100%;}
-
-/* AUDITORIA */
 .audit-row{padding:10px 0;border-bottom:1px solid var(--gris-100);font-size:12px;}
 .audit-row:last-child{border-bottom:none;}
 .audit-quien{font-weight:600;color:var(--verde-oscuro);}
 .audit-cuando{color:var(--gris-400);font-size:11px;}
 .audit-cambio{margin-top:3px;color:var(--gris-600);line-height:1.4;}
-
-/* USUARIOS */
 .usuario-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gris-100);}
 .usuario-row:last-child{border-bottom:none;}
 .usuario-nombre{font-size:13px;font-weight:600;}
 .usuario-area{font-size:11px;color:var(--gris-400);}
 .btn-editar{font-size:12px;padding:5px 12px;border:1px solid var(--gris-200);border-radius:6px;background:var(--blanco);cursor:pointer;font-family:'Inter',sans-serif;color:var(--verde-oscuro);font-weight:500;}
-
 .btn-save{width:100%;background:var(--verde);color:white;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;}
 input.small{font-size:13px;padding:7px 10px;}
-
-/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.show{display:flex;}
 .modal{background:var(--blanco);border-radius:14px;padding:20px;width:100%;max-width:380px;}
@@ -189,20 +130,19 @@ input.small{font-size:13px;padding:7px 10px;}
 .modal-btns button{flex:1;padding:11px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
 .btn-confirm{background:var(--verde);color:white;}
 .btn-cancel{background:var(--gris-100);color:var(--gris-800);}
-
-/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gris-800);color:white;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;transition:transform 0.3s;z-index:999;box-shadow:var(--sombra-md);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.success{background:var(--verde-oscuro);}
 .toast.error{background:var(--rojo);}
-
 .empty-state{text-align:center;padding:30px 20px;color:var(--gris-400);font-size:13px;}
 .section-label{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;margin-top:14px;}
+.loading-bar{text-align:center;padding:40px;color:var(--gris-400);font-size:14px;}
+.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--verde-claro);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <div class="header-brand">
@@ -217,9 +157,13 @@ input.small{font-size:13px;padding:7px 10px;}
 </div>
 
 <div class="main">
+  <!-- CARGANDO -->
+  <div id="screen-loading" class="loading-bar">
+    <div class="spinner"></div><br>Cargando configuración...
+  </div>
 
-  <!-- MENÚ PRINCIPAL -->
-  <div id="screen-menu">
+  <!-- MENÚ -->
+  <div id="screen-menu" style="display:none">
     <div class="datetime-bar">
       <span class="datetime-label">Fecha y hora</span>
       <span class="datetime-value" id="reloj"></span>
@@ -245,21 +189,17 @@ input.small{font-size:13px;padding:7px 10px;}
     </div>
   </div>
 
-  <!-- MÓDULO T° Y HR ÁREAS -->
+  <!-- MÓDULO ÁREAS -->
   <div id="screen-areas" style="display:none">
-
-    <!-- FORMULARIO -->
     <div id="form-areas">
       <div class="breadcrumb">
         <button class="btn-back" onclick="volverMenu()">← Menú</button>
         <span class="breadcrumb-text">T° y HR Áreas</span>
       </div>
-
       <div class="datetime-bar">
         <span class="datetime-label">Fecha y hora</span>
         <span class="datetime-value" id="reloj2"></span>
       </div>
-
       <div class="card">
         <div class="card-title">Ubicación</div>
         <div class="field">
@@ -284,7 +224,6 @@ input.small{font-size:13px;padding:7px 10px;}
           <div class="lugar-info" id="lugar-unico-text"></div>
         </div>
       </div>
-
       <div class="card" id="card-mediciones" style="display:none">
         <div class="card-title">Mediciones</div>
         <div class="mediciones-grid">
@@ -302,7 +241,6 @@ input.small{font-size:13px;padding:7px 10px;}
           </div>
         </div>
       </div>
-
       <div class="card" id="card-responsable" style="display:none">
         <div class="card-title">Responsable</div>
         <div class="field">
@@ -314,13 +252,8 @@ input.small{font-size:13px;padding:7px 10px;}
           <textarea id="observaciones" rows="2" placeholder="Opcional..." style="resize:none;font-size:14px;padding:10px 13px;border:1.5px solid var(--gris-200);border-radius:8px;width:100%;font-family:'Inter',sans-serif;"></textarea>
         </div>
       </div>
-
-      <button class="btn-submit" id="btn-enviar" onclick="enviarRegistro()" style="display:none">
-        Guardar registro
-      </button>
+      <button class="btn-submit" id="btn-enviar" onclick="enviarRegistro()" style="display:none">Guardar registro</button>
     </div>
-
-    <!-- ÉXITO -->
     <div class="success-screen" id="pantalla-exito">
       <div class="success-icon">✅</div>
       <div class="success-title">¡Registro guardado!</div>
@@ -330,8 +263,7 @@ input.small{font-size:13px;padding:7px 10px;}
       <button onclick="volverMenu()" style="background:none;border:none;color:var(--gris-400);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;">← Volver al menú</button>
     </div>
   </div>
-
-</div><!-- /main -->
+</div>
 
 <!-- PANEL ADMIN -->
 <div class="overlay" id="admin-overlay" onclick="cerrarOverlay(event,'admin-overlay')">
@@ -340,7 +272,6 @@ input.small{font-size:13px;padding:7px 10px;}
     <div class="panel-title">⚙️ Administración</div>
     <button class="btn-close" onclick="cerrarPanel('admin-overlay')">✕</button>
   </div>
-
   <div id="admin-login">
     <div class="field">
       <label>Usuario</label>
@@ -352,7 +283,6 @@ input.small{font-size:13px;padding:7px 10px;}
     </div>
     <button class="btn-save" onclick="loginAdmin()">Ingresar</button>
   </div>
-
   <div id="admin-contenido" style="display:none">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <div style="font-size:13px;color:var(--gris-600)">Sesión: <strong id="session-nombre"></strong></div>
@@ -382,18 +312,9 @@ input.small{font-size:13px;padding:7px 10px;}
 <div class="modal-overlay" id="modal-usuario">
 <div class="modal">
   <div class="modal-title" id="modal-titulo">Nuevo usuario</div>
-  <div class="field">
-    <label>Nombre</label>
-    <input type="text" id="m-nombre" placeholder="Ej: Líder Almacén">
-  </div>
-  <div class="field">
-    <label>Área asignada</label>
-    <select id="m-area"></select>
-  </div>
-  <div class="field">
-    <label>Clave</label>
-    <input type="password" id="m-clave" placeholder="Nueva clave">
-  </div>
+  <div class="field"><label>Nombre</label><input type="text" id="m-nombre" placeholder="Ej: Líder Almacén"></div>
+  <div class="field"><label>Área asignada</label><select id="m-area"></select></div>
+  <div class="field"><label>Clave</label><input type="password" id="m-clave" placeholder="Nueva clave"></div>
   <div class="modal-btns">
     <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
     <button class="btn-confirm" onclick="guardarUsuario()">Guardar</button>
@@ -403,192 +324,196 @@ input.small{font-size:13px;padding:7px 10px;}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, addDoc, collection, onSnapshot, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBxug78dfj7F0-CtUxMVTmeuto3tqDCd00",
+  authDomain: "control-temp-idsn.firebaseapp.com",
+  projectId: "control-temp-idsn",
+  storageBucket: "control-temp-idsn.firebasestorage.app",
+  messagingSenderId: "290972936604",
+  appId: "1:290972936604:web:c2e73479b208d2f97c0059"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 // ============================================================
 // DATOS MAESTROS
 // ============================================================
 const AREAS = {
-  "Recepción":                              ["LSP18-13MBC"],
-  "Almacén":                                ["LSP 18-02 ALM","LSP 18-03 ALM"],
-  "Virología e Inmunoserología":            ["LSP 18-30 VIR","LSP 18-21 EISP","LSP 18-32 VIR","LSP 18-26 VIR","LSP 18-31 VIR","LSP 18-27 VIR","LSP 18-28 VIR","LSP 18-29 VIR"],
-  "Micobacterias":                          ["LSP18-08 MC","LSP18-01 MC"],
-  "Microbiología MB":                       ["LSP18-31MB","LSP18-37MB","LSP18-33MB","LSP18-32MB","LSP18-36MB","LSP18-30MB"],
-  "Fisicoquímico FQ":                       ["LSP18-02MB","LSP18-19FQ","LSP18-03FQ","LSP18-05FQ","LSP18-18FQ"],
-  "Microbiología Clínica":                  ["LSP 18-14 MBC","LSP 18-15 MBC","LSP 18-16 MBC","LSP 18-11 MBC","LSP 18-12 MBC"],
-  "Toxicología y Productos Farmacéuticos":  ["LSP18-06PF","LSP18-04PF","LSP18-01Tox"]
+  "Recepción":                             ["LSP18-13MBC"],
+  "Almacén":                               ["LSP 18-02 ALM","LSP 18-03 ALM"],
+  "Virología e Inmunoserología":           ["LSP 18-30 VIR","LSP 18-21 EISP","LSP 18-32 VIR","LSP 18-26 VIR","LSP 18-31 VIR","LSP 18-27 VIR","LSP 18-28 VIR","LSP 18-29 VIR"],
+  "Micobacterias":                         ["LSP18-08 MC","LSP18-01 MC"],
+  "Microbiología MB":                      ["LSP18-31MB","LSP18-37MB","LSP18-33MB","LSP18-32MB","LSP18-36MB","LSP18-30MB"],
+  "Fisicoquímico FQ":                      ["LSP18-02MB","LSP18-19FQ","LSP18-03FQ","LSP18-05FQ","LSP18-18FQ"],
+  "Microbiología Clínica":                 ["LSP 18-14 MBC","LSP 18-15 MBC","LSP 18-16 MBC","LSP 18-11 MBC","LSP 18-12 MBC"],
+  "Toxicología y Productos Farmacéuticos": ["LSP18-06PF","LSP18-04PF","LSP18-01Tox"]
 };
-
 const TODOS_EQUIPOS = Object.values(AREAS).flat();
 
 // ============================================================
-// CONFIG
+// CONFIG FIREBASE
 // ============================================================
-function getConfig(){
-  const d = localStorage.getItem('idsn_v3');
-  if(d) return JSON.parse(d);
-  return {
-    equipos: {},
-    usuarios: [{id:'superadmin',nombre:'Super Administrador',area:'todas',clave:'idsn2024'}],
-    auditoria: []
-  };
-}
-function setConfig(c){ localStorage.setItem('idsn_v3', JSON.stringify(c)); }
+let CONFIG = { equipos:{}, usuarios:[], auditoria:[] };
+let session = null;
+let equipoActual = null;
+let lugarActual = null;
+let editUID = null;
 
-function initEquipos(){
-  const c = getConfig();
-  let changed = false;
-  for(const area in AREAS){
-    for(const eq of AREAS[area]){
-      if(!c.equipos[eq]){
-        c.equipos[eq] = {estado:'activo', lugares:[], reemplazo:''};
-        changed = true;
+async function cargarConfig(){
+  try {
+    const snap = await getDoc(doc(db,'config','principal'));
+    if(snap.exists()){
+      CONFIG = snap.data();
+    } else {
+      // Primera vez — crear config inicial
+      CONFIG = {
+        equipos: {},
+        usuarios: [{id:'superadmin',nombre:'Super Administrador',area:'todas',clave:'idsn2024'}],
+        auditoria: []
+      };
+      // Inicializar equipos
+      for(const area in AREAS){
+        for(const eq of AREAS[area]){
+          CONFIG.equipos[eq] = {estado:'activo', lugares:[], reemplazo:''};
+        }
       }
-      // Migrar campo lugar antiguo a array lugares
-      if(c.equipos[eq].lugar !== undefined && !c.equipos[eq].lugares){
-        c.equipos[eq].lugares = c.equipos[eq].lugar ? [c.equipos[eq].lugar] : [];
-        delete c.equipos[eq].lugar;
-        changed = true;
+      await setDoc(doc(db,'config','principal'), CONFIG);
+    }
+    // Asegurar equipos nuevos
+    let changed = false;
+    for(const area in AREAS){
+      for(const eq of AREAS[area]){
+        if(!CONFIG.equipos[eq]){
+          CONFIG.equipos[eq] = {estado:'activo', lugares:[], reemplazo:''};
+          changed = true;
+        }
       }
     }
+    if(changed) await setDoc(doc(db,'config','principal'), CONFIG);
+  } catch(e) {
+    console.error('Error cargando config:', e);
   }
-  if(changed) setConfig(c);
+  document.getElementById('screen-loading').style.display = 'none';
+  document.getElementById('screen-menu').style.display = 'block';
+  cargarSelectArea();
 }
 
-// ============================================================
-// SESSION
-// ============================================================
-let session = null;
-let equipoCambios = {};
-let lugarActual = null;
-let equipoActual = null;
+async function guardarConfigFirebase(){
+  await setDoc(doc(db,'config','principal'), CONFIG);
+}
 
 // ============================================================
 // RELOJ
 // ============================================================
 function tick(){
   const a = new Date();
-  const str = a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' +
+  const str = a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+
               a.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   ['reloj','reloj2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=str; });
 }
+tick(); setInterval(tick,1000);
 
 // ============================================================
 // NAVEGACIÓN
 // ============================================================
-function irAModulo(modulo){
-  document.getElementById('screen-menu').style.display = 'none';
-  document.getElementById('screen-'+modulo).style.display = 'block';
-}
-
-function volverMenu(){
-  document.getElementById('screen-areas').style.display = 'none';
-  document.getElementById('screen-menu').style.display = 'block';
+window.irAModulo = (m)=>{
+  document.getElementById('screen-menu').style.display='none';
+  document.getElementById('screen-'+m).style.display='block';
+};
+window.volverMenu = ()=>{
+  document.getElementById('screen-areas').style.display='none';
+  document.getElementById('screen-menu').style.display='block';
   resetForm();
-}
+};
 
 // ============================================================
 // FORMULARIO
 // ============================================================
 function cargarSelectArea(){
   const sel = document.getElementById('area');
-  while(sel.options.length > 1) sel.remove(1);
-  for(const area in AREAS) sel.add(new Option(area, area));
+  while(sel.options.length>1) sel.remove(1);
+  for(const area in AREAS) sel.add(new Option(area,area));
 }
 
-function cargarEquipos(){
+window.cargarEquipos = ()=>{
   const area = document.getElementById('area').value;
-  const c = getConfig();
-  equipoActual = null; lugarActual = null;
-
+  equipoActual=null; lugarActual=null;
   ['campo-equipo','campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
-    .forEach(id => document.getElementById(id).style.display = 'none');
-
+    .forEach(id=>document.getElementById(id).style.display='none');
   if(!area) return;
 
   const equipos = AREAS[area];
   const grid = document.getElementById('equipos-grid');
-  grid.innerHTML = '';
+  grid.innerHTML='';
 
-  const activos = equipos.filter(eq => {
-    const ec = c.equipos[eq];
-    return ec && ec.estado === 'activo';
-  });
-
-  // Reemplazos
+  const activos = equipos.filter(eq=>CONFIG.equipos[eq]?.estado==='activo');
   const reemplazos = equipos
-    .filter(eq => { const ec=c.equipos[eq]; return ec && ec.estado!=='activo' && ec.reemplazo; })
-    .map(eq => ({ original:eq, reemplazo:c.equipos[eq].reemplazo, lugares:c.equipos[eq].lugares||[] }));
+    .filter(eq=>CONFIG.equipos[eq]?.estado!=='activo' && CONFIG.equipos[eq]?.reemplazo)
+    .map(eq=>({original:eq, reemplazo:CONFIG.equipos[eq].reemplazo, lugares:CONFIG.equipos[eq].lugares||[]}));
 
-  if(activos.length === 0 && reemplazos.length === 0){
-    grid.innerHTML = '<div class="empty-state">No hay equipos activos en esta área</div>';
-    document.getElementById('campo-equipo').style.display = 'block';
+  if(!activos.length && !reemplazos.length){
+    grid.innerHTML='<div class="empty-state">No hay equipos activos en esta área</div>';
+    document.getElementById('campo-equipo').style.display='block';
     return;
   }
 
-  activos.forEach(eq => {
-    const ec = c.equipos[eq];
-    const chip = document.createElement('button');
-    chip.className = 'equipo-chip'; chip.type = 'button'; chip.dataset.equipo = eq;
-    chip.innerHTML = `<div class="equipo-chip-code">${eq}</div>
-      <div class="equipo-chip-lugar">${(ec.lugares&&ec.lugares.length)?ec.lugares.join(', '):'Sin lugar asignado'}</div>`;
-    chip.onclick = () => seleccionarEquipo(eq, chip);
+  activos.forEach(eq=>{
+    const ec=CONFIG.equipos[eq];
+    const chip=document.createElement('button');
+    chip.className='equipo-chip'; chip.type='button';
+    chip.innerHTML=`<div class="equipo-chip-code">${eq}</div>
+      <div class="equipo-chip-lugar">${ec.lugares?.length?ec.lugares.join(', '):'Sin lugar asignado'}</div>`;
+    chip.onclick=()=>seleccionarEquipo(eq,chip);
     grid.appendChild(chip);
   });
 
-  reemplazos.forEach(r => {
-    const chip = document.createElement('button');
-    chip.className = 'equipo-chip'; chip.type = 'button'; chip.dataset.equipo = r.reemplazo;
-    chip.innerHTML = `<div class="equipo-chip-code">${r.reemplazo}</div>
+  reemplazos.forEach(r=>{
+    const chip=document.createElement('button');
+    chip.className='equipo-chip'; chip.type='button';
+    chip.innerHTML=`<div class="equipo-chip-code">${r.reemplazo}</div>
       <div class="equipo-chip-lugar">${r.lugares.join(', ')||''}</div>
       <div class="equipo-chip-badge">⟳ Reemplazo de ${r.original}</div>`;
-    chip.onclick = () => seleccionarEquipo(r.reemplazo, chip);
+    chip.onclick=()=>seleccionarEquipo(r.reemplazo,chip);
     grid.appendChild(chip);
   });
 
-  document.getElementById('campo-equipo').style.display = 'block';
-
-  if(activos.length === 1 && reemplazos.length === 0){
-    seleccionarEquipo(activos[0], grid.firstChild);
-  }
-}
+  document.getElementById('campo-equipo').style.display='block';
+  if(activos.length===1 && !reemplazos.length) seleccionarEquipo(activos[0], grid.firstChild);
+};
 
 function seleccionarEquipo(eq, chip){
   document.querySelectorAll('.equipo-chip').forEach(c=>c.classList.remove('selected'));
   chip.classList.add('selected');
-  equipoActual = eq;
-  lugarActual = null;
+  equipoActual=eq; lugarActual=null;
+  ['campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
+    .forEach(id=>document.getElementById(id).style.display='none');
 
-  document.getElementById('campo-lugares').style.display = 'none';
-  document.getElementById('lugar-unico').style.display = 'none';
-  document.getElementById('card-mediciones').style.display = 'none';
-  document.getElementById('card-responsable').style.display = 'none';
-  document.getElementById('btn-enviar').style.display = 'none';
-
-  const c = getConfig();
-  const ec = c.equipos[eq] || {};
-  const lugares = ec.lugares || [];
-
-  if(lugares.length === 0){
-    // Sin lugar configurado, ir directo a mediciones
-    lugarActual = '';
-    mostrarMediciones();
-  } else if(lugares.length === 1){
-    lugarActual = lugares[0];
-    document.getElementById('lugar-unico-text').textContent = '📍 ' + lugares[0];
-    document.getElementById('lugar-unico').style.display = 'block';
+  const lugares = CONFIG.equipos[eq]?.lugares||[];
+  if(!lugares.length){
+    lugarActual=''; mostrarMediciones();
+  } else if(lugares.length===1){
+    lugarActual=lugares[0];
+    document.getElementById('lugar-unico-text').textContent='📍 '+lugares[0];
+    document.getElementById('lugar-unico').style.display='block';
     mostrarMediciones();
   } else {
-    // Mostrar selector de lugar
-    const grid = document.getElementById('lugares-grid');
-    grid.innerHTML = '';
-    lugares.forEach(lugar => {
-      const chip = document.createElement('button');
-      chip.className = 'lugar-chip'; chip.type = 'button';
-      chip.innerHTML = `<span class="lugar-chip-icon">📍</span><span class="lugar-chip-name">${lugar}</span>`;
-      chip.onclick = () => seleccionarLugar(lugar, chip);
-      grid.appendChild(chip);
+    const grid=document.getElementById('lugares-grid');
+    grid.innerHTML='';
+    lugares.forEach(lugar=>{
+      const c=document.createElement('button');
+      c.className='lugar-chip'; c.type='button';
+      c.innerHTML=`<span>📍</span><span>${lugar}</span>`;
+      c.onclick=()=>seleccionarLugar(lugar,c);
+      grid.appendChild(c);
     });
-    document.getElementById('campo-lugares').style.display = 'block';
+    document.getElementById('campo-lugares').style.display='block';
     setTimeout(()=>document.getElementById('campo-lugares').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
   }
 }
@@ -596,84 +521,81 @@ function seleccionarEquipo(eq, chip){
 function seleccionarLugar(lugar, chip){
   document.querySelectorAll('.lugar-chip').forEach(c=>c.classList.remove('selected'));
   chip.classList.add('selected');
-  lugarActual = lugar;
-  mostrarMediciones();
+  lugarActual=lugar; mostrarMediciones();
 }
 
 function mostrarMediciones(){
-  document.getElementById('card-mediciones').style.display = 'block';
-  document.getElementById('card-responsable').style.display = 'block';
-  document.getElementById('btn-enviar').style.display = 'block';
+  ['card-mediciones','card-responsable','btn-enviar'].forEach(id=>document.getElementById(id).style.display='block');
   setTimeout(()=>document.getElementById('card-mediciones').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
 }
 
-function enviarRegistro(){
-  const area = document.getElementById('area').value;
-  const temperatura = document.getElementById('temperatura').value;
-  const humedad = document.getElementById('humedad').value;
-  const responsable = document.getElementById('responsable').value.trim();
-  const observaciones = document.getElementById('observaciones').value.trim();
+window.enviarRegistro = async ()=>{
+  const area=document.getElementById('area').value;
+  const temperatura=document.getElementById('temperatura').value;
+  const humedad=document.getElementById('humedad').value;
+  const responsable=document.getElementById('responsable').value.trim();
+  const observaciones=document.getElementById('observaciones').value.trim();
 
   if(!area){mostrarToast('Selecciona el área','error');return;}
   if(!equipoActual){mostrarToast('Selecciona el equipo','error');return;}
-  if(lugarActual === null){mostrarToast('Selecciona el lugar de muestreo','error');return;}
+  if(lugarActual===null){mostrarToast('Selecciona el lugar de muestreo','error');return;}
   if(!temperatura){mostrarToast('Ingresa la temperatura','error');return;}
   if(!humedad){mostrarToast('Ingresa la humedad','error');return;}
   if(!responsable){mostrarToast('Ingresa tu código Crystal','error');return;}
 
-  const btn = document.getElementById('btn-enviar');
-  btn.disabled = true; btn.textContent = 'Guardando...';
+  const btn=document.getElementById('btn-enviar');
+  btn.disabled=true; btn.textContent='Guardando...';
 
-  const ahora = new Date();
-  const marca = ahora.toLocaleString('es-CO');
+  const ahora=new Date();
+  const marca=ahora.toLocaleString('es-CO');
+  const lugares=CONFIG.equipos[equipoActual]?.lugares||[];
+  const idx=lugares.indexOf(lugarActual);
+  const sufijo=lugares.length>1?`_v${idx+1}`:'';
+  const nombreHoja=(equipoActual+sufijo).replace(/\s/g,'');
 
-  // Nombre hoja: equipo + _v1, _v2 según lugar
-  const c = getConfig();
-  const ec = c.equipos[equipoActual] || {};
-  const lugares = ec.lugares || [];
-  const idx = lugares.indexOf(lugarActual);
-  const sufijo = lugares.length > 1 ? `_v${idx+1}` : '';
-  const nombreHoja = (equipoActual + sufijo).replace(/\s/g,'');
+  try {
+    // Guardar en Firestore
+    await addDoc(collection(db,'registros'),{
+      marca_temporal: marca,
+      timestamp: serverTimestamp(),
+      area, lugar_muestreo:lugarActual,
+      codigo_equipo:equipoActual,
+      nombre_hoja:nombreHoja,
+      temperatura:parseFloat(temperatura),
+      humedad:parseFloat(humedad),
+      responsable, observaciones
+    });
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec";
-  const payload = {
-    marca_temporal: marca,
-    area,
-    lugar_muestreo: lugarActual,
-    codigo_equipo: equipoActual,
-    nombre_hoja: nombreHoja,
-    temperatura,
-    humedad,
-    responsable,
-    observaciones
-  };
+    // También enviar a Google Sheets
+    const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec";
+    const form=new FormData();
+    form.append('data', JSON.stringify({marca_temporal:marca,area,lugar_muestreo:lugarActual,
+      codigo_equipo:equipoActual,nombre_hoja:nombreHoja,temperatura,humedad,responsable,observaciones}));
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:form}).catch(()=>{});
 
-  const form = new FormData();
-  form.append('data', JSON.stringify(payload));
-  fetch(SCRIPT_URL, {method:'POST',mode:'no-cors',body:form})
-  .then(()=>mostrarExito(area, equipoActual, lugarActual, temperatura, humedad, marca))
-  .catch(()=>mostrarExito(area, equipoActual, lugarActual, temperatura, humedad, marca))
-  .finally(()=>{ btn.disabled=false; btn.textContent='Guardar registro'; });
+    mostrarExito(area,equipoActual,lugarActual,temperatura,humedad,marca);
+  } catch(e){
+    mostrarToast('Error al guardar: '+e.message,'error');
+  } finally {
+    btn.disabled=false; btn.textContent='Guardar registro';
+  }
+};
+
+function mostrarExito(area,equipo,lugar,temp,hum,marca){
+  document.getElementById('form-areas').style.display='none';
+  document.getElementById('pantalla-exito').style.display='block';
+  document.getElementById('resumen-exito').innerHTML=
+    `<strong>${equipo}</strong><br>${area}${lugar?'<br>📍 '+lugar:''}<br>🌡️ ${temp}°C &nbsp; 💧 ${hum}%HR<br><small style="color:var(--gris-400)">${marca}</small>`;
 }
 
-function mostrarExito(area, equipo, lugar, temp, hum, marca){
-  document.getElementById('form-areas').style.display = 'none';
-  document.getElementById('pantalla-exito').style.display = 'block';
-  document.getElementById('resumen-exito').innerHTML =
-    `<strong>${equipo}</strong><br>${area}${lugar?'<br>📍 '+lugar:''}<br>` +
-    `🌡️ ${temp}°C &nbsp;&nbsp; 💧 ${hum}%HR<br><small style="color:var(--gris-400)">${marca}</small>`;
-}
-
-function nuevoRegistro(){
-  document.getElementById('form-areas').style.display = 'block';
-  document.getElementById('pantalla-exito').style.display = 'none';
+window.nuevoRegistro=()=>{
+  document.getElementById('form-areas').style.display='block';
+  document.getElementById('pantalla-exito').style.display='none';
   resetForm();
-}
+};
 
 function resetForm(){
-  ['area','temperatura','humedad','responsable','observaciones'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
+  ['area','temperatura','humedad','responsable','observaciones'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   equipoActual=null; lugarActual=null;
   ['campo-equipo','campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
     .forEach(id=>document.getElementById(id).style.display='none');
@@ -684,82 +606,67 @@ function resetForm(){
 // ADMIN
 // ============================================================
 function cargarLoginUsuarios(){
-  const c = getConfig();
-  const sel = document.getElementById('login-usuario');
-  sel.innerHTML = '<option value="">— Seleccionar usuario —</option>';
-  c.usuarios.forEach(u => sel.add(new Option(u.nombre, u.id)));
+  const sel=document.getElementById('login-usuario');
+  sel.innerHTML='<option value="">— Seleccionar usuario —</option>';
+  CONFIG.usuarios.forEach(u=>sel.add(new Option(u.nombre,u.id)));
 }
 
-function abrirAdmin(){
+window.abrirAdmin=()=>{
   cargarLoginUsuarios();
-  document.getElementById('admin-login').style.display = 'block';
-  document.getElementById('admin-contenido').style.display = 'none';
-  document.getElementById('login-clave').value = '';
+  document.getElementById('admin-login').style.display='block';
+  document.getElementById('admin-contenido').style.display='none';
+  document.getElementById('login-clave').value='';
   document.getElementById('admin-overlay').classList.add('show');
-}
+};
+window.cerrarPanel=(id)=>document.getElementById(id).classList.remove('show');
+window.cerrarOverlay=(e,id)=>{ if(e.target===document.getElementById(id)) cerrarPanel(id); };
 
-function cerrarPanel(id){ document.getElementById(id).classList.remove('show'); }
-function cerrarOverlay(e,id){ if(e.target===document.getElementById(id)) cerrarPanel(id); }
-
-function loginAdmin(){
-  const c = getConfig();
-  const uid = document.getElementById('login-usuario').value;
-  const clave = document.getElementById('login-clave').value;
+window.loginAdmin=()=>{
+  const uid=document.getElementById('login-usuario').value;
+  const clave=document.getElementById('login-clave').value;
   if(!uid){mostrarToast('Selecciona un usuario','error');return;}
-  const u = c.usuarios.find(u=>u.id===uid);
+  const u=CONFIG.usuarios.find(u=>u.id===uid);
   if(!u||u.clave!==clave){mostrarToast('Clave incorrecta','error');return;}
-  session = u;
-  document.getElementById('admin-login').style.display = 'none';
-  document.getElementById('admin-contenido').style.display = 'block';
-  document.getElementById('session-nombre').textContent = u.nombre;
-  document.getElementById('tab-btn-usuarios').style.display = u.area==='todas'?'block':'none';
+  session=u;
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-contenido').style.display='block';
+  document.getElementById('session-nombre').textContent=u.nombre;
+  document.getElementById('tab-btn-usuarios').style.display=u.area==='todas'?'block':'none';
   registrarAuditoria('Inicio de sesión','—');
-  renderAdminEquipos();
-  renderAuditoria();
+  renderAdminEquipos(); renderAuditoria();
   if(u.area==='todas') renderUsuarios();
-}
+};
 
-function logoutAdmin(){
-  session = null;
-  cerrarPanel('admin-overlay');
-}
+window.logoutAdmin=()=>{ session=null; cerrarPanel('admin-overlay'); };
 
-function cambiarTab(btn, tabId){
+window.cambiarTab=(btn,tabId)=>{
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById(tabId).classList.add('active');
-}
+};
 
-// ============================================================
-// ADMIN EQUIPOS
-// ============================================================
+// EQUIPOS ADMIN
+function eid(eq){ return eq.replace(/[\s\.]/g,'_'); }
+function badgeText(e){ return e==='activo'?'✓ Activo':e==='calibracion'?'⟳ Calibración':'✕ Dañado'; }
+
 function renderAdminEquipos(){
-  const c = getConfig();
-  const container = document.getElementById('admin-areas-container');
-  container.innerHTML = '';
-  equipoCambios = {};
+  const container=document.getElementById('admin-areas-container');
+  container.innerHTML='';
+  const areasVer=session.area==='todas'?Object.keys(AREAS):[session.area];
 
-  const areasVer = session.area==='todas' ? Object.keys(AREAS) : [session.area];
-
-  areasVer.forEach(area => {
-    const sec = document.createElement('div');
-    sec.className = 'area-admin';
-    const equipos = AREAS[area];
-
-    sec.innerHTML = `
+  areasVer.forEach(area=>{
+    const sec=document.createElement('div');
+    sec.className='area-admin';
+    const equipos=AREAS[area];
+    sec.innerHTML=`
       <button class="area-admin-header" onclick="toggleArea(this)">
         <span>${area}</span><span>▾</span>
       </button>
       <div class="area-admin-body">
-        ${equipos.map(eq => {
-          const ec = c.equipos[eq]||{estado:'activo',lugares:[],reemplazo:''};
-          const lugares = ec.lugares||[];
-          const lugaresList = lugares.map((l,i)=>`
-            <div class="lugar-admin-row">
-              <input type="text" class="small" value="${l}" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${i}">
-              <button class="btn-del" onclick="eliminarLugar('${eq}',${i})">×</button>
-            </div>`).join('');
+        ${equipos.map(eq=>{
+          const ec=CONFIG.equipos[eq]||{estado:'activo',lugares:[],reemplazo:''};
+          const lugares=ec.lugares||[];
           return `
           <div class="equipo-admin-row" id="row-${eid(eq)}">
             <div class="equipo-admin-header">
@@ -772,7 +679,13 @@ function renderAdminEquipos(){
               <button class="toggle-btn ${ec.estado==='dañado'?'sel-dañado':''}" onclick="cambiarEstado('${eq}','dañado',this)">✕ Dañado</button>
             </div>
             <div class="section-label">Lugares de muestreo</div>
-            <div class="lugares-admin-list" id="lugares-${eid(eq)}">${lugaresList}</div>
+            <div class="lugares-admin-list" id="lugares-${eid(eq)}">
+              ${lugares.map((l,i)=>`
+                <div class="lugar-admin-row">
+                  <input type="text" class="small" value="${l}" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${i}">
+                  <button class="btn-del" onclick="eliminarLugar('${eq}',${i})">×</button>
+                </div>`).join('')}
+            </div>
             <button class="btn-add-lugar" onclick="agregarLugar('${eq}')">+ Agregar lugar</button>
             <div id="campo-reemplazo-${eid(eq)}" style="${ec.estado!=='activo'?'display:block':'display:none'}">
               <div class="section-label" style="margin-top:12px">Equipo de reemplazo</div>
@@ -788,122 +701,107 @@ function renderAdminEquipos(){
   });
 }
 
-function eid(eq){ return eq.replace(/[\s\.]/g,'_'); }
-function badgeText(e){ return e==='activo'?'✓ Activo':e==='calibracion'?'⟳ Calibración':'✕ Dañado'; }
-
-function toggleArea(btn){
-  const body = btn.nextElementSibling;
+window.toggleArea=(btn)=>{
+  const body=btn.nextElementSibling;
   body.classList.toggle('open');
-  btn.querySelector('span:last-child').textContent = body.classList.contains('open')?'▴':'▾';
-}
+  btn.querySelector('span:last-child').textContent=body.classList.contains('open')?'▴':'▾';
+};
 
-function cambiarEstado(eq, estado, btn){
+window.cambiarEstado=(eq,estado,btn)=>{
   btn.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(b=>b.className='toggle-btn');
   btn.classList.add(`sel-${estado}`);
-  const badge = document.getElementById(`badge-${eid(eq)}`);
-  badge.className = `estado-badge estado-${estado}`;
-  badge.textContent = badgeText(estado);
-  document.getElementById(`campo-reemplazo-${eid(eq)}`).style.display = estado!=='activo'?'block':'none';
-}
+  document.getElementById(`badge-${eid(eq)}`).className=`estado-badge estado-${estado}`;
+  document.getElementById(`badge-${eid(eq)}`).textContent=badgeText(estado);
+  document.getElementById(`campo-reemplazo-${eid(eq)}`).style.display=estado!=='activo'?'block':'none';
+};
 
-function agregarLugar(eq){
-  const lista = document.getElementById(`lugares-${eid(eq)}`);
-  const idx = lista.querySelectorAll('.lugar-admin-row').length;
-  const row = document.createElement('div');
-  row.className = 'lugar-admin-row';
-  row.innerHTML = `<input type="text" class="small" value="" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${idx}">
+window.agregarLugar=(eq)=>{
+  const lista=document.getElementById(`lugares-${eid(eq)}`);
+  const idx=lista.querySelectorAll('.lugar-admin-row').length;
+  const row=document.createElement('div');
+  row.className='lugar-admin-row';
+  row.innerHTML=`<input type="text" class="small" value="" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${idx}">
     <button class="btn-del" onclick="this.parentElement.remove()">×</button>`;
   lista.appendChild(row);
   row.querySelector('input').focus();
-}
+};
 
-function eliminarLugar(eq, idx){
-  const c = getConfig();
-  if(!c.equipos[eq]) return;
-  const ant = [...(c.equipos[eq].lugares||[])];
-  c.equipos[eq].lugares.splice(idx,1);
-  registrarAuditoria(`Lugar eliminado en ${eq}`, `"${ant[idx]}"`);
-  setConfig(c);
+window.eliminarLugar=async(eq,idx)=>{
+  if(!CONFIG.equipos[eq]) return;
+  const ant=[...(CONFIG.equipos[eq].lugares||[])];
+  CONFIG.equipos[eq].lugares.splice(idx,1);
+  await guardarConfigFirebase();
+  registrarAuditoria(`Lugar eliminado en ${eq}`,`"${ant[idx]}"`);
   renderAdminEquipos();
   mostrarToast('Lugar eliminado','');
-}
+};
 
-function guardarEquipos(){
-  const c = getConfig();
-  const cambiosList = [];
+window.guardarEquipos=async()=>{
+  const cambiosList=[];
 
-  // Recolectar estados
-  document.querySelectorAll('.toggle-group').forEach(group => {
-    const activo = group.querySelector('.sel-activo,.sel-calibracion,.sel-dañado');
+  document.querySelectorAll('.toggle-group').forEach(group=>{
+    const activo=group.querySelector('.sel-activo,.sel-calibracion,.sel-dañado');
     if(!activo) return;
-    const eq = group.closest('.equipo-admin-row').querySelector('.equipo-admin-code').textContent;
-    let estado = 'activo';
+    const eq=group.closest('.equipo-admin-row').querySelector('.equipo-admin-code').textContent;
+    let estado='activo';
     if(activo.classList.contains('sel-calibracion')) estado='calibracion';
     if(activo.classList.contains('sel-dañado')) estado='dañado';
-    if(!c.equipos[eq]) c.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
-    if(c.equipos[eq].estado !== estado){
-      cambiosList.push(`${eq} estado: "${c.equipos[eq].estado}"→"${estado}"`);
-      c.equipos[eq].estado = estado;
+    if(!CONFIG.equipos[eq]) CONFIG.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
+    if(CONFIG.equipos[eq].estado!==estado){
+      cambiosList.push(`${eq} estado:"${CONFIG.equipos[eq].estado}"→"${estado}"`);
+      CONFIG.equipos[eq].estado=estado;
     }
   });
 
-  // Recolectar lugares
-  document.querySelectorAll('.lugares-admin-list').forEach(lista => {
-    const inputs = lista.querySelectorAll('input[data-eq]');
-    if(inputs.length === 0) return;
-    const eq = inputs[0].dataset.eq;
-    if(!c.equipos[eq]) c.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
-    const nuevosLugares = Array.from(inputs).map(i=>i.value.trim()).filter(v=>v!=='');
-    const ant = JSON.stringify(c.equipos[eq].lugares||[]);
-    const nuevo = JSON.stringify(nuevosLugares);
-    if(ant !== nuevo){
-      cambiosList.push(`${eq} lugares: ${ant}→${nuevo}`);
-      c.equipos[eq].lugares = nuevosLugares;
+  document.querySelectorAll('.lugares-admin-list').forEach(lista=>{
+    const inputs=lista.querySelectorAll('input[data-eq]');
+    if(!inputs.length) return;
+    const eq=inputs[0].dataset.eq;
+    if(!CONFIG.equipos[eq]) CONFIG.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
+    const nuevos=Array.from(inputs).map(i=>i.value.trim()).filter(v=>v!=='');
+    const ant=JSON.stringify(CONFIG.equipos[eq].lugares||[]);
+    if(ant!==JSON.stringify(nuevos)){
+      cambiosList.push(`${eq} lugares:${ant}→${JSON.stringify(nuevos)}`);
+      CONFIG.equipos[eq].lugares=nuevos;
     }
   });
 
-  // Recolectar reemplazos
-  document.querySelectorAll('[data-campo="reemplazo"]').forEach(sel => {
-    const eq = sel.dataset.eq;
-    if(!c.equipos[eq]) return;
-    const ant = c.equipos[eq].reemplazo||'';
-    if(ant !== sel.value){
-      cambiosList.push(`${eq} reemplazo: "${ant}"→"${sel.value}"`);
-      c.equipos[eq].reemplazo = sel.value;
+  document.querySelectorAll('[data-campo="reemplazo"]').forEach(sel=>{
+    const eq=sel.dataset.eq;
+    if(!CONFIG.equipos[eq]) return;
+    const ant=CONFIG.equipos[eq].reemplazo||'';
+    if(ant!==sel.value){
+      cambiosList.push(`${eq} reemplazo:"${ant}"→"${sel.value}"`);
+      CONFIG.equipos[eq].reemplazo=sel.value;
     }
   });
 
-  if(cambiosList.length > 0) registrarAuditoria('Cambios en equipos', cambiosList.join(' | '), c);
-  setConfig(c);
-  equipoCambios={};
-  mostrarToast('Cambios guardados ✓','success');
-  setTimeout(()=>{ renderAdminEquipos(); renderAuditoria(); }, 600);
-}
+  if(cambiosList.length>0) registrarAuditoria('Cambios en equipos',cambiosList.join(' | '));
+  await guardarConfigFirebase();
+  mostrarToast('Cambios guardados en Firebase ✓','success');
+  setTimeout(()=>{ renderAdminEquipos(); renderAuditoria(); },600);
+};
 
-// ============================================================
 // AUDITORÍA
-// ============================================================
-function registrarAuditoria(accion, detalle, cfg){
-  const c = cfg||getConfig();
-  if(!c.auditoria) c.auditoria=[];
-  c.auditoria.unshift({
-    quien: session?session.nombre:'Sistema',
-    area: session?session.area:'—',
-    cuando: new Date().toLocaleString('es-CO'),
+async function registrarAuditoria(accion,detalle){
+  if(!CONFIG.auditoria) CONFIG.auditoria=[];
+  CONFIG.auditoria.unshift({
+    quien:session?session.nombre:'Sistema',
+    area:session?session.area:'—',
+    cuando:new Date().toLocaleString('es-CO'),
     accion, detalle
   });
-  if(c.auditoria.length>200) c.auditoria=c.auditoria.slice(0,200);
-  if(!cfg) setConfig(c);
+  if(CONFIG.auditoria.length>200) CONFIG.auditoria=CONFIG.auditoria.slice(0,200);
+  await guardarConfigFirebase();
 }
 
 function renderAuditoria(){
-  const c = getConfig();
-  const lista = document.getElementById('auditoria-lista');
-  if(!c.auditoria||c.auditoria.length===0){
+  const lista=document.getElementById('auditoria-lista');
+  if(!CONFIG.auditoria?.length){
     lista.innerHTML='<div class="empty-state">Sin registros de auditoría aún</div>'; return;
   }
-  const regs = session.area==='todas' ? c.auditoria : c.auditoria.filter(r=>r.area===session.area||r.quien===session.nombre);
-  lista.innerHTML = regs.slice(0,50).map(r=>`
+  const regs=session.area==='todas'?CONFIG.auditoria:CONFIG.auditoria.filter(r=>r.area===session.area||r.quien===session.nombre);
+  lista.innerHTML=regs.slice(0,50).map(r=>`
     <div class="audit-row">
       <div style="display:flex;justify-content:space-between">
         <span class="audit-quien">${r.quien}</span>
@@ -913,16 +811,11 @@ function renderAuditoria(){
     </div>`).join('');
 }
 
-// ============================================================
 // USUARIOS
-// ============================================================
-let editUID = null;
-
 function renderUsuarios(){
   if(!session||session.area!=='todas') return;
-  const c = getConfig();
-  const lista = document.getElementById('usuarios-lista');
-  lista.innerHTML = c.usuarios.map(u=>`
+  const lista=document.getElementById('usuarios-lista');
+  lista.innerHTML=CONFIG.usuarios.map(u=>`
     <div class="usuario-row">
       <div>
         <div class="usuario-nombre">${u.nombre}</div>
@@ -932,73 +825,62 @@ function renderUsuarios(){
     </div>`).join('');
 }
 
-function abrirModalUsuario(uid){
-  editUID = uid;
-  const c = getConfig();
-  const selArea = document.getElementById('m-area');
-  selArea.innerHTML = '<option value="todas">Todas las áreas (Super Admin)</option>';
+window.abrirModalUsuario=(uid)=>{
+  editUID=uid;
+  const selArea=document.getElementById('m-area');
+  selArea.innerHTML='<option value="todas">Todas las áreas (Super Admin)</option>';
   Object.keys(AREAS).forEach(a=>selArea.add(new Option(a,a)));
   if(uid){
-    const u = c.usuarios.find(u=>u.id===uid);
-    document.getElementById('modal-titulo').textContent = 'Editar usuario';
-    document.getElementById('m-nombre').value = u.nombre;
-    selArea.value = u.area;
+    const u=CONFIG.usuarios.find(u=>u.id===uid);
+    document.getElementById('modal-titulo').textContent='Editar usuario';
+    document.getElementById('m-nombre').value=u.nombre;
+    selArea.value=u.area;
     document.getElementById('m-clave').value='';
     document.getElementById('m-clave').placeholder='Dejar vacío para no cambiar';
   } else {
-    document.getElementById('modal-titulo').textContent = 'Nuevo usuario';
+    document.getElementById('modal-titulo').textContent='Nuevo usuario';
     document.getElementById('m-nombre').value='';
     selArea.value='todas';
     document.getElementById('m-clave').value='';
     document.getElementById('m-clave').placeholder='Nueva clave';
   }
   document.getElementById('modal-usuario').classList.add('show');
-}
+};
 
-function cerrarModal(){ document.getElementById('modal-usuario').classList.remove('show'); }
+window.cerrarModal=()=>document.getElementById('modal-usuario').classList.remove('show');
 
-function guardarUsuario(){
-  const c = getConfig();
-  const nombre = document.getElementById('m-nombre').value.trim();
-  const area = document.getElementById('m-area').value;
-  const clave = document.getElementById('m-clave').value;
+window.guardarUsuario=async()=>{
+  const nombre=document.getElementById('m-nombre').value.trim();
+  const area=document.getElementById('m-area').value;
+  const clave=document.getElementById('m-clave').value;
   if(!nombre){mostrarToast('Ingresa el nombre','error');return;}
   if(editUID){
-    const u = c.usuarios.find(u=>u.id===editUID);
+    const u=CONFIG.usuarios.find(u=>u.id===editUID);
     const cambios=[];
     if(u.nombre!==nombre) cambios.push(`nombre:"${u.nombre}"→"${nombre}"`);
     if(u.area!==area) cambios.push(`área:"${u.area}"→"${area}"`);
     if(clave) cambios.push('clave actualizada');
     u.nombre=nombre; u.area=area; if(clave) u.clave=clave;
-    registrarAuditoria('Usuario modificado',cambios.join(', '),c);
+    registrarAuditoria('Usuario modificado',cambios.join(', '));
   } else {
     if(!clave){mostrarToast('Ingresa una clave','error');return;}
-    c.usuarios.push({id:'u_'+Date.now(),nombre,area,clave});
-    registrarAuditoria('Usuario creado',nombre+' — '+area,c);
+    CONFIG.usuarios.push({id:'u_'+Date.now(),nombre,area,clave});
+    registrarAuditoria('Usuario creado',nombre+' — '+area);
   }
-  setConfig(c);
-  cerrarModal();
-  renderUsuarios();
-  cargarLoginUsuarios();
+  await guardarConfigFirebase();
+  cerrarModal(); renderUsuarios(); cargarLoginUsuarios();
   mostrarToast('Usuario guardado ✓','success');
-}
+};
 
-// ============================================================
 // TOAST
-// ============================================================
-function mostrarToast(msg,tipo=''){
+window.mostrarToast=(msg,tipo='')=>{
   const t=document.getElementById('toast');
   t.textContent=msg; t.className=`toast ${tipo} show`;
   setTimeout(()=>t.classList.remove('show'),2500);
-}
+};
 
-// ============================================================
 // INIT
-// ============================================================
-initEquipos();
-cargarSelectArea();
-tick();
-setInterval(tick,1000);
+cargarConfig();
 </script>
 </body>
 </html>
