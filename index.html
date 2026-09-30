@@ -755,6 +755,7 @@ function renderTermos(){
               <div style="display:flex;gap:6px;align-items:center">
                 <span class="est-badge est-${t.estado}">${t.estado==='activo'?'✓ Activo':t.estado==='calibracion'?'⟳ Calibración':'✕ Dañado'}</span>
                 <button class="btn-edit" onclick="abrirModalTermo('${tk}','${ak}')">Editar</button>
+                <button class="btn-edit" style="color:var(--r);border-color:var(--rc)" onclick="eliminarTermo('${tk}','${ak}')">Eliminar</button>
               </div>
             </div>
             <div style="font-size:12px;color:var(--g600)">Lugares: ${(t.lugares||[]).join(', ')||'—'}</div>
@@ -850,6 +851,17 @@ function actualizarSpecs(existingSpecs={}){
     </div>`;
   }).join('');
 }
+
+window.eliminarTermo=async(tk,ak)=>{
+  if(!confirm(`¿Eliminar el termo ${tk}? Esta acción no se puede deshacer.`)) return;
+  if(CFG.areas[ak]?.termos[tk]){
+    delete CFG.areas[ak].termos[tk];
+    await saveCFG();
+    regAud('Termo eliminado',`${tk} — ${CFG.areas[ak].nombre}`);
+    renderTermos(); poblarAreas();
+    mostrarToast('Termo eliminado','ok');
+  }
+};
 
 window.guardarTermo=async()=>{
   const ak=document.getElementById('mt-area').value;
