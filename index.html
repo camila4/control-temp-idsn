@@ -2,885 +2,971 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Control T° y HR — IDSN</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
-  --verde:#2EAA6E;--verde-oscuro:#1A7A4A;--verde-claro:#E8F8F0;--verde-medio:#C6EDD9;
-  --rojo:#DC2626;--rojo-claro:#FEE2E2;--naranja:#D97706;--naranja-claro:#FEF3C7;
-  --gris-50:#F8FAFC;--gris-100:#F1F5F9;--gris-200:#E2E8F0;--gris-400:#94A3B8;
-  --gris-600:#475569;--gris-800:#1E293B;--blanco:#FFFFFF;
-  --sombra:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
-  --sombra-md:0 4px 12px rgba(0,0,0,0.1);
+  --verde:#2EAA6E;--verde-o:#1A7A4A;--verde-c:#E8F8F0;--verde-m:#C6EDD9;
+  --rojo:#DC2626;--rojo-c:#FEE2E2;--naranja:#D97706;--naranja-c:#FEF3C7;
+  --amarillo:#F5D000;
+  --g50:#F8FAFC;--g100:#F1F5F9;--g200:#E2E8F0;--g400:#94A3B8;
+  --g600:#475569;--g800:#1E293B;--blanco:#FFFFFF;
+  --s:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --sm:0 4px 12px rgba(0,0,0,0.1);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:var(--gris-50);color:var(--gris-800);min-height:100vh;}
-.header{background:linear-gradient(135deg,var(--verde-oscuro) 0%,var(--verde) 100%);color:white;padding:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,122,74,0.35);}
-.header-top{display:flex;align-items:center;justify-content:space-between;}
-.header-brand{display:flex;align-items:center;gap:10px;}
-.header-icon{width:38px;height:38px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.header-texts h1{font-size:15px;font-weight:700;}
-.header-texts p{font-size:11px;opacity:0.75;margin-top:1px;}
-.btn-admin{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
-.main{max-width:480px;margin:0 auto;padding:16px 14px 50px;}
-.datetime-bar{background:var(--blanco);border:1px solid var(--gris-200);border-radius:10px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--sombra);}
-.datetime-label{font-size:11px;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
-.datetime-value{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--verde-oscuro);}
-.menu-title{font-size:13px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
-.menu-card{background:var(--blanco);border:1.5px solid var(--gris-200);border-radius:14px;padding:20px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:16px;box-shadow:var(--sombra);}
-.menu-card:hover{border-color:var(--verde);box-shadow:0 4px 16px rgba(46,170,110,0.15);transform:translateY(-1px);}
-.menu-card.disabled{opacity:0.5;cursor:not-allowed;}
-.menu-card.disabled:hover{border-color:var(--gris-200);box-shadow:var(--sombra);transform:none;}
-.menu-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
-.menu-icon.verde{background:var(--verde-claro);}
-.menu-icon.gris{background:var(--gris-100);}
-.menu-info h3{font-size:16px;font-weight:700;margin-bottom:3px;}
-.menu-info p{font-size:12px;color:var(--gris-400);line-height:1.4;}
-.menu-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;margin-top:6px;display:inline-block;}
-.badge-activo{background:var(--verde-claro);color:var(--verde-oscuro);}
-.badge-pronto{background:var(--gris-100);color:var(--gris-400);}
-.menu-arrow{margin-left:auto;color:var(--gris-400);font-size:18px;flex-shrink:0;}
-.breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
-.btn-back{background:var(--verde-claro);color:var(--verde-oscuro);border:none;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-.breadcrumb-text{font-size:13px;color:var(--gris-400);}
-.card{background:var(--blanco);border:1px solid var(--gris-200);border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:var(--sombra);}
-.card-title{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
-.field{margin-bottom:13px;}
-.field:last-child{margin-bottom:0;}
-label{display:block;font-size:13px;font-weight:500;color:var(--gris-600);margin-bottom:5px;}
-label .req{color:var(--rojo);margin-left:2px;}
-select,input[type="text"],input[type="number"],input[type="password"],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--gris-200);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:var(--gris-800);background:var(--blanco);transition:border-color 0.15s;-webkit-appearance:none;}
-select:focus,input:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(46,170,110,0.15);}
-.equipos-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.equipo-chip{border:1.5px solid var(--gris-200);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all 0.15s;background:var(--blanco);text-align:left;font-family:'Inter',sans-serif;width:100%;}
-.equipo-chip:hover{border-color:var(--verde);background:var(--verde-claro);}
-.equipo-chip.selected{border-color:var(--verde);background:var(--verde-claro);box-shadow:0 0 0 2px rgba(46,170,110,0.2);}
-.equipo-chip-code{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--verde-oscuro);}
-.equipo-chip-lugar{font-size:11px;color:var(--gris-600);margin-top:2px;}
-.equipo-chip-badge{font-size:10px;color:var(--naranja);font-weight:600;margin-top:2px;}
-.lugares-grid{display:grid;grid-template-columns:1fr;gap:7px;}
-.lugar-chip{border:1.5px solid var(--gris-200);border-radius:8px;padding:11px 14px;cursor:pointer;transition:all 0.15s;background:var(--blanco);text-align:left;font-family:'Inter',sans-serif;width:100%;display:flex;align-items:center;gap:10px;}
-.lugar-chip:hover{border-color:var(--verde);background:var(--verde-claro);}
-.lugar-chip.selected{border-color:var(--verde);background:var(--verde-claro);box-shadow:0 0 0 2px rgba(46,170,110,0.2);}
-.lugar-info{background:var(--verde-claro);border:1px solid var(--verde-medio);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--verde-oscuro);font-weight:500;}
-.mediciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.medicion-card{background:var(--gris-50);border:1.5px solid var(--gris-200);border-radius:10px;padding:14px;}
-.medicion-icon{font-size:20px;margin-bottom:6px;}
-.medicion-label{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
-.medicion-card input{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;padding:8px 10px;text-align:center;background:var(--blanco);}
-.medicion-unit{text-align:center;font-size:11px;color:var(--gris-400);margin-top:4px;font-weight:500;}
-.btn-submit{width:100%;background:var(--verde);color:white;border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;margin-top:4px;}
-.btn-submit:hover{background:var(--verde-oscuro);}
-.btn-submit:disabled{background:var(--gris-400);cursor:not-allowed;}
-.success-screen{display:none;text-align:center;padding:40px 16px;}
-.success-icon{width:76px;height:76px;background:var(--verde-claro);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;margin:0 auto 20px;}
-.success-title{font-size:22px;font-weight:700;color:var(--verde-oscuro);margin-bottom:8px;}
-.success-sub{font-size:14px;color:var(--gris-600);margin-bottom:28px;line-height:1.7;}
-.btn-nuevo{background:var(--verde);color:white;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;}
-.overlay.show{display:flex;}
-.panel{background:var(--blanco);width:100%;max-height:90vh;border-radius:20px 20px 0 0;overflow-y:auto;padding:20px;}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--gris-200);}
-.panel-title{font-size:17px;font-weight:700;}
-.btn-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--gris-100);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
-.tabs{display:flex;gap:5px;margin-bottom:18px;background:var(--gris-100);padding:4px;border-radius:10px;}
-.tab{flex:1;padding:8px 4px;border:none;background:transparent;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--gris-600);transition:all 0.15s;}
-.tab.active{background:var(--blanco);color:var(--verde-oscuro);font-weight:600;box-shadow:var(--sombra);}
-.tab-content{display:none;}
-.tab-content.active{display:block;}
-.area-admin{border:1px solid var(--gris-200);border-radius:10px;margin-bottom:12px;overflow:hidden;}
-.area-admin-header{background:var(--gris-50);padding:12px 15px;font-size:13px;font-weight:600;color:var(--gris-600);cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:none;width:100%;font-family:'Inter',sans-serif;text-align:left;}
-.area-admin-body{padding:14px;display:none;}
-.area-admin-body.open{display:block;}
-.equipo-admin-row{border:1px solid var(--gris-200);border-radius:10px;padding:14px;margin-bottom:10px;}
-.equipo-admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.equipo-admin-code{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;}
-.estado-badge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:20px;}
-.estado-activo{background:var(--verde-claro);color:var(--verde-oscuro);}
-.estado-calibracion{background:var(--naranja-claro);color:var(--naranja);}
-.estado-dañado{background:var(--rojo-claro);color:var(--rojo);}
-.toggle-group{display:flex;gap:6px;margin-bottom:12px;}
-.toggle-btn{flex:1;padding:7px 4px;border:1.5px solid var(--gris-200);border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;background:var(--blanco);font-family:'Inter',sans-serif;transition:all 0.15s;color:var(--gris-600);}
-.toggle-btn.sel-activo{border-color:var(--verde);background:var(--verde-claro);color:var(--verde-oscuro);}
-.toggle-btn.sel-calibracion{border-color:var(--naranja);background:var(--naranja-claro);color:var(--naranja);}
-.toggle-btn.sel-dañado{border-color:var(--rojo);background:var(--rojo-claro);color:var(--rojo);}
-.lugares-admin-list{margin-top:8px;}
-.lugar-admin-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.lugar-admin-row input{flex:1;font-size:13px;padding:7px 10px;}
-.btn-del{width:32px;height:32px;border:none;background:var(--rojo-claro);color:var(--rojo);border-radius:7px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-add-lugar{background:var(--verde-claro);color:var(--verde-oscuro);border:1px dashed var(--verde);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;width:100%;}
-.audit-row{padding:10px 0;border-bottom:1px solid var(--gris-100);font-size:12px;}
-.audit-row:last-child{border-bottom:none;}
-.audit-quien{font-weight:600;color:var(--verde-oscuro);}
-.audit-cuando{color:var(--gris-400);font-size:11px;}
-.audit-cambio{margin-top:3px;color:var(--gris-600);line-height:1.4;}
-.usuario-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--gris-100);}
-.usuario-row:last-child{border-bottom:none;}
-.usuario-nombre{font-size:13px;font-weight:600;}
-.usuario-area{font-size:11px;color:var(--gris-400);}
-.btn-editar{font-size:12px;padding:5px 12px;border:1px solid var(--gris-200);border-radius:6px;background:var(--blanco);cursor:pointer;font-family:'Inter',sans-serif;color:var(--verde-oscuro);font-weight:500;}
-.btn-save{width:100%;background:var(--verde);color:white;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;}
-input.small{font-size:13px;padding:7px 10px;}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;align-items:center;justify-content:center;padding:16px;}
-.modal-overlay.show{display:flex;}
-.modal{background:var(--blanco);border-radius:14px;padding:20px;width:100%;max-width:380px;}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:16px;}
-.modal-btns{display:flex;gap:8px;margin-top:16px;}
-.modal-btns button{flex:1;padding:11px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
-.btn-confirm{background:var(--verde);color:white;}
-.btn-cancel{background:var(--gris-100);color:var(--gris-800);}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gris-800);color:white;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;transition:transform 0.3s;z-index:999;box-shadow:var(--sombra-md);}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.toast.success{background:var(--verde-oscuro);}
-.toast.error{background:var(--rojo);}
-.empty-state{text-align:center;padding:30px 20px;color:var(--gris-400);font-size:13px;}
-.section-label{font-size:11px;font-weight:600;color:var(--gris-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;margin-top:14px;}
-.loading-bar{text-align:center;padding:40px;color:var(--gris-400);font-size:14px;}
-.spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--verde-claro);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px;}
+body{font-family:'Inter',sans-serif;background:var(--g50);color:var(--g800);min-height:100vh;}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--verde-o),var(--verde));color:white;padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,122,74,0.3);}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;}
+.hdr-brand{display:flex;align-items:center;gap:10px;}
+.hdr-icon{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hdr h1{font-size:14px;font-weight:700;}
+.hdr p{font-size:10px;opacity:0.75;margin-top:1px;}
+.btn-adm{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* MAIN */
+.main{max-width:480px;margin:0 auto;padding:14px 14px 50px;}
+
+/* LOADING */
+.loading{text-align:center;padding:60px 20px;color:var(--g400);}
+.spin{display:inline-block;width:28px;height:28px;border:3px solid var(--verde-c);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px;}
 @keyframes spin{to{transform:rotate(360deg);}}
+
+/* DATETIME */
+.dt-bar{background:var(--blanco);border:1px solid var(--g200);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--s);}
+.dt-lbl{font-size:11px;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
+.dt-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--verde-o);}
+
+/* MENU */
+.menu-ttl{font-size:11px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;}
+.menu-card{background:var(--blanco);border:1.5px solid var(--g200);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;box-shadow:var(--s);}
+.menu-card:hover{border-color:var(--verde);box-shadow:0 4px 16px rgba(46,170,110,0.15);transform:translateY(-1px);}
+.menu-card.dis{opacity:0.5;cursor:not-allowed;}
+.menu-card.dis:hover{border-color:var(--g200);box-shadow:var(--s);transform:none;}
+.mc-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.mc-icon.v{background:var(--verde-c);}
+.mc-icon.g{background:var(--g100);}
+.mc-ttl{font-size:15px;font-weight:700;margin-bottom:2px;}
+.mc-sub{font-size:12px;color:var(--g400);line-height:1.4;}
+.mc-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:5px;display:inline-block;}
+.b-act{background:var(--verde-c);color:var(--verde-o);}
+.b-prx{background:var(--g100);color:var(--g400);}
+.mc-arr{margin-left:auto;color:var(--g400);font-size:18px;flex-shrink:0;}
+
+/* BREADCRUMB */
+.bc{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+.btn-back{background:var(--verde-c);color:var(--verde-o);border:none;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.bc-txt{font-size:13px;color:var(--g400);}
+
+/* CARD */
+.card{background:var(--blanco);border:1px solid var(--g200);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--s);}
+.card-ttl{font-size:11px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;}
+
+/* FIELDS */
+.fld{margin-bottom:12px;}
+.fld:last-child{margin-bottom:0;}
+label{display:block;font-size:13px;font-weight:500;color:var(--g600);margin-bottom:5px;}
+.req{color:var(--rojo);margin-left:2px;}
+select,input[type="text"],input[type="number"],input[type="password"],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--g200);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:var(--g800);background:var(--blanco);transition:border-color 0.15s;-webkit-appearance:none;}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(46,170,110,0.12);}
+select:disabled{background:var(--g50);color:var(--g400);}
+
+/* ALERTA RANGO */
+.alerta-rango{border-radius:8px;padding:10px 13px;font-size:13px;font-weight:600;margin-top:8px;display:none;}
+.alerta-ok{background:var(--verde-c);color:var(--verde-o);border:1px solid var(--verde-m);}
+.alerta-err{background:var(--rojo-c);color:var(--rojo);border:1px solid #FCA5A5;}
+
+/* MEDICIONES */
+.med-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.med-card{background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:12px;}
+.med-icon{font-size:18px;margin-bottom:5px;}
+.med-lbl{font-size:10px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+.med-card input{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;padding:7px 9px;text-align:center;background:var(--blanco);}
+.med-unit{text-align:center;font-size:10px;color:var(--g400);margin-top:3px;font-weight:500;}
+.corr-val{text-align:center;font-size:11px;font-weight:600;margin-top:4px;}
+.corr-ok{color:var(--verde-o);}
+.corr-err{color:var(--rojo);}
+
+/* INFO LUGAR */
+.lugar-info{background:var(--verde-c);border:1px solid var(--verde-m);border-radius:8px;padding:9px 13px;font-size:13px;color:var(--verde-o);font-weight:500;margin-top:8px;}
+
+/* BTN SUBMIT */
+.btn-sub{width:100%;background:var(--verde);color:white;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;margin-top:4px;}
+.btn-sub:hover{background:var(--verde-o);}
+.btn-sub:disabled{background:var(--g400);cursor:not-allowed;}
+
+/* SUCCESS */
+.suc{display:none;text-align:center;padding:40px 16px;}
+.suc-icon{width:72px;height:72px;background:var(--verde-c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 18px;}
+.suc-ttl{font-size:22px;font-weight:700;color:var(--verde-o);margin-bottom:8px;}
+.suc-sub{font-size:14px;color:var(--g600);margin-bottom:24px;line-height:1.7;}
+.btn-nvo{background:var(--verde);color:white;border:none;padding:12px 26px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* OVERLAY / PANEL */
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;}
+.ovl.show{display:flex;}
+.panel{background:var(--blanco);width:100%;max-height:92vh;border-radius:18px 18px 0 0;overflow-y:auto;padding:18px;}
+.pan-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:13px;border-bottom:1px solid var(--g200);}
+.pan-ttl{font-size:17px;font-weight:700;}
+.btn-cls{width:30px;height:30px;border-radius:50%;border:none;background:var(--g100);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--g100);padding:3px;border-radius:9px;}
+.tab{flex:1;padding:7px 3px;border:none;background:transparent;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--g600);transition:all 0.15s;}
+.tab.act{background:var(--blanco);color:var(--verde-o);font-weight:600;box-shadow:var(--s);}
+.tab-c{display:none;}
+.tab-c.act{display:block;}
+
+/* ADMIN EQUIPO ROW */
+.area-sec{border:1px solid var(--g200);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.area-sec-hdr{background:var(--g50);padding:11px 14px;font-size:13px;font-weight:600;color:var(--g600);cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:none;width:100%;font-family:'Inter',sans-serif;text-align:left;}
+.area-sec-body{padding:12px;display:none;}
+.area-sec-body.open{display:block;}
+.eq-row{border:1px solid var(--g200);border-radius:9px;padding:12px;margin-bottom:8px;}
+.eq-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.eq-code{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;}
+.est-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.est-activo{background:var(--verde-c);color:var(--verde-o);}
+.est-calibracion{background:var(--naranja-c);color:var(--naranja);}
+.est-dañado{background:var(--rojo-c);color:var(--rojo);}
+.tgl-grp{display:flex;gap:5px;margin-bottom:10px;}
+.tgl-btn{flex:1;padding:6px 3px;border:1.5px solid var(--g200);border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;background:var(--blanco);font-family:'Inter',sans-serif;transition:all 0.15s;color:var(--g600);}
+.tgl-btn.s-act{border-color:var(--verde);background:var(--verde-c);color:var(--verde-o);}
+.tgl-btn.s-cal{border-color:var(--naranja);background:var(--naranja-c);color:var(--naranja);}
+.tgl-btn.s-dan{border-color:var(--rojo);background:var(--rojo-c);color:var(--rojo);}
+.sec-lbl{font-size:10px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px;}
+.lugar-adm-row{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+.lugar-adm-row input{flex:1;font-size:13px;padding:6px 9px;}
+.btn-del{width:30px;height:30px;border:none;background:var(--rojo-c);color:var(--rojo);border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-add-l{background:var(--verde-c);color:var(--verde-o);border:1px dashed var(--verde);padding:6px 12px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px;width:100%;}
+
+/* CALIBRACION */
+.calib-box{background:var(--naranja-c);border:1px solid #FDE68A;border-radius:8px;padding:10px 13px;margin-top:8px;font-size:12px;color:var(--naranja);}
+.calib-box strong{display:block;margin-bottom:4px;font-size:13px;}
+
+/* AUDIT */
+.aud-row{padding:9px 0;border-bottom:1px solid var(--g100);font-size:12px;}
+.aud-row:last-child{border-bottom:none;}
+.aud-quien{font-weight:600;color:var(--verde-o);}
+.aud-cuando{color:var(--g400);font-size:11px;}
+.aud-det{margin-top:2px;color:var(--g600);line-height:1.4;}
+
+/* USUARIOS */
+.usr-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--g100);}
+.usr-row:last-child{border-bottom:none;}
+.usr-nom{font-size:13px;font-weight:600;}
+.usr-area{font-size:11px;color:var(--g400);}
+.btn-edit{font-size:12px;padding:4px 11px;border:1px solid var(--g200);border-radius:6px;background:var(--blanco);cursor:pointer;font-family:'Inter',sans-serif;color:var(--verde-o);font-weight:500;}
+
+/* GRAFICA */
+.grafica-container{background:var(--blanco);border:1px solid var(--g200);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:var(--s);}
+.grafica-ttl{font-size:12px;font-weight:600;color:var(--g600);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+canvas{width:100%!important;}
+
+/* BTN SAVE */
+.btn-save{width:100%;background:var(--verde);color:white;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;}
+input.sm{font-size:13px;padding:6px 9px;}
+
+/* MODAL */
+.modal-ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;align-items:center;justify-content:center;padding:16px;}
+.modal-ovl.show{display:flex;}
+.modal{background:var(--blanco);border-radius:14px;padding:18px;width:100%;max-width:380px;}
+.modal-ttl{font-size:16px;font-weight:700;margin-bottom:14px;}
+.modal-btns{display:flex;gap:7px;margin-top:14px;}
+.modal-btns button{flex:1;padding:10px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
+.btn-cfm{background:var(--verde);color:white;}
+.btn-cnl{background:var(--g100);color:var(--g800);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--g800);color:white;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:500;transition:transform 0.3s;z-index:999;box-shadow:var(--sm);white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.ok{background:var(--verde-o);}
+.toast.err{background:var(--rojo);}
+.toast.warn{background:var(--naranja);}
+
+.empty{text-align:center;padding:24px;color:var(--g400);font-size:13px;}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
-    <div class="header-brand">
-      <div class="header-icon">🌡️</div>
-      <div class="header-texts">
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-brand">
+      <div class="hdr-icon">🌡️</div>
+      <div>
         <h1>Control de Temperatura y Humedad</h1>
         <p>Instituto Departamental de Salud de Nariño</p>
       </div>
     </div>
-    <button class="btn-admin" onclick="abrirAdmin()">⚙️</button>
+    <button class="btn-adm" onclick="abrirAdmin()">⚙️</button>
   </div>
 </div>
 
 <div class="main">
+
   <!-- CARGANDO -->
-  <div id="screen-loading" class="loading-bar">
-    <div class="spinner"></div><br>Cargando configuración...
+  <div id="s-loading" class="loading">
+    <div class="spin"></div><br>Cargando configuración...
   </div>
 
-  <!-- MENÚ -->
-  <div id="screen-menu" style="display:none">
-    <div class="datetime-bar">
-      <span class="datetime-label">Fecha y hora</span>
-      <span class="datetime-value" id="reloj"></span>
-    </div>
-    <div class="menu-title">Selecciona el módulo</div>
-    <div class="menu-card" onclick="irAModulo('areas')">
-      <div class="menu-icon verde">🌡️</div>
-      <div class="menu-info">
-        <h3>T° y HR Áreas</h3>
-        <p>Registro de temperatura y humedad relativa con termohigrómetros</p>
-        <span class="menu-badge badge-activo">● Activo</span>
+  <!-- MENU -->
+  <div id="s-menu" style="display:none">
+    <div class="dt-bar"><span class="dt-lbl">Fecha y hora</span><span class="dt-val" id="reloj"></span></div>
+    <div class="menu-ttl">Selecciona el módulo</div>
+    <div class="menu-card" onclick="irA('areas')">
+      <div class="mc-icon v">🌡️</div>
+      <div>
+        <div class="mc-ttl">T° y HR Áreas</div>
+        <div class="mc-sub">Registro de temperatura y humedad con termohigrómetros</div>
+        <span class="mc-badge b-act">● Activo</span>
       </div>
-      <div class="menu-arrow">›</div>
+      <div class="mc-arr">›</div>
     </div>
-    <div class="menu-card disabled" onclick="mostrarToast('Módulo disponible próximamente','')">
-      <div class="menu-icon gris">❄️</div>
-      <div class="menu-info">
-        <h3>T° Equipos</h3>
-        <p>Registro de temperatura en neveras, ultracongeladores y equipos de frío</p>
-        <span class="menu-badge badge-pronto">Próximamente — V2</span>
+    <div class="menu-card dis" onclick="mostrarToast('Módulo disponible próximamente','warn')">
+      <div class="mc-icon g">❄️</div>
+      <div>
+        <div class="mc-ttl">T° Equipos</div>
+        <div class="mc-sub">Neveras, ultracongeladores y equipos de frío</div>
+        <span class="mc-badge b-prx">Próximamente — V2</span>
       </div>
-      <div class="menu-arrow" style="color:var(--gris-200)">›</div>
+      <div class="mc-arr" style="color:var(--g200)">›</div>
     </div>
   </div>
 
-  <!-- MÓDULO ÁREAS -->
-  <div id="screen-areas" style="display:none">
+  <!-- MÓDULO AREAS -->
+  <div id="s-areas" style="display:none">
     <div id="form-areas">
-      <div class="breadcrumb">
+      <div class="bc">
         <button class="btn-back" onclick="volverMenu()">← Menú</button>
-        <span class="breadcrumb-text">T° y HR Áreas</span>
+        <span class="bc-txt">T° y HR Áreas</span>
       </div>
-      <div class="datetime-bar">
-        <span class="datetime-label">Fecha y hora</span>
-        <span class="datetime-value" id="reloj2"></span>
-      </div>
+      <div class="dt-bar"><span class="dt-lbl">Fecha y hora</span><span class="dt-val" id="reloj2"></span></div>
+
       <div class="card">
-        <div class="card-title">Ubicación</div>
-        <div class="field">
+        <div class="card-ttl">Ubicación</div>
+        <div class="fld">
           <label>Área <span class="req">*</span></label>
-          <select id="area" onchange="cargarEquipos()">
+          <select id="sel-area" onchange="onAreaChange()">
             <option value="">— Seleccionar área —</option>
           </select>
         </div>
-        <div id="campo-equipo" style="display:none">
-          <div class="field">
-            <label>Equipo <span class="req">*</span></label>
-            <div class="equipos-grid" id="equipos-grid"></div>
+        <div class="fld" id="fld-termo" style="display:none">
+          <label>Termohigrómetro <span class="req">*</span></label>
+          <select id="sel-termo" onchange="onTermoChange()">
+            <option value="">— Seleccionar termohigrómetro —</option>
+          </select>
+        </div>
+        <div class="fld" id="fld-lugar" style="display:none">
+          <label>Lugar de muestreo <span class="req">*</span></label>
+          <select id="sel-lugar" onchange="onLugarChange()">
+            <option value="">— Seleccionar lugar —</option>
+          </select>
+        </div>
+        <div id="lugar-info-box" style="display:none"></div>
+      </div>
+
+      <div class="card" id="card-med" style="display:none">
+        <div class="card-ttl">Mediciones</div>
+        <div class="med-grid">
+          <div class="med-card">
+            <div class="med-icon">🌡️</div>
+            <div class="med-lbl">Temperatura</div>
+            <input type="number" id="inp-temp" step="0.1" placeholder="0.0" inputmode="decimal" oninput="calcularCorrecciones()">
+            <div class="med-unit">°C indicación</div>
+            <div class="corr-val" id="corr-temp-val"></div>
+          </div>
+          <div class="med-card">
+            <div class="med-icon">💧</div>
+            <div class="med-lbl">Humedad</div>
+            <input type="number" id="inp-hum" step="0.1" placeholder="0.0" inputmode="decimal" oninput="calcularCorrecciones()">
+            <div class="med-unit">%HR indicación</div>
+            <div class="corr-val" id="corr-hum-val"></div>
           </div>
         </div>
-        <div id="campo-lugares" style="display:none">
-          <div class="field" style="margin-top:4px">
-            <label>Lugar de muestreo <span class="req">*</span></label>
-            <div class="lugares-grid" id="lugares-grid"></div>
-          </div>
+        <div id="alerta-rango" class="alerta-rango"></div>
+      </div>
+
+      <!-- GRAFICA TIEMPO REAL -->
+      <div class="grafica-container" id="card-grafica" style="display:none">
+        <div class="grafica-ttl">
+          <span>📈 Gráfica del mes en curso</span>
+          <span id="graf-periodo" style="font-size:11px;color:var(--g400)"></span>
         </div>
-        <div id="lugar-unico" style="display:none;margin-top:10px">
-          <div class="lugar-info" id="lugar-unico-text"></div>
+        <canvas id="grafica-temp" height="140"></canvas>
+        <div style="margin-top:10px">
+        <canvas id="grafica-hum" height="140"></canvas>
         </div>
       </div>
-      <div class="card" id="card-mediciones" style="display:none">
-        <div class="card-title">Mediciones</div>
-        <div class="mediciones-grid">
-          <div class="medicion-card">
-            <div class="medicion-icon">🌡️</div>
-            <div class="medicion-label">Temperatura</div>
-            <input type="number" id="temperatura" step="0.1" placeholder="0,0" inputmode="decimal">
-            <div class="medicion-unit">°C</div>
-          </div>
-          <div class="medicion-card">
-            <div class="medicion-icon">💧</div>
-            <div class="medicion-label">Humedad</div>
-            <input type="number" id="humedad" step="0.1" placeholder="0,0" inputmode="decimal">
-            <div class="medicion-unit">%HR</div>
-          </div>
-        </div>
-      </div>
-      <div class="card" id="card-responsable" style="display:none">
-        <div class="card-title">Responsable</div>
-        <div class="field">
+
+      <div class="card" id="card-resp" style="display:none">
+        <div class="card-ttl">Responsable</div>
+        <div class="fld">
           <label>Código Crystal <span class="req">*</span></label>
-          <input type="text" id="responsable" placeholder="Ej: 074" maxlength="6">
+          <input type="text" id="inp-resp" placeholder="Ej: 074" maxlength="6">
         </div>
-        <div class="field">
+        <div class="fld">
           <label>Observaciones</label>
-          <textarea id="observaciones" rows="2" placeholder="Opcional..." style="resize:none;font-size:14px;padding:10px 13px;border:1.5px solid var(--gris-200);border-radius:8px;width:100%;font-family:'Inter',sans-serif;"></textarea>
+          <textarea id="inp-obs" rows="2" placeholder="Opcional..." style="resize:none;font-size:14px;padding:9px 12px;border:1.5px solid var(--g200);border-radius:8px;width:100%;font-family:'Inter',sans-serif;"></textarea>
         </div>
       </div>
-      <button class="btn-submit" id="btn-enviar" onclick="enviarRegistro()" style="display:none">Guardar registro</button>
+      <button class="btn-sub" id="btn-env" onclick="enviarRegistro()" style="display:none">Guardar registro</button>
     </div>
-    <div class="success-screen" id="pantalla-exito">
-      <div class="success-icon">✅</div>
-      <div class="success-title">¡Registro guardado!</div>
-      <div class="success-sub" id="resumen-exito"></div>
-      <button class="btn-nuevo" onclick="nuevoRegistro()">Nuevo registro</button>
+
+    <div class="suc" id="s-exito">
+      <div class="suc-icon">✅</div>
+      <div class="suc-ttl">¡Registro guardado!</div>
+      <div class="suc-sub" id="suc-res"></div>
+      <button class="btn-nvo" onclick="nuevoRegistro()">Nuevo registro</button>
       <br><br>
-      <button onclick="volverMenu()" style="background:none;border:none;color:var(--gris-400);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;">← Volver al menú</button>
+      <button onclick="volverMenu()" style="background:none;border:none;color:var(--g400);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;">← Volver al menú</button>
     </div>
   </div>
 </div>
 
 <!-- PANEL ADMIN -->
-<div class="overlay" id="admin-overlay" onclick="cerrarOverlay(event,'admin-overlay')">
+<div class="ovl" id="adm-ovl" onclick="cerrarOvl(event,'adm-ovl')">
 <div class="panel">
-  <div class="panel-header">
-    <div class="panel-title">⚙️ Administración</div>
-    <button class="btn-close" onclick="cerrarPanel('admin-overlay')">✕</button>
+  <div class="pan-hdr">
+    <div class="pan-ttl">⚙️ Administración</div>
+    <button class="btn-cls" onclick="cerrarPanel('adm-ovl')">✕</button>
   </div>
-  <div id="admin-login">
-    <div class="field">
-      <label>Usuario</label>
-      <select id="login-usuario"></select>
-    </div>
-    <div class="field">
-      <label>Clave</label>
-      <input type="password" id="login-clave" placeholder="••••••" onkeydown="if(event.key==='Enter')loginAdmin()">
-    </div>
+  <div id="adm-login">
+    <div class="fld"><label>Usuario</label><select id="log-usr"></select></div>
+    <div class="fld"><label>Clave</label><input type="password" id="log-clave" placeholder="••••••" onkeydown="if(event.key==='Enter')loginAdmin()"></div>
     <button class="btn-save" onclick="loginAdmin()">Ingresar</button>
   </div>
-  <div id="admin-contenido" style="display:none">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div style="font-size:13px;color:var(--gris-600)">Sesión: <strong id="session-nombre"></strong></div>
+  <div id="adm-cont" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:13px;color:var(--g600)">Sesión: <strong id="ses-nom"></strong></div>
       <button onclick="logoutAdmin()" style="font-size:12px;color:var(--rojo);background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;">Cerrar sesión</button>
     </div>
     <div class="tabs">
-      <button class="tab active" onclick="cambiarTab(this,'tab-equipos')">Equipos</button>
-      <button class="tab" onclick="cambiarTab(this,'tab-usuarios')" id="tab-btn-usuarios" style="display:none">Usuarios</button>
-      <button class="tab" onclick="cambiarTab(this,'tab-auditoria')">Auditoría</button>
+      <button class="tab act" onclick="cambiarTab(this,'tab-eq')">Termos</button>
+      <button class="tab" onclick="cambiarTab(this,'tab-cal')">Calibración</button>
+      <button class="tab" onclick="cambiarTab(this,'tab-usr')" id="tab-btn-usr" style="display:none">Usuarios</button>
+      <button class="tab" onclick="cambiarTab(this,'tab-aud')">Auditoría</button>
     </div>
-    <div class="tab-content active" id="tab-equipos">
-      <div id="admin-areas-container"></div>
-      <button class="btn-save" onclick="guardarEquipos()">💾 Guardar cambios</button>
-    </div>
-    <div class="tab-content" id="tab-usuarios">
-      <div id="usuarios-lista"></div>
-      <button class="btn-save" onclick="abrirModalUsuario(null)">+ Nuevo usuario</button>
-    </div>
-    <div class="tab-content" id="tab-auditoria">
-      <div id="auditoria-lista"></div>
-    </div>
+    <div class="tab-c act" id="tab-eq"><div id="adm-eq-cont"></div><button class="btn-save" onclick="guardarTermos()">💾 Guardar cambios</button></div>
+    <div class="tab-c" id="tab-cal"><div id="adm-cal-cont"></div></div>
+    <div class="tab-c" id="tab-usr"><div id="adm-usr-cont"></div><button class="btn-save" onclick="abrirModalUsr(null)">+ Nuevo usuario</button></div>
+    <div class="tab-c" id="tab-aud"><div id="adm-aud-cont"></div></div>
   </div>
 </div>
 </div>
 
 <!-- MODAL USUARIO -->
-<div class="modal-overlay" id="modal-usuario">
+<div class="modal-ovl" id="modal-usr">
 <div class="modal">
-  <div class="modal-title" id="modal-titulo">Nuevo usuario</div>
-  <div class="field"><label>Nombre</label><input type="text" id="m-nombre" placeholder="Ej: Líder Almacén"></div>
-  <div class="field"><label>Área asignada</label><select id="m-area"></select></div>
-  <div class="field"><label>Clave</label><input type="password" id="m-clave" placeholder="Nueva clave"></div>
+  <div class="modal-ttl" id="modal-usr-ttl">Nuevo usuario</div>
+  <div class="fld"><label>Nombre</label><input type="text" id="m-nom" placeholder="Ej: Líder Virología"></div>
+  <div class="fld"><label>Rol</label>
+    <select id="m-rol">
+      <option value="superadmin">Super Administrador</option>
+      <option value="lider">Líder de área</option>
+      <option value="coordinador">Coordinador</option>
+      <option value="auxiliar">Auxiliar</option>
+    </select>
+  </div>
+  <div class="fld" id="m-area-fld"><label>Área asignada</label><select id="m-area"></select></div>
+  <div class="fld"><label>Clave</label><input type="password" id="m-clave" placeholder="Nueva clave"></div>
   <div class="modal-btns">
-    <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
-    <button class="btn-confirm" onclick="guardarUsuario()">Guardar</button>
+    <button class="btn-cnl" onclick="cerrarModalUsr()">Cancelar</button>
+    <button class="btn-cfm" onclick="guardarUsr()">Guardar</button>
   </div>
 </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- CHART.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, addDoc, collection, onSnapshot, serverTimestamp }
+import { getFirestore, doc, getDoc, setDoc, addDoc, getDocs, collection, query, where, orderBy, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBxug78dfj7F0-CtUxMVTmeuto3tqDCd00",
-  authDomain: "control-temp-idsn.firebaseapp.com",
-  projectId: "control-temp-idsn",
-  storageBucket: "control-temp-idsn.firebasestorage.app",
-  messagingSenderId: "290972936604",
-  appId: "1:290972936604:web:c2e73479b208d2f97c0059"
+const FB = {
+  apiKey:"AIzaSyBxug78dfj7F0-CtUxMVTmeuto3tqDCd00",
+  authDomain:"control-temp-idsn.firebaseapp.com",
+  projectId:"control-temp-idsn",
+  storageBucket:"control-temp-idsn.firebasestorage.app",
+  messagingSenderId:"290972936604",
+  appId:"1:290972936604:web:c2e73479b208d2f97c0059"
 };
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FB);
 const db = getFirestore(app);
 
-// ============================================================
-// DATOS MAESTROS
-// ============================================================
-const AREAS = {
-  "Recepción":                             ["LSP18-13MBC"],
-  "Almacén":                               ["LSP 18-02 ALM","LSP 18-03 ALM"],
-  "Virología e Inmunoserología":           ["LSP 18-30 VIR","LSP 18-21 EISP","LSP 18-32 VIR","LSP 18-26 VIR","LSP 18-31 VIR","LSP 18-27 VIR","LSP 18-28 VIR","LSP 18-29 VIR"],
-  "Micobacterias":                         ["LSP18-08 MC","LSP18-01 MC"],
-  "Microbiología MB":                      ["LSP18-31MB","LSP18-37MB","LSP18-33MB","LSP18-32MB","LSP18-36MB","LSP18-30MB"],
-  "Fisicoquímico FQ":                      ["LSP18-02MB","LSP18-19FQ","LSP18-03FQ","LSP18-05FQ","LSP18-18FQ"],
-  "Microbiología Clínica":                 ["LSP 18-14 MBC","LSP 18-15 MBC","LSP 18-16 MBC","LSP 18-11 MBC","LSP 18-12 MBC"],
-  "Toxicología y Productos Farmacéuticos": ["LSP18-06PF","LSP18-04PF","LSP18-01Tox"]
-};
-const TODOS_EQUIPOS = Object.values(AREAS).flat();
-
-// ============================================================
-// CONFIG FIREBASE
-// ============================================================
-let CONFIG = { equipos:{}, usuarios:[], auditoria:[] };
+// ── ESTADO GLOBAL ──────────────────────────────────────────
+let CFG = {};
 let session = null;
-let equipoActual = null;
-let lugarActual = null;
-let editUID = null;
+let editUsrId = null;
+let chartTemp = null;
+let chartHum = null;
+let estadoActual = { area:null, termo:null, lugar:null, specs:null };
 
-async function cargarConfig(){
-  try {
+// ── DATOS VIROLOGÍA (seed inicial) ─────────────────────────
+const SEED = {
+  areas:{
+    virologia:{
+      nombre:"Virología e Inmunoserología",
+      activa:true,
+      encabezado:{codigo:"F-ILSPSSP13-01",version:"02",fecha:"2025-01-21",titulo:"REGISTRO DE CONTROL DE TEMPERATURA Y HUMEDAD RELATIVA DE LAS ÁREAS DEL LSP"},
+      termos:{
+        "LSP 18-31 VIR":{estado:"activo",lugares:["ALICUOTAS"],ct:[{x:10.4,y:0.14},{x:20.4,y:0.01},{x:29.8,y:0.61}],ch:[{x:27,y:3.5},{x:48,y:2.5},{x:79,y:1.4}]},
+        "LSP 18-32 VIR":{estado:"activo",lugares:["CLASIFICACION DE MUESTRAS"],ct:[{x:10.6,y:-0.06},{x:20.6,y:-0.19},{x:29.9,y:0.51}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:78,y:2.4}]},
+        "LSP 18-30 VIR":{estado:"activo",lugares:["PREPARACION DE REACTIVO"],ct:[{x:20.6,y:-0.19},{x:29.8,y:0.61},{x:40.4,y:0.15}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:85,y:5.0}]},
+        "LSP 18-29 VIR":{estado:"activo",lugares:["PCR AUTOMATIZADA"],ct:[{x:10.3,y:0.24},{x:20.3,y:0.11},{x:29.8,y:0.61}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:78,y:2.4}]},
+        "LSP 18-28 VIR":{estado:"activo",lugares:["ADICION DE REACTIVO"],ct:[{x:20.4,y:0.01},{x:29.8,y:0.61},{x:40.3,y:0.25}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:88,y:2.0}]},
+        "LSP 18-27 VIR":{estado:"activo",lugares:["EXTRACCION"],ct:[{x:10.4,y:0.14},{x:20.4,y:0.01},{x:29.8,y:0.61}],ch:[{x:27,y:3.5},{x:48,y:2.5},{x:79,y:1.4}]},
+        "LSP 18-26 VIR":{estado:"activo",lugares:["PROCESAMIENTO"],ct:[{x:20.6,y:-0.19},{x:29.9,y:0.51},{x:40.4,y:0.15}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:88,y:2.0}]},
+        "LSP 18-21 EISP":{estado:"activo",lugares:["ARCHIVO DE GESTION"],ct:[{x:10.5,y:-0.53},{x:20.4,y:-0.38},{x:30.4,y:-0.35}],ch:[{x:35,y:-4.8},{x:52,y:-2.1},{x:76,y:4.0}]}
+      },
+      specs:{
+        "ALICUOTAS":{tmin:15,tmax:35,hmin:0,hmax:80},
+        "CLASIFICACION DE MUESTRAS":{tmin:15,tmax:31,hmin:10,hmax:99},
+        "PREPARACION DE REACTIVO":{tmin:15,tmax:35,hmin:null,hmax:80},
+        "PCR AUTOMATIZADA":{tmin:15,tmax:35,hmin:null,hmax:80},
+        "ADICION DE REACTIVO":{tmin:15,tmax:31,hmin:null,hmax:80},
+        "EXTRACCION":{tmin:0,tmax:30,hmin:null,hmax:null},
+        "PROCESAMIENTO":{tmin:0,tmax:30,hmin:0,hmax:80},
+        "ARCHIVO DE GESTION":{tmin:15,tmax:24,hmin:20,hmax:63}
+      }
+    }
+  },
+  usuarios:[{id:"superadmin",nombre:"Super Administrador",rol:"superadmin",area:"todas",clave:"idsn2024"}],
+  auditoria:[]
+};
+
+// ── FIREBASE ───────────────────────────────────────────────
+async function cargarCFG(){
+  try{
     const snap = await getDoc(doc(db,'config','principal'));
     if(snap.exists()){
-      CONFIG = snap.data();
+      CFG = snap.data();
+      // Asegurar que el seed de virología esté presente
+      if(!CFG.areas) CFG.areas = {};
+      if(!CFG.areas.virologia) { CFG.areas.virologia = SEED.areas.virologia; await saveCFG(); }
     } else {
-      // Primera vez — crear config inicial
-      CONFIG = {
-        equipos: {},
-        usuarios: [{id:'superadmin',nombre:'Super Administrador',area:'todas',clave:'idsn2024'}],
-        auditoria: []
-      };
-      // Inicializar equipos
-      for(const area in AREAS){
-        for(const eq of AREAS[area]){
-          CONFIG.equipos[eq] = {estado:'activo', lugares:[], reemplazo:''};
-        }
-      }
-      await setDoc(doc(db,'config','principal'), CONFIG);
+      CFG = JSON.parse(JSON.stringify(SEED));
+      await saveCFG();
     }
-    // Asegurar equipos nuevos
-    let changed = false;
-    for(const area in AREAS){
-      for(const eq of AREAS[area]){
-        if(!CONFIG.equipos[eq]){
-          CONFIG.equipos[eq] = {estado:'activo', lugares:[], reemplazo:''};
-          changed = true;
-        }
-      }
-    }
-    if(changed) await setDoc(doc(db,'config','principal'), CONFIG);
-  } catch(e) {
-    console.error('Error cargando config:', e);
-  }
-  document.getElementById('screen-loading').style.display = 'none';
-  document.getElementById('screen-menu').style.display = 'block';
-  cargarSelectArea();
+  }catch(e){ console.error(e); CFG = JSON.parse(JSON.stringify(SEED)); }
+  document.getElementById('s-loading').style.display='none';
+  document.getElementById('s-menu').style.display='block';
+  poblarAreas();
 }
 
-async function guardarConfigFirebase(){
-  await setDoc(doc(db,'config','principal'), CONFIG);
-}
+async function saveCFG(){ await setDoc(doc(db,'config','principal'), CFG); }
 
-// ============================================================
-// RELOJ
-// ============================================================
+// ── RELOJ ──────────────────────────────────────────────────
 function tick(){
-  const a = new Date();
-  const str = a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+
-              a.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['reloj','reloj2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=str; });
+  const a=new Date();
+  const s=a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+a.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  ['reloj','reloj2'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});
 }
 tick(); setInterval(tick,1000);
 
-// ============================================================
-// NAVEGACIÓN
-// ============================================================
-window.irAModulo = (m)=>{
-  document.getElementById('screen-menu').style.display='none';
-  document.getElementById('screen-'+m).style.display='block';
-};
-window.volverMenu = ()=>{
-  document.getElementById('screen-areas').style.display='none';
-  document.getElementById('screen-menu').style.display='block';
-  resetForm();
-};
+// ── NAVEGACIÓN ─────────────────────────────────────────────
+window.irA = m=>{document.getElementById('s-menu').style.display='none';document.getElementById('s-'+m).style.display='block';};
+window.volverMenu = ()=>{document.getElementById('s-areas').style.display='none';document.getElementById('s-menu').style.display='block';resetForm();};
 
-// ============================================================
-// FORMULARIO
-// ============================================================
-function cargarSelectArea(){
-  const sel = document.getElementById('area');
+// ── FORMULARIO ─────────────────────────────────────────────
+function poblarAreas(){
+  const sel=document.getElementById('sel-area');
   while(sel.options.length>1) sel.remove(1);
-  for(const area in AREAS) sel.add(new Option(area,area));
+  for(const [k,a] of Object.entries(CFG.areas||{})){
+    if(a.activa) sel.add(new Option(a.nombre, k));
+  }
 }
 
-window.cargarEquipos = ()=>{
-  const area = document.getElementById('area').value;
-  equipoActual=null; lugarActual=null;
-  ['campo-equipo','campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
-    .forEach(id=>document.getElementById(id).style.display='none');
+window.onAreaChange = ()=>{
+  const area = document.getElementById('sel-area').value;
+  estadoActual = {area, termo:null, lugar:null, specs:null};
+  ['fld-termo','fld-lugar','lugar-info-box','card-med','card-grafica','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('sel-termo').innerHTML='<option value="">— Seleccionar termohigrómetro —</option>';
+  document.getElementById('sel-lugar').innerHTML='<option value="">— Seleccionar lugar —</option>';
   if(!area) return;
 
-  const equipos = AREAS[area];
-  const grid = document.getElementById('equipos-grid');
-  grid.innerHTML='';
-
-  const activos = equipos.filter(eq=>CONFIG.equipos[eq]?.estado==='activo');
-  const reemplazos = equipos
-    .filter(eq=>CONFIG.equipos[eq]?.estado!=='activo' && CONFIG.equipos[eq]?.reemplazo)
-    .map(eq=>({original:eq, reemplazo:CONFIG.equipos[eq].reemplazo, lugares:CONFIG.equipos[eq].lugares||[]}));
-
-  if(!activos.length && !reemplazos.length){
-    grid.innerHTML='<div class="empty-state">No hay equipos activos en esta área</div>';
-    document.getElementById('campo-equipo').style.display='block';
-    return;
+  const termos = CFG.areas[area]?.termos || {};
+  const sel = document.getElementById('sel-termo');
+  for(const [k,t] of Object.entries(termos)){
+    if(t.estado === 'activo'){
+      sel.add(new Option(k, k));
+    }
   }
-
-  activos.forEach(eq=>{
-    const ec=CONFIG.equipos[eq];
-    const chip=document.createElement('button');
-    chip.className='equipo-chip'; chip.type='button';
-    chip.innerHTML=`<div class="equipo-chip-code">${eq}</div>
-      <div class="equipo-chip-lugar">${ec.lugares?.length?ec.lugares.join(', '):'Sin lugar asignado'}</div>`;
-    chip.onclick=()=>seleccionarEquipo(eq,chip);
-    grid.appendChild(chip);
-  });
-
-  reemplazos.forEach(r=>{
-    const chip=document.createElement('button');
-    chip.className='equipo-chip'; chip.type='button';
-    chip.innerHTML=`<div class="equipo-chip-code">${r.reemplazo}</div>
-      <div class="equipo-chip-lugar">${r.lugares.join(', ')||''}</div>
-      <div class="equipo-chip-badge">⟳ Reemplazo de ${r.original}</div>`;
-    chip.onclick=()=>seleccionarEquipo(r.reemplazo,chip);
-    grid.appendChild(chip);
-  });
-
-  document.getElementById('campo-equipo').style.display='block';
-  if(activos.length===1 && !reemplazos.length) seleccionarEquipo(activos[0], grid.firstChild);
+  document.getElementById('fld-termo').style.display='block';
 };
 
-function seleccionarEquipo(eq, chip){
-  document.querySelectorAll('.equipo-chip').forEach(c=>c.classList.remove('selected'));
-  chip.classList.add('selected');
-  equipoActual=eq; lugarActual=null;
-  ['campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
-    .forEach(id=>document.getElementById(id).style.display='none');
+window.onTermoChange = ()=>{
+  const area = estadoActual.area;
+  const termo = document.getElementById('sel-termo').value;
+  estadoActual.termo = termo;
+  estadoActual.lugar = null;
+  ['fld-lugar','lugar-info-box','card-med','card-grafica','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('sel-lugar').innerHTML='<option value="">— Seleccionar lugar —</option>';
+  if(!termo) return;
 
-  const lugares = CONFIG.equipos[eq]?.lugares||[];
-  if(!lugares.length){
-    lugarActual=''; mostrarMediciones();
-  } else if(lugares.length===1){
-    lugarActual=lugares[0];
-    document.getElementById('lugar-unico-text').textContent='📍 '+lugares[0];
-    document.getElementById('lugar-unico').style.display='block';
-    mostrarMediciones();
-  } else {
-    const grid=document.getElementById('lugares-grid');
-    grid.innerHTML='';
-    lugares.forEach(lugar=>{
-      const c=document.createElement('button');
-      c.className='lugar-chip'; c.type='button';
-      c.innerHTML=`<span>📍</span><span>${lugar}</span>`;
-      c.onclick=()=>seleccionarLugar(lugar,c);
-      grid.appendChild(c);
-    });
-    document.getElementById('campo-lugares').style.display='block';
-    setTimeout(()=>document.getElementById('campo-lugares').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+  const termoData = CFG.areas[area]?.termos[termo];
+  const lugares = termoData?.lugares || [];
+  const sel = document.getElementById('sel-lugar');
+  lugares.forEach(l => sel.add(new Option(l, l)));
+  document.getElementById('fld-lugar').style.display='block';
+
+  if(lugares.length === 1){
+    sel.value = lugares[0];
+    onLugarChange();
   }
+};
+
+window.onLugarChange = ()=>{
+  const lugar = document.getElementById('sel-lugar').value;
+  if(!lugar) return;
+  estadoActual.lugar = lugar;
+
+  const specs = CFG.areas[estadoActual.area]?.specs?.[lugar] || {};
+  estadoActual.specs = specs;
+
+  // Mostrar info del lugar
+  const infoBox = document.getElementById('lugar-info-box');
+  const partes = [];
+  if(specs.tmin!=null||specs.tmax!=null) partes.push(`T°: ${specs.tmin??'-'} – ${specs.tmax??'-'}°C`);
+  if(specs.hmin!=null||specs.hmax!=null) partes.push(`HR: ${specs.hmin??'-'} – ${specs.hmax??'-'}%`);
+  infoBox.innerHTML = `<div class="lugar-info">📍 ${lugar} &nbsp;|&nbsp; ${partes.join('  &nbsp;|&nbsp;  ')}</div>`;
+  infoBox.style.display='block';
+
+  document.getElementById('card-med').style.display='block';
+  document.getElementById('card-resp').style.display='block';
+  document.getElementById('btn-env').style.display='block';
+
+  // Cargar gráfica
+  cargarGrafica();
+
+  setTimeout(()=>document.getElementById('card-med').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+};
+
+// ── INTERPOLACIÓN ──────────────────────────────────────────
+function interpolar(valor, puntos){
+  if(!puntos||puntos.length<2) return 0;
+  const xs=puntos.map(p=>p.x), ys=puntos.map(p=>p.y);
+  if(valor<=xs[1]) return ys[0]+(ys[1]-ys[0])/(xs[1]-xs[0])*(valor-xs[0]);
+  return ys[1]+(ys[2]-ys[1])/(xs[2]-xs[1])*(valor-xs[1]);
 }
 
-function seleccionarLugar(lugar, chip){
-  document.querySelectorAll('.lugar-chip').forEach(c=>c.classList.remove('selected'));
-  chip.classList.add('selected');
-  lugarActual=lugar; mostrarMediciones();
+window.calcularCorrecciones = ()=>{
+  const {area, termo, lugar, specs} = estadoActual;
+  if(!termo||!lugar) return;
+  const tData = CFG.areas[area]?.termos[termo];
+  const temp = parseFloat(document.getElementById('inp-temp').value);
+  const hum = parseFloat(document.getElementById('inp-hum').value);
+
+  let alertas = [];
+
+  // Temperatura
+  if(!isNaN(temp) && tData?.ct){
+    const corr = interpolar(temp, tData.ct);
+    const corrT = Math.round((temp + corr)*10)/10;
+    const fuera = (specs?.tmin!=null && corrT<specs.tmin)||(specs?.tmax!=null && corrT>specs.tmax);
+    document.getElementById('corr-temp-val').innerHTML = `<span class="${fuera?'corr-err':'corr-ok'}">Corr: ${corrT}°C ${fuera?'⚠️':'✓'}</span>`;
+    if(fuera) alertas.push(`T° corregida ${corrT}°C fuera de rango [${specs.tmin??'-'}, ${specs.tmax??'-'}]`);
+  } else {
+    document.getElementById('corr-temp-val').innerHTML='';
+  }
+
+  // Humedad
+  if(!isNaN(hum) && tData?.ch){
+    const corr = interpolar(hum, tData.ch);
+    const corrH = Math.round(hum + corr);
+    const fuera = (specs?.hmin!=null && corrH<specs.hmin)||(specs?.hmax!=null && corrH>specs.hmax);
+    document.getElementById('corr-hum-val').innerHTML = `<span class="${fuera?'corr-err':'corr-ok'}">Corr: ${corrH}% ${fuera?'⚠️':'✓'}</span>`;
+    if(fuera) alertas.push(`HR corregida ${corrH}% fuera de rango [${specs.hmin??'-'}, ${specs.hmax??'-'}]`);
+  } else {
+    document.getElementById('corr-hum-val').innerHTML='';
+  }
+
+  const alertBox = document.getElementById('alerta-rango');
+  if(alertas.length){
+    alertBox.className='alerta-rango alerta-err';
+    alertBox.innerHTML='⚠️ <strong>FUERA DE RANGO:</strong> '+alertas.join(' — ');
+    alertBox.style.display='block';
+  } else if(!isNaN(temp)||!isNaN(hum)){
+    alertBox.className='alerta-rango alerta-ok';
+    alertBox.innerHTML='✓ Valores dentro del rango permitido';
+    alertBox.style.display='block';
+  } else {
+    alertBox.style.display='none';
+  }
+};
+
+// ── GRÁFICA TIEMPO REAL ────────────────────────────────────
+async function cargarGrafica(){
+  const {area, termo, lugar, specs} = estadoActual;
+  if(!termo||!lugar) return;
+
+  const ahora = new Date();
+  const mes = ahora.getMonth()+1;
+  const anio = ahora.getFullYear();
+
+  document.getElementById('graf-periodo').textContent = `${String(mes).padStart(2,'0')}/${anio}`;
+  document.getElementById('card-grafica').style.display='block';
+
+  try{
+    const q = query(
+      collection(db,'registros'),
+      where('area','==',area),
+      where('termo','==',termo),
+      where('lugar','==',lugar),
+      where('mes','==',mes),
+      where('anio','==',anio),
+      orderBy('timestamp','asc')
+    );
+    const snap = await getDocs(q);
+    const regs = snap.docs.map(d=>d.data());
+
+    const labels = regs.map(r=>r.dia+' '+r.hora);
+    const tempInd = regs.map(r=>r.temperatura);
+    const tempCorr = regs.map(r=>r.temp_corregida);
+    const humInd = regs.map(r=>r.humedad);
+    const humCorr = regs.map(r=>r.hum_corregida);
+
+    renderGrafica('grafica-temp','Temperatura °C',labels,tempInd,tempCorr,specs?.tmin,specs?.tmax);
+    renderGrafica('grafica-hum','Humedad %HR',labels,humInd,humCorr,specs?.hmin,specs?.hmax);
+  }catch(e){console.error('Error cargando gráfica:',e);}
 }
 
-function mostrarMediciones(){
-  ['card-mediciones','card-responsable','btn-enviar'].forEach(id=>document.getElementById(id).style.display='block');
-  setTimeout(()=>document.getElementById('card-mediciones').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+function renderGrafica(canvasId, titulo, labels, indData, corrData, lMin, lMax){
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  if(window[canvasId+'_chart']) window[canvasId+'_chart'].destroy();
+
+  const datasets = [
+    {label:'Indicación',data:indData,borderColor:'#94A3B8',backgroundColor:'rgba(148,163,184,0.1)',pointRadius:3,borderWidth:1.5,tension:0.3},
+    {label:'Corregida',data:corrData,borderColor:'#2EAA6E',backgroundColor:'rgba(46,170,110,0.1)',pointRadius:4,borderWidth:2,tension:0.3}
+  ];
+  if(lMin!=null) datasets.push({label:'Mín',data:Array(labels.length).fill(lMin),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5});
+  if(lMax!=null) datasets.push({label:'Máx',data:Array(labels.length).fill(lMax),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5});
+
+  window[canvasId+'_chart'] = new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets},
+    options:{
+      responsive:true,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},boxWidth:12}},title:{display:true,text:titulo,font:{size:12}}},
+      scales:{x:{ticks:{font:{size:9},maxTicksLimit:10}},y:{ticks:{font:{size:10}}}}
+    }
+  });
 }
 
-window.enviarRegistro = async ()=>{
-  const area=document.getElementById('area').value;
-  const temperatura=document.getElementById('temperatura').value;
-  const humedad=document.getElementById('humedad').value;
-  const responsable=document.getElementById('responsable').value.trim();
-  const observaciones=document.getElementById('observaciones').value.trim();
+// ── ENVIAR REGISTRO ────────────────────────────────────────
+window.enviarRegistro = async()=>{
+  const {area, termo, lugar, specs} = estadoActual;
+  const temp = parseFloat(document.getElementById('inp-temp').value);
+  const hum = parseFloat(document.getElementById('inp-hum').value);
+  const resp = document.getElementById('inp-resp').value.trim();
+  const obs = document.getElementById('inp-obs').value.trim();
 
-  if(!area){mostrarToast('Selecciona el área','error');return;}
-  if(!equipoActual){mostrarToast('Selecciona el equipo','error');return;}
-  if(lugarActual===null){mostrarToast('Selecciona el lugar de muestreo','error');return;}
-  if(!temperatura){mostrarToast('Ingresa la temperatura','error');return;}
-  if(!humedad){mostrarToast('Ingresa la humedad','error');return;}
-  if(!responsable){mostrarToast('Ingresa tu código Crystal','error');return;}
+  if(!area||!termo||!lugar){mostrarToast('Completa ubicación','err');return;}
+  if(isNaN(temp)){mostrarToast('Ingresa la temperatura','err');return;}
+  if(isNaN(hum)){mostrarToast('Ingresa la humedad','err');return;}
+  if(!resp){mostrarToast('Ingresa tu código Crystal','err');return;}
 
-  const btn=document.getElementById('btn-enviar');
+  const btn=document.getElementById('btn-env');
   btn.disabled=true; btn.textContent='Guardando...';
 
-  const ahora=new Date();
-  const marca=ahora.toLocaleString('es-CO');
-  const lugares=CONFIG.equipos[equipoActual]?.lugares||[];
-  const idx=lugares.indexOf(lugarActual);
-  const sufijo=lugares.length>1?`_v${idx+1}`:'';
-  const nombreHoja=(equipoActual+sufijo).replace(/\s/g,'');
+  const tData = CFG.areas[area]?.termos[termo];
+  const corrT = Math.round((temp + interpolar(temp, tData?.ct||[]))*10)/10;
+  const corrH = Math.round(hum + interpolar(hum, tData?.ch||[]));
+  const ahora = new Date();
 
-  try {
-    // Guardar en Firestore
+  try{
     await addDoc(collection(db,'registros'),{
-      marca_temporal: marca,
-      timestamp: serverTimestamp(),
-      area, lugar_muestreo:lugarActual,
-      codigo_equipo:equipoActual,
-      nombre_hoja:nombreHoja,
-      temperatura:parseFloat(temperatura),
-      humedad:parseFloat(humedad),
-      responsable, observaciones
+      area, termo, lugar,
+      temperatura:temp, humedad:hum,
+      temp_corregida:corrT, hum_corregida:corrH,
+      responsable:resp, observaciones:obs,
+      dia:ahora.getDate(), mes:ahora.getMonth()+1, anio:ahora.getFullYear(),
+      hora:ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
+      marca_temporal:ahora.toLocaleString('es-CO'),
+      timestamp:serverTimestamp()
     });
 
-    // También enviar a Google Sheets
-    const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec";
+    // También a Google Sheets
     const form=new FormData();
-    form.append('data', JSON.stringify({marca_temporal:marca,area,lugar_muestreo:lugarActual,
-      codigo_equipo:equipoActual,nombre_hoja:nombreHoja,temperatura,humedad,responsable,observaciones}));
-    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:form}).catch(()=>{});
+    form.append('data',JSON.stringify({marca_temporal:ahora.toLocaleString('es-CO'),area,lugar_muestreo:lugar,codigo_equipo:termo,temperatura:temp,humedad:hum,responsable:resp,observaciones:obs}));
+    fetch("https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec",{method:'POST',mode:'no-cors',body:form}).catch(()=>{});
 
-    mostrarExito(area,equipoActual,lugarActual,temperatura,humedad,marca);
-  } catch(e){
-    mostrarToast('Error al guardar: '+e.message,'error');
-  } finally {
+    document.getElementById('form-areas').style.display='none';
+    document.getElementById('s-exito').style.display='block';
+    document.getElementById('suc-res').innerHTML=`<strong>${termo}</strong><br>${lugar}<br>🌡️ ${temp}°C → <strong>${corrT}°C</strong> &nbsp; 💧 ${hum}% → <strong>${corrH}%</strong><br><small style="color:var(--g400)">${ahora.toLocaleString('es-CO')}</small>`;
+  }catch(e){
+    mostrarToast('Error: '+e.message,'err');
+  }finally{
     btn.disabled=false; btn.textContent='Guardar registro';
   }
 };
 
-function mostrarExito(area,equipo,lugar,temp,hum,marca){
-  document.getElementById('form-areas').style.display='none';
-  document.getElementById('pantalla-exito').style.display='block';
-  document.getElementById('resumen-exito').innerHTML=
-    `<strong>${equipo}</strong><br>${area}${lugar?'<br>📍 '+lugar:''}<br>🌡️ ${temp}°C &nbsp; 💧 ${hum}%HR<br><small style="color:var(--gris-400)">${marca}</small>`;
-}
-
-window.nuevoRegistro=()=>{
-  document.getElementById('form-areas').style.display='block';
-  document.getElementById('pantalla-exito').style.display='none';
-  resetForm();
-};
+window.nuevoRegistro=()=>{document.getElementById('form-areas').style.display='block';document.getElementById('s-exito').style.display='none';resetForm();};
 
 function resetForm(){
-  ['area','temperatura','humedad','responsable','observaciones'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  equipoActual=null; lugarActual=null;
-  ['campo-equipo','campo-lugares','lugar-unico','card-mediciones','card-responsable','btn-enviar']
-    .forEach(id=>document.getElementById(id).style.display='none');
+  ['sel-area','sel-termo','sel-lugar','inp-temp','inp-hum','inp-resp','inp-obs'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  ['corr-temp-val','corr-hum-val'].forEach(id=>document.getElementById(id).innerHTML='');
+  document.getElementById('alerta-rango').style.display='none';
+  estadoActual={area:null,termo:null,lugar:null,specs:null};
+  ['fld-termo','fld-lugar','lugar-info-box','card-med','card-grafica','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
+  if(chartTemp){chartTemp.destroy();chartTemp=null;}
+  if(chartHum){chartHum.destroy();chartHum=null;}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ============================================================
-// ADMIN
-// ============================================================
-function cargarLoginUsuarios(){
-  const sel=document.getElementById('login-usuario');
+// ── ADMIN ──────────────────────────────────────────────────
+function poblarLoginUsr(){
+  const sel=document.getElementById('log-usr');
   sel.innerHTML='<option value="">— Seleccionar usuario —</option>';
-  CONFIG.usuarios.forEach(u=>sel.add(new Option(u.nombre,u.id)));
+  (CFG.usuarios||[]).forEach(u=>sel.add(new Option(u.nombre,u.id)));
 }
 
-window.abrirAdmin=()=>{
-  cargarLoginUsuarios();
-  document.getElementById('admin-login').style.display='block';
-  document.getElementById('admin-contenido').style.display='none';
-  document.getElementById('login-clave').value='';
-  document.getElementById('admin-overlay').classList.add('show');
-};
+window.abrirAdmin=()=>{poblarLoginUsr();document.getElementById('adm-login').style.display='block';document.getElementById('adm-cont').style.display='none';document.getElementById('log-clave').value='';document.getElementById('adm-ovl').classList.add('show');};
 window.cerrarPanel=(id)=>document.getElementById(id).classList.remove('show');
-window.cerrarOverlay=(e,id)=>{ if(e.target===document.getElementById(id)) cerrarPanel(id); };
+window.cerrarOvl=(e,id)=>{if(e.target===document.getElementById(id))cerrarPanel(id);};
 
 window.loginAdmin=()=>{
-  const uid=document.getElementById('login-usuario').value;
-  const clave=document.getElementById('login-clave').value;
-  if(!uid){mostrarToast('Selecciona un usuario','error');return;}
-  const u=CONFIG.usuarios.find(u=>u.id===uid);
-  if(!u||u.clave!==clave){mostrarToast('Clave incorrecta','error');return;}
+  const uid=document.getElementById('log-usr').value;
+  const clave=document.getElementById('log-clave').value;
+  if(!uid){mostrarToast('Selecciona usuario','err');return;}
+  const u=(CFG.usuarios||[]).find(u=>u.id===uid);
+  if(!u||u.clave!==clave){mostrarToast('Clave incorrecta','err');return;}
   session=u;
-  document.getElementById('admin-login').style.display='none';
-  document.getElementById('admin-contenido').style.display='block';
-  document.getElementById('session-nombre').textContent=u.nombre;
-  document.getElementById('tab-btn-usuarios').style.display=u.area==='todas'?'block':'none';
+  document.getElementById('adm-login').style.display='none';
+  document.getElementById('adm-cont').style.display='block';
+  document.getElementById('ses-nom').textContent=u.nombre;
+  document.getElementById('tab-btn-usr').style.display=u.rol==='superadmin'?'block':'none';
   registrarAuditoria('Inicio de sesión','—');
-  renderAdminEquipos(); renderAuditoria();
-  if(u.area==='todas') renderUsuarios();
+  renderTermos(); renderCalib(); renderAud();
+  if(u.rol==='superadmin') renderUsrs();
 };
 
-window.logoutAdmin=()=>{ session=null; cerrarPanel('admin-overlay'); };
+window.logoutAdmin=()=>{session=null;cerrarPanel('adm-ovl');};
+window.cambiarTab=(btn,tabId)=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('act'));btn.classList.add('act');document.getElementById(tabId).classList.add('act');};
 
-window.cambiarTab=(btn,tabId)=>{
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(tabId).classList.add('active');
-};
+// TERMOS
+function eid(s){return s.replace(/[\s\.]/g,'_');}
+function badgeTxt(e){return e==='activo'?'✓ Activo':e==='calibracion'?'⟳ Calibración':'✕ Dañado';}
 
-// EQUIPOS ADMIN
-function eid(eq){ return eq.replace(/[\s\.]/g,'_'); }
-function badgeText(e){ return e==='activo'?'✓ Activo':e==='calibracion'?'⟳ Calibración':'✕ Dañado'; }
+function renderTermos(){
+  const cont=document.getElementById('adm-eq-cont');
+  cont.innerHTML='';
+  const areas = session.rol==='superadmin' ? Object.entries(CFG.areas||{}) : Object.entries(CFG.areas||{}).filter(([k])=>k===session.area);
 
-function renderAdminEquipos(){
-  const container=document.getElementById('admin-areas-container');
-  container.innerHTML='';
-  const areasVer=session.area==='todas'?Object.keys(AREAS):[session.area];
-
-  areasVer.forEach(area=>{
+  areas.forEach(([aKey,aData])=>{
     const sec=document.createElement('div');
-    sec.className='area-admin';
-    const equipos=AREAS[area];
+    sec.className='area-sec';
+    const termos=Object.entries(aData.termos||{});
     sec.innerHTML=`
-      <button class="area-admin-header" onclick="toggleArea(this)">
-        <span>${area}</span><span>▾</span>
+      <button class="area-sec-hdr" onclick="toggleSec(this)">
+        <span>${aData.nombre} <small style="color:var(--g400)">(${termos.length} termos)</small></span><span>▾</span>
       </button>
-      <div class="area-admin-body">
-        ${equipos.map(eq=>{
-          const ec=CONFIG.equipos[eq]||{estado:'activo',lugares:[],reemplazo:''};
-          const lugares=ec.lugares||[];
-          return `
-          <div class="equipo-admin-row" id="row-${eid(eq)}">
-            <div class="equipo-admin-header">
-              <span class="equipo-admin-code">${eq}</span>
-              <span class="estado-badge estado-${ec.estado}" id="badge-${eid(eq)}">${badgeText(ec.estado)}</span>
-            </div>
-            <div class="toggle-group">
-              <button class="toggle-btn ${ec.estado==='activo'?'sel-activo':''}" onclick="cambiarEstado('${eq}','activo',this)">✓ Activo</button>
-              <button class="toggle-btn ${ec.estado==='calibracion'?'sel-calibracion':''}" onclick="cambiarEstado('${eq}','calibracion',this)">⟳ Calibración</button>
-              <button class="toggle-btn ${ec.estado==='dañado'?'sel-dañado':''}" onclick="cambiarEstado('${eq}','dañado',this)">✕ Dañado</button>
-            </div>
-            <div class="section-label">Lugares de muestreo</div>
-            <div class="lugares-admin-list" id="lugares-${eid(eq)}">
-              ${lugares.map((l,i)=>`
-                <div class="lugar-admin-row">
-                  <input type="text" class="small" value="${l}" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${i}">
-                  <button class="btn-del" onclick="eliminarLugar('${eq}',${i})">×</button>
-                </div>`).join('')}
-            </div>
-            <button class="btn-add-lugar" onclick="agregarLugar('${eq}')">+ Agregar lugar</button>
-            <div id="campo-reemplazo-${eid(eq)}" style="${ec.estado!=='activo'?'display:block':'display:none'}">
-              <div class="section-label" style="margin-top:12px">Equipo de reemplazo</div>
-              <select class="small" style="width:100%" data-eq="${eq}" data-campo="reemplazo">
-                <option value="">— Sin reemplazo —</option>
-                ${TODOS_EQUIPOS.filter(e=>e!==eq).map(e=>`<option value="${e}" ${ec.reemplazo===e?'selected':''}>${e}</option>`).join('')}
-              </select>
-            </div>
-          </div>`;
-        }).join('')}
+      <div class="area-sec-body">
+        ${termos.map(([tKey,t])=>`
+        <div class="eq-row" id="row-${eid(tKey)}">
+          <div class="eq-hdr">
+            <span class="eq-code">${tKey}</span>
+            <span class="est-badge est-${t.estado}" id="badge-${eid(tKey)}">${badgeTxt(t.estado)}</span>
+          </div>
+          <div class="tgl-grp">
+            <button class="tgl-btn ${t.estado==='activo'?'s-act':''}" onclick="cambiarEstado('${aKey}','${tKey}','activo',this)">✓ Activo</button>
+            <button class="tgl-btn ${t.estado==='calibracion'?'s-cal':''}" onclick="cambiarEstado('${aKey}','${tKey}','calibracion',this)">⟳ Calibración</button>
+            <button class="tgl-btn ${t.estado==='dañado'?'s-dan':''}" onclick="cambiarEstado('${aKey}','${tKey}','dañado',this)">✕ Dañado</button>
+          </div>
+          <div class="sec-lbl">Lugares de muestreo</div>
+          <div id="lugares-${eid(tKey)}">
+            ${(t.lugares||[]).map((l,i)=>`
+              <div class="lugar-adm-row">
+                <input type="text" class="sm" value="${l}" data-area="${aKey}" data-termo="${tKey}" data-idx="${i}" placeholder="Nombre del lugar">
+                <button class="btn-del" onclick="eliminarLugar('${aKey}','${tKey}',${i})">×</button>
+              </div>`).join('')}
+          </div>
+          <button class="btn-add-l" onclick="agregarLugar('${aKey}','${tKey}')">+ Agregar lugar</button>
+        </div>`).join('')}
       </div>`;
-    container.appendChild(sec);
+    cont.appendChild(sec);
   });
 }
 
-window.toggleArea=(btn)=>{
-  const body=btn.nextElementSibling;
-  body.classList.toggle('open');
-  btn.querySelector('span:last-child').textContent=body.classList.contains('open')?'▴':'▾';
+window.toggleSec=(btn)=>{const b=btn.nextElementSibling;b.classList.toggle('open');btn.querySelector('span:last-child').textContent=b.classList.contains('open')?'▴':'▾';};
+window.cambiarEstado=(area,termo,estado,btn)=>{
+  btn.closest('.tgl-grp').querySelectorAll('.tgl-btn').forEach(b=>b.className='tgl-btn');
+  btn.classList.add(`s-${estado==='activo'?'act':estado==='calibracion'?'cal':'dan'}`);
+  document.getElementById(`badge-${eid(termo)}`).className=`est-badge est-${estado}`;
+  document.getElementById(`badge-${eid(termo)}`).textContent=badgeTxt(estado);
 };
-
-window.cambiarEstado=(eq,estado,btn)=>{
-  btn.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(b=>b.className='toggle-btn');
-  btn.classList.add(`sel-${estado}`);
-  document.getElementById(`badge-${eid(eq)}`).className=`estado-badge estado-${estado}`;
-  document.getElementById(`badge-${eid(eq)}`).textContent=badgeText(estado);
-  document.getElementById(`campo-reemplazo-${eid(eq)}`).style.display=estado!=='activo'?'block':'none';
-};
-
-window.agregarLugar=(eq)=>{
-  const lista=document.getElementById(`lugares-${eid(eq)}`);
-  const idx=lista.querySelectorAll('.lugar-admin-row').length;
+window.agregarLugar=(area,termo)=>{
+  const lista=document.getElementById(`lugares-${eid(termo)}`);
+  const idx=lista.querySelectorAll('.lugar-adm-row').length;
   const row=document.createElement('div');
-  row.className='lugar-admin-row';
-  row.innerHTML=`<input type="text" class="small" value="" placeholder="Nombre del lugar" data-eq="${eq}" data-idx="${idx}">
-    <button class="btn-del" onclick="this.parentElement.remove()">×</button>`;
+  row.className='lugar-adm-row';
+  row.innerHTML=`<input type="text" class="sm" value="" data-area="${area}" data-termo="${termo}" data-idx="${idx}" placeholder="Nombre del lugar"><button class="btn-del" onclick="this.parentElement.remove()">×</button>`;
   lista.appendChild(row);
   row.querySelector('input').focus();
 };
-
-window.eliminarLugar=async(eq,idx)=>{
-  if(!CONFIG.equipos[eq]) return;
-  const ant=[...(CONFIG.equipos[eq].lugares||[])];
-  CONFIG.equipos[eq].lugares.splice(idx,1);
-  await guardarConfigFirebase();
-  registrarAuditoria(`Lugar eliminado en ${eq}`,`"${ant[idx]}"`);
-  renderAdminEquipos();
-  mostrarToast('Lugar eliminado','');
+window.eliminarLugar=async(area,termo,idx)=>{
+  if(!CFG.areas[area]?.termos[termo]) return;
+  const ant=[...(CFG.areas[area].termos[termo].lugares||[])];
+  CFG.areas[area].termos[termo].lugares.splice(idx,1);
+  await saveCFG();
+  registrarAuditoria(`Lugar eliminado`,`${termo}: "${ant[idx]}"`);
+  renderTermos(); mostrarToast('Lugar eliminado','ok');
 };
 
-window.guardarEquipos=async()=>{
-  const cambiosList=[];
-
-  document.querySelectorAll('.toggle-group').forEach(group=>{
-    const activo=group.querySelector('.sel-activo,.sel-calibracion,.sel-dañado');
-    if(!activo) return;
-    const eq=group.closest('.equipo-admin-row').querySelector('.equipo-admin-code').textContent;
+window.guardarTermos=async()=>{
+  const cambios=[];
+  // Estados
+  document.querySelectorAll('.tgl-grp').forEach(grp=>{
+    const sel=grp.querySelector('.s-act,.s-cal,.s-dan');
+    if(!sel) return;
+    const row=grp.closest('.eq-row');
+    const termo=row.querySelector('.eq-code').textContent.trim();
     let estado='activo';
-    if(activo.classList.contains('sel-calibracion')) estado='calibracion';
-    if(activo.classList.contains('sel-dañado')) estado='dañado';
-    if(!CONFIG.equipos[eq]) CONFIG.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
-    if(CONFIG.equipos[eq].estado!==estado){
-      cambiosList.push(`${eq} estado:"${CONFIG.equipos[eq].estado}"→"${estado}"`);
-      CONFIG.equipos[eq].estado=estado;
+    if(sel.classList.contains('s-cal')) estado='calibracion';
+    if(sel.classList.contains('s-dan')) estado='dañado';
+    // Buscar en qué área está
+    for(const [ak,av] of Object.entries(CFG.areas||{})){
+      if(av.termos?.[termo]){
+        const ant=av.termos[termo].estado;
+        if(ant!==estado){cambios.push(`${termo}: "${ant}"→"${estado}"`);av.termos[termo].estado=estado;}
+        break;
+      }
     }
   });
-
-  document.querySelectorAll('.lugares-admin-list').forEach(lista=>{
-    const inputs=lista.querySelectorAll('input[data-eq]');
-    if(!inputs.length) return;
-    const eq=inputs[0].dataset.eq;
-    if(!CONFIG.equipos[eq]) CONFIG.equipos[eq]={estado:'activo',lugares:[],reemplazo:''};
-    const nuevos=Array.from(inputs).map(i=>i.value.trim()).filter(v=>v!=='');
-    const ant=JSON.stringify(CONFIG.equipos[eq].lugares||[]);
-    if(ant!==JSON.stringify(nuevos)){
-      cambiosList.push(`${eq} lugares:${ant}→${JSON.stringify(nuevos)}`);
-      CONFIG.equipos[eq].lugares=nuevos;
-    }
+  // Lugares
+  document.querySelectorAll('[data-termo][data-area]').forEach(inp=>{
+    const area=inp.dataset.area, termo=inp.dataset.termo, idx=parseInt(inp.dataset.idx);
+    if(!CFG.areas[area]?.termos[termo]) return;
+    const lug=CFG.areas[area].termos[termo].lugares||[];
+    if(lug[idx]!==inp.value){cambios.push(`${termo} lugar[${idx}]: "${lug[idx]}"→"${inp.value}"`);lug[idx]=inp.value;}
+    // Agregar si idx >= longitud
+    if(idx>=lug.length&&inp.value) lug.push(inp.value);
   });
-
-  document.querySelectorAll('[data-campo="reemplazo"]').forEach(sel=>{
-    const eq=sel.dataset.eq;
-    if(!CONFIG.equipos[eq]) return;
-    const ant=CONFIG.equipos[eq].reemplazo||'';
-    if(ant!==sel.value){
-      cambiosList.push(`${eq} reemplazo:"${ant}"→"${sel.value}"`);
-      CONFIG.equipos[eq].reemplazo=sel.value;
-    }
-  });
-
-  if(cambiosList.length>0) registrarAuditoria('Cambios en equipos',cambiosList.join(' | '));
-  await guardarConfigFirebase();
-  mostrarToast('Cambios guardados en Firebase ✓','success');
-  setTimeout(()=>{ renderAdminEquipos(); renderAuditoria(); },600);
+  if(cambios.length) registrarAuditoria('Cambios en termos',cambios.join(' | '));
+  await saveCFG();
+  mostrarToast('Guardado en Firebase ✓','ok');
+  setTimeout(()=>{renderTermos();renderAud();},600);
 };
+
+// CALIBRACIÓN
+function renderCalib(){
+  const cont=document.getElementById('adm-cal-cont');
+  cont.innerHTML='<div style="font-size:13px;color:var(--g600);margin-bottom:12px">Gestión de calibraciones activas y redistribución de termos.</div>';
+
+  const areas = session.rol==='superadmin' ? Object.entries(CFG.areas||{}) : Object.entries(CFG.areas||{}).filter(([k])=>k===session.area);
+
+  areas.forEach(([aKey,aData])=>{
+    const enCalib=Object.entries(aData.termos||{}).filter(([,t])=>t.estado==='calibracion');
+    if(!enCalib.length) return;
+
+    const sec=document.createElement('div');
+    sec.innerHTML=`<div class="sec-lbl">${aData.nombre}</div>`;
+    enCalib.forEach(([tKey,t])=>{
+      const box=document.createElement('div');
+      box.className='calib-box';
+      box.innerHTML=`<strong>⟳ ${tKey} — En calibración</strong>
+        <div>Lugares originales: <em>${(t.lugares||[]).join(', ')||'—'}</em></div>
+        <div style="margin-top:8px;font-size:12px;color:var(--g600)">Redistribución: asigna otros termos activos a estos lugares desde la pestaña Termos.</div>`;
+      sec.appendChild(box);
+    });
+    cont.appendChild(sec);
+  });
+
+  if(cont.querySelectorAll('.calib-box').length===0){
+    cont.innerHTML+='<div class="empty">No hay termos en calibración actualmente.</div>';
+  }
+}
 
 // AUDITORÍA
 async function registrarAuditoria(accion,detalle){
-  if(!CONFIG.auditoria) CONFIG.auditoria=[];
-  CONFIG.auditoria.unshift({
-    quien:session?session.nombre:'Sistema',
-    area:session?session.area:'—',
-    cuando:new Date().toLocaleString('es-CO'),
-    accion, detalle
-  });
-  if(CONFIG.auditoria.length>200) CONFIG.auditoria=CONFIG.auditoria.slice(0,200);
-  await guardarConfigFirebase();
+  if(!CFG.auditoria) CFG.auditoria=[];
+  CFG.auditoria.unshift({quien:session?.nombre||'Sistema',rol:session?.rol||'—',cuando:new Date().toLocaleString('es-CO'),accion,detalle});
+  if(CFG.auditoria.length>200) CFG.auditoria=CFG.auditoria.slice(0,200);
+  await saveCFG();
 }
 
-function renderAuditoria(){
-  const lista=document.getElementById('auditoria-lista');
-  if(!CONFIG.auditoria?.length){
-    lista.innerHTML='<div class="empty-state">Sin registros de auditoría aún</div>'; return;
-  }
-  const regs=session.area==='todas'?CONFIG.auditoria:CONFIG.auditoria.filter(r=>r.area===session.area||r.quien===session.nombre);
-  lista.innerHTML=regs.slice(0,50).map(r=>`
-    <div class="audit-row">
-      <div style="display:flex;justify-content:space-between">
-        <span class="audit-quien">${r.quien}</span>
-        <span class="audit-cuando">${r.cuando}</span>
-      </div>
-      <div class="audit-cambio"><strong>${r.accion}</strong>${r.detalle&&r.detalle!=='—'?': '+r.detalle:''}</div>
-    </div>`).join('');
+function renderAud(){
+  const cont=document.getElementById('adm-aud-cont');
+  const regs=(CFG.auditoria||[]).filter(r=>session?.rol==='superadmin'||r.quien===session?.nombre);
+  cont.innerHTML=regs.length?regs.slice(0,50).map(r=>`
+    <div class="aud-row">
+      <div style="display:flex;justify-content:space-between"><span class="aud-quien">${r.quien}</span><span class="aud-cuando">${r.cuando}</span></div>
+      <div class="aud-det"><strong>${r.accion}</strong>${r.detalle&&r.detalle!=='—'?': '+r.detalle:''}</div>
+    </div>`).join(''):'<div class="empty">Sin registros aún</div>';
 }
 
 // USUARIOS
-function renderUsuarios(){
-  if(!session||session.area!=='todas') return;
-  const lista=document.getElementById('usuarios-lista');
-  lista.innerHTML=CONFIG.usuarios.map(u=>`
-    <div class="usuario-row">
-      <div>
-        <div class="usuario-nombre">${u.nombre}</div>
-        <div class="usuario-area">${u.area==='todas'?'Super Administrador':u.area}</div>
-      </div>
-      <button class="btn-editar" onclick="abrirModalUsuario('${u.id}')">Editar</button>
+function renderUsrs(){
+  const cont=document.getElementById('adm-usr-cont');
+  cont.innerHTML=(CFG.usuarios||[]).map(u=>`
+    <div class="usr-row">
+      <div><div class="usr-nom">${u.nombre}</div><div class="usr-area">${u.rol==='superadmin'?'Super Admin':u.rol+' — '+(u.area||'')}</div></div>
+      <button class="btn-edit" onclick="abrirModalUsr('${u.id}')">Editar</button>
     </div>`).join('');
 }
 
-window.abrirModalUsuario=(uid)=>{
-  editUID=uid;
-  const selArea=document.getElementById('m-area');
-  selArea.innerHTML='<option value="todas">Todas las áreas (Super Admin)</option>';
-  Object.keys(AREAS).forEach(a=>selArea.add(new Option(a,a)));
+window.abrirModalUsr=(uid)=>{
+  editUsrId=uid;
+  const selA=document.getElementById('m-area');
+  selA.innerHTML='';
+  Object.entries(CFG.areas||{}).forEach(([k,a])=>selA.add(new Option(a.nombre,k)));
   if(uid){
-    const u=CONFIG.usuarios.find(u=>u.id===uid);
-    document.getElementById('modal-titulo').textContent='Editar usuario';
-    document.getElementById('m-nombre').value=u.nombre;
-    selArea.value=u.area;
+    const u=(CFG.usuarios||[]).find(u=>u.id===uid);
+    document.getElementById('modal-usr-ttl').textContent='Editar usuario';
+    document.getElementById('m-nom').value=u.nombre;
+    document.getElementById('m-rol').value=u.rol;
+    document.getElementById('m-area').value=u.area||'';
     document.getElementById('m-clave').value='';
     document.getElementById('m-clave').placeholder='Dejar vacío para no cambiar';
   } else {
-    document.getElementById('modal-titulo').textContent='Nuevo usuario';
-    document.getElementById('m-nombre').value='';
-    selArea.value='todas';
-    document.getElementById('m-clave').value='';
+    document.getElementById('modal-usr-ttl').textContent='Nuevo usuario';
+    ['m-nom','m-clave'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('m-clave').placeholder='Nueva clave';
   }
-  document.getElementById('modal-usuario').classList.add('show');
+  document.getElementById('modal-usr').classList.add('show');
 };
+window.cerrarModalUsr=()=>document.getElementById('modal-usr').classList.remove('show');
 
-window.cerrarModal=()=>document.getElementById('modal-usuario').classList.remove('show');
-
-window.guardarUsuario=async()=>{
-  const nombre=document.getElementById('m-nombre').value.trim();
+window.guardarUsr=async()=>{
+  const nom=document.getElementById('m-nom').value.trim();
+  const rol=document.getElementById('m-rol').value;
   const area=document.getElementById('m-area').value;
   const clave=document.getElementById('m-clave').value;
-  if(!nombre){mostrarToast('Ingresa el nombre','error');return;}
-  if(editUID){
-    const u=CONFIG.usuarios.find(u=>u.id===editUID);
+  if(!nom){mostrarToast('Ingresa el nombre','err');return;}
+  if(!CFG.usuarios) CFG.usuarios=[];
+  if(editUsrId){
+    const u=CFG.usuarios.find(u=>u.id===editUsrId);
     const cambios=[];
-    if(u.nombre!==nombre) cambios.push(`nombre:"${u.nombre}"→"${nombre}"`);
-    if(u.area!==area) cambios.push(`área:"${u.area}"→"${area}"`);
-    if(clave) cambios.push('clave actualizada');
-    u.nombre=nombre; u.area=area; if(clave) u.clave=clave;
+    if(u.nombre!==nom) cambios.push(`nombre:"${u.nombre}"→"${nom}"`);
+    if(u.rol!==rol) cambios.push(`rol:"${u.rol}"→"${rol}"`);
+    u.nombre=nom; u.rol=rol; u.area=area; if(clave) u.clave=clave;
     registrarAuditoria('Usuario modificado',cambios.join(', '));
   } else {
-    if(!clave){mostrarToast('Ingresa una clave','error');return;}
-    CONFIG.usuarios.push({id:'u_'+Date.now(),nombre,area,clave});
-    registrarAuditoria('Usuario creado',nombre+' — '+area);
+    if(!clave){mostrarToast('Ingresa una clave','err');return;}
+    CFG.usuarios.push({id:'u_'+Date.now(),nombre:nom,rol,area,clave});
+    registrarAuditoria('Usuario creado',nom+' — '+rol);
   }
-  await guardarConfigFirebase();
-  cerrarModal(); renderUsuarios(); cargarLoginUsuarios();
-  mostrarToast('Usuario guardado ✓','success');
+  await saveCFG();
+  cerrarModalUsr(); renderUsrs(); poblarLoginUsr();
+  mostrarToast('Usuario guardado ✓','ok');
 };
 
 // TOAST
 window.mostrarToast=(msg,tipo='')=>{
   const t=document.getElementById('toast');
   t.textContent=msg; t.className=`toast ${tipo} show`;
-  setTimeout(()=>t.classList.remove('show'),2500);
+  setTimeout(()=>t.classList.remove('show'),2800);
 };
 
 // INIT
-cargarConfig();
+cargarCFG();
 </script>
 </body>
 </html>
