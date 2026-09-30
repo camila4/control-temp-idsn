@@ -16,6 +16,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--g50);color:var(--g800);min-height:100vh;}
+/* HEADER */
 .hdr{background:linear-gradient(135deg,var(--vo),var(--v));color:white;padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,122,74,0.3);}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;}
 .hdr-brand{display:flex;align-items:center;gap:10px;}
@@ -23,13 +24,17 @@ body{font-family:'Inter',sans-serif;background:var(--g50);color:var(--g800);min-
 .hdr h1{font-size:14px;font-weight:700;}
 .hdr p{font-size:10px;opacity:0.75;margin-top:1px;}
 .btn-adm{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+/* MAIN */
 .main{max-width:480px;margin:0 auto;padding:14px 14px 50px;}
+/* LOADING */
 .loading{text-align:center;padding:60px 20px;color:var(--g400);}
 .spin{display:inline-block;width:28px;height:28px;border:3px solid var(--vc);border-top-color:var(--v);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px;}
 @keyframes spin{to{transform:rotate(360deg);}}
+/* DATETIME */
 .dt-bar{background:var(--w);border:1px solid var(--g200);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--s);}
 .dt-lbl{font-size:11px;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
 .dt-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--vo);}
+/* MENU */
 .menu-ttl{font-size:11px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;}
 .mc{background:var(--w);border:1.5px solid var(--g200);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;box-shadow:var(--s);}
 .mc:hover{border-color:var(--v);box-shadow:0 4px 16px rgba(46,170,110,0.15);transform:translateY(-1px);}
@@ -44,20 +49,25 @@ body{font-family:'Inter',sans-serif;background:var(--g50);color:var(--g800);min-
 .b-act{background:var(--vc);color:var(--vo);}
 .b-prx{background:var(--g100);color:var(--g400);}
 .mc-arr{margin-left:auto;color:var(--g400);font-size:18px;flex-shrink:0;}
+/* BREADCRUMB */
 .bc{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
 .btn-bk{background:var(--vc);color:var(--vo);border:none;padding:7px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 .bc-txt{font-size:13px;color:var(--g400);}
+/* CARD */
 .card{background:var(--w);border:1px solid var(--g200);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--s);}
 .card-ttl{font-size:11px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;}
+/* FIELDS */
 .fld{margin-bottom:12px;}
 .fld:last-child{margin-bottom:0;}
 label{display:block;font-size:13px;font-weight:500;color:var(--g600);margin-bottom:5px;}
 .req{color:var(--r);margin-left:2px;}
 select,input[type="text"],input[type="number"],input[type="password"],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--g200);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:var(--g800);background:var(--w);transition:border-color 0.15s;-webkit-appearance:none;}
 select:focus,input:focus,textarea:focus{outline:none;border-color:var(--v);box-shadow:0 0 0 3px rgba(46,170,110,0.12);}
+/* ALERTA */
 .alerta{border-radius:8px;padding:10px 13px;font-size:13px;font-weight:600;margin-top:8px;display:none;}
 .a-ok{background:var(--vc);color:var(--vo);border:1px solid var(--vm);}
 .a-err{background:var(--rc);color:var(--r);border:1px solid #FCA5A5;}
+/* MEDICIONES */
 .med-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .med-c{background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:12px;}
 .med-ic{font-size:18px;margin-bottom:5px;}
@@ -67,60 +77,71 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--v);box-s
 .corr-v{text-align:center;font-size:12px;font-weight:600;margin-top:4px;}
 .c-ok{color:var(--vo);}
 .c-err{color:var(--r);}
+/* LUGAR INFO */
 .lugar-info{background:var(--vc);border:1px solid var(--vm);border-radius:8px;padding:9px 13px;font-size:13px;color:var(--vo);font-weight:500;margin-top:8px;}
+/* GRAFICA */
 .graf-box{background:var(--w);border:1px solid var(--g200);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:var(--s);}
 .graf-ttl{font-size:12px;font-weight:600;color:var(--g600);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+/* BTN SUBMIT */
 .btn-sub{width:100%;background:var(--v);color:white;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;margin-top:4px;}
 .btn-sub:hover{background:var(--vo);}
 .btn-sub:disabled{background:var(--g400);cursor:not-allowed;}
+/* SUCCESS */
 .suc{display:none;text-align:center;padding:40px 16px;}
 .suc-ic{width:72px;height:72px;background:var(--vc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 18px;}
 .suc-ttl{font-size:22px;font-weight:700;color:var(--vo);margin-bottom:8px;}
 .suc-sub{font-size:14px;color:var(--g600);margin-bottom:24px;line-height:1.7;}
 .btn-nvo{background:var(--v);color:white;border:none;padding:12px 26px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+/* OVERLAY / PANEL */
 .ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;align-items:flex-end;}
 .ovl.show{display:flex;}
 .panel{background:var(--w);width:100%;max-height:92vh;border-radius:18px 18px 0 0;overflow-y:auto;padding:18px;}
 .pan-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:13px;border-bottom:1px solid var(--g200);}
 .pan-ttl{font-size:17px;font-weight:700;}
 .btn-cls{width:30px;height:30px;border-radius:50%;border:none;background:var(--g100);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+/* TABS */
 .tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--g100);padding:3px;border-radius:9px;flex-wrap:wrap;}
-.tab{flex:1;min-width:60px;padding:7px 3px;border:none;background:transparent;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--g600);transition:all 0.15s;}
+.tab{flex:1;min-width:55px;padding:7px 3px;border:none;background:transparent;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--g600);transition:all 0.15s;}
 .tab.act{background:var(--w);color:var(--vo);font-weight:600;box-shadow:var(--s);}
 .tab-c{display:none;}
 .tab-c.act{display:block;}
+/* AREA SEC */
 .area-sec{border:1px solid var(--g200);border-radius:10px;margin-bottom:10px;overflow:hidden;}
 .area-sec-hdr{background:var(--g50);padding:11px 14px;font-size:13px;font-weight:600;color:var(--g600);cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:none;width:100%;font-family:'Inter',sans-serif;text-align:left;}
 .area-sec-body{padding:12px;display:none;}
 .area-sec-body.open{display:block;}
+/* EQUIPO ROW */
 .eq-row{border:1px solid var(--g200);border-radius:9px;padding:12px;margin-bottom:8px;}
-.eq-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.eq-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;flex-wrap:wrap;gap:6px;}
 .eq-code{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;}
 .est-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
 .est-activo{background:var(--vc);color:var(--vo);}
 .est-calibracion{background:var(--nc);color:var(--n);}
 .est-dañado{background:var(--rc);color:var(--r);}
+/* TOGGLE */
 .tgl-grp{display:flex;gap:5px;margin-bottom:10px;}
 .tgl-btn{flex:1;padding:6px 3px;border:1.5px solid var(--g200);border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;background:var(--w);font-family:'Inter',sans-serif;transition:all 0.15s;color:var(--g600);}
 .tgl-btn.s-a{border-color:var(--v);background:var(--vc);color:var(--vo);}
 .tgl-btn.s-c{border-color:var(--n);background:var(--nc);color:var(--n);}
 .tgl-btn.s-d{border-color:var(--r);background:var(--rc);color:var(--r);}
+/* SEC LABEL */
 .sec-lbl{font-size:10px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;margin-top:12px;}
+/* ROW INPUT */
 .row-inp{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
 .row-inp input{flex:1;font-size:13px;padding:6px 9px;}
 .btn-del{width:30px;height:30px;border:none;background:var(--rc);color:var(--r);border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .btn-add{background:var(--vc);color:var(--vo);border:1px dashed var(--v);padding:6px 12px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px;width:100%;}
-/* CORRECCIÓN GRID */
-.corr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:4px;}
-.corr-grid input{font-size:12px;padding:5px 7px;text-align:center;}
-.corr-hdr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:3px;}
+/* CORRECCIÓN */
+.corr-hdr{display:grid;grid-template-columns:1fr 1fr 30px;gap:6px;margin-bottom:3px;}
 .corr-hdr span{font-size:10px;color:var(--g400);font-weight:600;text-align:center;text-transform:uppercase;}
+.corr-row{display:grid;grid-template-columns:1fr 1fr 30px;gap:6px;margin-bottom:5px;}
+.corr-row input{font-size:12px;padding:5px 7px;text-align:center;}
 /* SPECS */
-.specs-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:6px;align-items:center;}
-.specs-row input{font-size:12px;padding:5px 7px;text-align:center;}
-.specs-row span{font-size:12px;color:var(--g800);word-break:break-word;}
-.specs-hdr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:4px;}
-.specs-hdr span{font-size:10px;color:var(--g400);font-weight:600;text-transform:uppercase;}
+.specs-hdr{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:5px;margin-bottom:4px;}
+.specs-hdr span{font-size:10px;color:var(--g400);font-weight:600;text-transform:uppercase;text-align:center;}
+.specs-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:5px;margin-bottom:5px;align-items:center;}
+.specs-row span{font-size:11px;color:var(--g800);word-break:break-word;}
+.specs-row input{font-size:12px;padding:5px 6px;text-align:center;}
 /* AREAS ADMIN */
 .area-adm-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--g100);}
 .area-adm-row:last-child{border-bottom:none;}
@@ -128,7 +149,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--v);box-s
 .area-badge{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;}
 .a-activa{background:var(--vc);color:var(--vo);}
 .a-inactiva{background:var(--g100);color:var(--g400);}
-/* CALIB */
+/* CALIBRACIÓN */
 .calib-box{background:var(--nc);border:1px solid #FDE68A;border-radius:8px;padding:10px 13px;margin-bottom:8px;font-size:12px;color:var(--n);}
 .calib-box strong{display:block;margin-bottom:3px;font-size:13px;}
 /* AUDIT / USR */
@@ -141,28 +162,32 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--v);box-s
 .usr-row:last-child{border-bottom:none;}
 .usr-nom{font-size:13px;font-weight:600;}
 .usr-area{font-size:11px;color:var(--g400);}
-.btn-edit{font-size:12px;padding:4px 11px;border:1px solid var(--g200);border-radius:6px;background:var(--w);cursor:pointer;font-family:'Inter',sans-serif;color:var(--vo);font-weight:500;}
+/* BTNs */
 .btn-save{width:100%;background:var(--v);color:white;border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:10px;}
-.btn-sec{width:100%;background:var(--g100);color:var(--g800);border:none;padding:10px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;}
+.btn-edit{font-size:12px;padding:4px 11px;border:1px solid var(--g200);border-radius:6px;background:var(--w);cursor:pointer;font-family:'Inter',sans-serif;color:var(--vo);font-weight:500;}
 input.sm{font-size:13px;padding:6px 9px;}
+/* MODAL */
 .modal-ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;align-items:center;justify-content:center;padding:16px;}
 .modal-ovl.show{display:flex;}
-.modal{background:var(--w);border-radius:14px;padding:18px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto;}
+.modal{background:var(--w);border-radius:14px;padding:18px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;}
 .modal-ttl{font-size:16px;font-weight:700;margin-bottom:14px;}
 .modal-btns{display:flex;gap:7px;margin-top:14px;}
 .modal-btns button{flex:1;padding:10px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:none;}
 .btn-cfm{background:var(--v);color:white;}
 .btn-cnl{background:var(--g100);color:var(--g800);}
+/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--g800);color:white;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:500;transition:transform 0.3s;z-index:999;box-shadow:var(--sm);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.ok{background:var(--vo);}
 .toast.err{background:var(--r);}
 .toast.warn{background:var(--n);}
 .empty{text-align:center;padding:24px;color:var(--g400);font-size:13px;}
-.divider{border:none;border-top:1px solid var(--g200);margin:12px 0;}
+hr.div{border:none;border-top:1px solid var(--g200);margin:12px 0;}
+.no-cfg{background:var(--nc);border:1px solid #FDE68A;border-radius:10px;padding:16px;text-align:center;font-size:13px;color:var(--n);margin-bottom:14px;}
 </style>
 </head>
 <body>
+
 <div class="hdr">
   <div class="hdr-top">
     <div class="hdr-brand">
@@ -176,6 +201,7 @@ input.sm{font-size:13px;padding:6px 9px;}
 <div class="main">
   <div id="s-load" class="loading"><div class="spin"></div><br>Cargando configuración...</div>
 
+  <!-- MENÚ -->
   <div id="s-menu" style="display:none">
     <div class="dt-bar"><span class="dt-lbl">Fecha y hora</span><span class="dt-val" id="reloj"></span></div>
     <div class="menu-ttl">Selecciona el módulo</div>
@@ -184,25 +210,32 @@ input.sm{font-size:13px;padding:6px 9px;}
       <div><div class="mc-ttl">T° y HR Áreas</div><div class="mc-sub">Registro con termohigrómetros</div><span class="mc-badge b-act">● Activo</span></div>
       <div class="mc-arr">›</div>
     </div>
-    <div class="mc dis" onclick="mostrarToast('Próximamente','warn')">
+    <div class="mc dis" onclick="mostrarToast('Próximamente V2','warn')">
       <div class="mc-ic gr">❄️</div>
       <div><div class="mc-ttl">T° Equipos</div><div class="mc-sub">Neveras, ultracongeladores y equipos de frío</div><span class="mc-badge b-prx">Próximamente — V2</span></div>
       <div class="mc-arr" style="color:var(--g200)">›</div>
     </div>
   </div>
 
+  <!-- MÓDULO ÁREAS -->
   <div id="s-areas" style="display:none">
     <div id="form-areas">
       <div class="bc"><button class="btn-bk" onclick="volverMenu()">← Menú</button><span class="bc-txt">T° y HR Áreas</span></div>
       <div class="dt-bar"><span class="dt-lbl">Fecha y hora</span><span class="dt-val" id="reloj2"></span></div>
       <div class="card">
         <div class="card-ttl">Ubicación</div>
-        <div class="fld"><label>Área <span class="req">*</span></label>
-          <select id="sel-area" onchange="onArea()"><option value="">— Seleccionar área —</option></select></div>
-        <div class="fld" id="fld-termo" style="display:none"><label>Termohigrómetro <span class="req">*</span></label>
-          <select id="sel-termo" onchange="onTermo()"><option value="">— Seleccionar termohigrómetro —</option></select></div>
-        <div class="fld" id="fld-lugar" style="display:none"><label>Lugar de muestreo <span class="req">*</span></label>
-          <select id="sel-lugar" onchange="onLugar()"><option value="">— Seleccionar lugar —</option></select></div>
+        <div class="fld">
+          <label>Área <span class="req">*</span></label>
+          <select id="sel-area" onchange="onArea()"><option value="">— Seleccionar área —</option></select>
+        </div>
+        <div class="fld" id="fld-termo" style="display:none">
+          <label>Termohigrómetro <span class="req">*</span></label>
+          <select id="sel-termo" onchange="onTermo()"><option value="">— Seleccionar termohigrómetro —</option></select>
+        </div>
+        <div class="fld" id="fld-lugar" style="display:none">
+          <label>Lugar de muestreo <span class="req">*</span></label>
+          <select id="sel-lugar" onchange="onLugar()"><option value="">— Seleccionar lugar —</option></select>
+        </div>
         <div id="info-lugar" style="display:none"></div>
       </div>
       <div class="card" id="card-med" style="display:none">
@@ -264,10 +297,16 @@ input.sm{font-size:13px;padding:6px 9px;}
       <button class="tab" onclick="cambTab(this,'tab-usr')" id="tab-btn-usr" style="display:none">Usuarios</button>
       <button class="tab" onclick="cambTab(this,'tab-aud')">Auditoría</button>
     </div>
-    <div class="tab-c act" id="tab-areas"><div id="cont-areas"></div><button class="btn-save" onclick="abrirModalArea(null)">+ Nueva área</button></div>
+    <div class="tab-c act" id="tab-areas">
+      <div id="cont-areas"></div>
+      <button class="btn-save" onclick="abrirModalArea(null)">+ Nueva área</button>
+    </div>
     <div class="tab-c" id="tab-termos"><div id="cont-termos"></div></div>
     <div class="tab-c" id="tab-cal"><div id="cont-cal"></div></div>
-    <div class="tab-c" id="tab-usr"><div id="cont-usr"></div><button class="btn-save" onclick="abrirModalUsr(null)">+ Nuevo usuario</button></div>
+    <div class="tab-c" id="tab-usr">
+      <div id="cont-usr"></div>
+      <button class="btn-save" onclick="abrirModalUsr(null)">+ Nuevo usuario</button>
+    </div>
     <div class="tab-c" id="tab-aud"><div id="cont-aud"></div></div>
   </div>
 </div>
@@ -278,11 +317,12 @@ input.sm{font-size:13px;padding:6px 9px;}
 <div class="modal">
   <div class="modal-ttl" id="ma-ttl">Nueva área</div>
   <div class="fld"><label>Nombre del área</label><input type="text" id="ma-nom" placeholder="Ej: Virología e Inmunoserología"></div>
-  <div class="fld"><label>Clave interna (sin espacios)</label><input type="text" id="ma-key" placeholder="Ej: virologia"></div>
-  <div class="fld"><label>Estado</label>
-    <select id="ma-est"><option value="true">Activa</option><option value="false">Inactiva</option></select>
+  <div class="fld"><label>Clave interna (sin espacios, sin tildes)</label><input type="text" id="ma-key" placeholder="Ej: virologia"></div>
+  <div class="fld"><label>Estado</label><select id="ma-est"><option value="true">Activa</option><option value="false">Inactiva</option></select></div>
+  <div class="modal-btns">
+    <button class="btn-cnl" onclick="cerrarModal('modal-area')">Cancelar</button>
+    <button class="btn-cfm" onclick="guardarArea()">Guardar</button>
   </div>
-  <div class="modal-btns"><button class="btn-cnl" onclick="cerrarModal('modal-area')">Cancelar</button><button class="btn-cfm" onclick="guardarArea()">Guardar</button></div>
 </div>
 </div>
 
@@ -295,31 +335,28 @@ input.sm{font-size:13px;padding:6px 9px;}
   <div class="fld"><label>Estado</label>
     <select id="mt-est"><option value="activo">Activo</option><option value="calibracion">En calibración</option><option value="dañado">Dañado</option></select>
   </div>
-  <hr class="divider">
+  <hr class="div">
   <div class="sec-lbl">Lugares de muestreo</div>
   <div id="mt-lugares"></div>
-  <button class="btn-add" onclick="addLugarModal()">+ Agregar lugar</button>
-  <hr class="divider">
-  <div class="sec-lbl">Corrección Temperatura (3 puntos)</div>
-  <div class="corr-hdr"><span>Indicación</span><span>Corrección</span><span></span></div>
-  <div id="mt-ct">
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x1" class="ct-x"><input type="number" step="0.01" placeholder="y1" class="ct-y"><span></span></div>
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x2" class="ct-x"><input type="number" step="0.01" placeholder="y2" class="ct-y"><span></span></div>
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x3" class="ct-x"><input type="number" step="0.01" placeholder="y3" class="ct-y"><span></span></div>
-  </div>
-  <hr class="divider">
-  <div class="sec-lbl">Corrección Humedad (3 puntos)</div>
-  <div class="corr-hdr"><span>Indicación</span><span>Corrección</span><span></span></div>
-  <div id="mt-ch">
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x1" class="ch-x"><input type="number" step="0.01" placeholder="y1" class="ch-y"><span></span></div>
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x2" class="ch-x"><input type="number" step="0.01" placeholder="y2" class="ch-y"><span></span></div>
-    <div class="corr-grid"><input type="number" step="0.01" placeholder="x3" class="ch-x"><input type="number" step="0.01" placeholder="y3" class="ch-y"><span></span></div>
-  </div>
-  <hr class="divider">
-  <div class="sec-lbl">Especificaciones por lugar (Seguimiento)</div>
+  <button class="btn-add" onclick="addLugar()">+ Agregar lugar</button>
+  <hr class="div">
+  <div class="sec-lbl">Corrección Temperatura — 3 puntos calibración</div>
+  <div class="corr-hdr"><span>Indicación °C</span><span>Corrección</span><span></span></div>
+  <div id="mt-ct"></div>
+  <button class="btn-add" onclick="addPuntoCorr('mt-ct','ct')">+ Punto</button>
+  <hr class="div">
+  <div class="sec-lbl">Corrección Humedad — 3 puntos calibración</div>
+  <div class="corr-hdr"><span>Indicación %HR</span><span>Corrección</span><span></span></div>
+  <div id="mt-ch"></div>
+  <button class="btn-add" onclick="addPuntoCorr('mt-ch','ch')">+ Punto</button>
+  <hr class="div">
+  <div class="sec-lbl">Especificaciones por lugar (Límites de control)</div>
   <div class="specs-hdr"><span>Lugar</span><span>T°Min</span><span>T°Max</span><span>HRMin</span><span>HRMax</span></div>
   <div id="mt-specs"></div>
-  <div class="modal-btns"><button class="btn-cnl" onclick="cerrarModal('modal-termo')">Cancelar</button><button class="btn-cfm" onclick="guardarTermo()">Guardar</button></div>
+  <div class="modal-btns">
+    <button class="btn-cnl" onclick="cerrarModal('modal-termo')">Cancelar</button>
+    <button class="btn-cfm" onclick="guardarTermo()">Guardar</button>
+  </div>
 </div>
 </div>
 
@@ -338,18 +375,22 @@ input.sm{font-size:13px;padding:6px 9px;}
   </div>
   <div class="fld" id="mu-area-fld" style="display:none"><label>Área asignada</label><select id="mu-area"></select></div>
   <div class="fld"><label>Clave</label><input type="password" id="mu-clave" placeholder="Nueva clave"></div>
-  <div class="modal-btns"><button class="btn-cnl" onclick="cerrarModal('modal-usr')">Cancelar</button><button class="btn-cfm" onclick="guardarUsr()">Guardar</button></div>
+  <div class="modal-btns">
+    <button class="btn-cnl" onclick="cerrarModal('modal-usr')">Cancelar</button>
+    <button class="btn-cfm" onclick="guardarUsr()">Guardar</button>
+  </div>
 </div>
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, addDoc, getDocs, collection, query, where, orderBy, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// ── FIREBASE CONFIG ────────────────────────────────────────
 const app = initializeApp({
   apiKey:"AIzaSyBxug78dfj7F0-CtUxMVTmeuto3tqDCd00",
   authDomain:"control-temp-idsn.firebaseapp.com",
@@ -360,91 +401,98 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 
-// ── ESTADO ─────────────────────────────────────────────────
-let CFG = {};
+// ── ESTADO GLOBAL ──────────────────────────────────────────
+let CFG = { areas:{}, usuarios:[], auditoria:[] };
 let SES = null;
 let editAreaKey = null;
 let editTermoKey = null;
 let editTermoArea = null;
 let editUsrId = null;
-let EA = {area:null,termo:null,lugar:null,specs:null};
+let EA = { area:null, termo:null, lugar:null, specs:null };
 
-// ── SEED VIROLOGÍA ─────────────────────────────────────────
-const SEED = {
-  areas:{
-    virologia:{
-      nombre:"Virología e Inmunoserología",activa:true,
-      termos:{
-        "LSP 18-31 VIR":{estado:"activo",lugares:["ALICUOTAS"],ct:[{x:10.4,y:0.14},{x:20.4,y:0.01},{x:29.8,y:0.61}],ch:[{x:27,y:3.5},{x:48,y:2.5},{x:79,y:1.4}],specs:{"ALICUOTAS":{tmin:15,tmax:35,hmin:0,hmax:80}}},
-        "LSP 18-32 VIR":{estado:"activo",lugares:["CLASIFICACION DE MUESTRAS"],ct:[{x:10.6,y:-0.06},{x:20.6,y:-0.19},{x:29.9,y:0.51}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:78,y:2.4}],specs:{"CLASIFICACION DE MUESTRAS":{tmin:15,tmax:31,hmin:10,hmax:99}}},
-        "LSP 18-30 VIR":{estado:"activo",lugares:["PREPARACION DE REACTIVO"],ct:[{x:20.6,y:-0.19},{x:29.8,y:0.61},{x:40.4,y:0.15}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:85,y:5.0}],specs:{"PREPARACION DE REACTIVO":{tmin:15,tmax:35,hmin:null,hmax:80}}},
-        "LSP 18-29 VIR":{estado:"activo",lugares:["PCR AUTOMATIZADA"],ct:[{x:10.3,y:0.24},{x:20.3,y:0.11},{x:29.8,y:0.61}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:78,y:2.4}],specs:{"PCR AUTOMATIZADA":{tmin:15,tmax:35,hmin:null,hmax:80}}},
-        "LSP 18-28 VIR":{estado:"activo",lugares:["ADICION DE REACTIVO"],ct:[{x:20.4,y:0.01},{x:29.8,y:0.61},{x:40.3,y:0.25}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:88,y:2.0}],specs:{"ADICION DE REACTIVO":{tmin:15,tmax:31,hmin:null,hmax:80}}},
-        "LSP 18-27 VIR":{estado:"activo",lugares:["EXTRACCION"],ct:[{x:10.4,y:0.14},{x:20.4,y:0.01},{x:29.8,y:0.61}],ch:[{x:27,y:3.5},{x:48,y:2.5},{x:79,y:1.4}],specs:{"EXTRACCION":{tmin:0,tmax:30,hmin:null,hmax:null}}},
-        "LSP 18-26 VIR":{estado:"activo",lugares:["PROCESAMIENTO"],ct:[{x:20.6,y:-0.19},{x:29.9,y:0.51},{x:40.4,y:0.15}],ch:[{x:26,y:4.5},{x:47,y:3.5},{x:88,y:2.0}],specs:{"PROCESAMIENTO":{tmin:0,tmax:30,hmin:0,hmax:80}}},
-        "LSP 18-21 EISP":{estado:"activo",lugares:["ARCHIVO DE GESTION"],ct:[{x:10.5,y:-0.53},{x:20.4,y:-0.38},{x:30.4,y:-0.35}],ch:[{x:35,y:-4.8},{x:52,y:-2.1},{x:76,y:4.0}],specs:{"ARCHIVO DE GESTION":{tmin:15,tmax:24,hmin:20,hmax:63}}}
-      }
-    }
-  },
-  usuarios:[{id:"superadmin",nombre:"Super Administrador",rol:"superadmin",area:"todas",clave:"idsn2024"}],
-  auditoria:[]
-};
-
-// ── FIREBASE ───────────────────────────────────────────────
+// ── CARGA DESDE FIREBASE ───────────────────────────────────
 async function cargarCFG(){
   try{
     const snap = await getDoc(doc(db,'config','principal'));
-    CFG = snap.exists() ? snap.data() : JSON.parse(JSON.stringify(SEED));
-    if(!CFG.areas) CFG.areas = {};
-    if(!CFG.areas.virologia){ CFG.areas.virologia = SEED.areas.virologia; }
-    if(!CFG.usuarios) CFG.usuarios = SEED.usuarios;
-    await saveCFG();
-  }catch(e){ console.error(e); CFG = JSON.parse(JSON.stringify(SEED)); }
+    if(snap.exists()){
+      CFG = snap.data();
+      if(!CFG.areas) CFG.areas = {};
+      if(!CFG.usuarios) CFG.usuarios = [];
+      if(!CFG.auditoria) CFG.auditoria = [];
+    }
+    // Si no hay usuarios, crear superadmin por defecto
+    if(!CFG.usuarios.length){
+      CFG.usuarios = [{id:"superadmin",nombre:"Super Administrador",rol:"superadmin",area:"todas",clave:"idsn2024"}];
+      await saveCFG();
+    }
+  }catch(e){ console.error('Error cargando CFG:',e); }
   document.getElementById('s-load').style.display='none';
   document.getElementById('s-menu').style.display='block';
   poblarAreas();
 }
-async function saveCFG(){ await setDoc(doc(db,'config','principal'), CFG); }
+
+async function saveCFG(){
+  await setDoc(doc(db,'config','principal'), CFG);
+}
 
 // ── RELOJ ──────────────────────────────────────────────────
 function tick(){
-  const a=new Date(), s=a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+a.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  const a=new Date();
+  const s=a.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+a.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   ['reloj','reloj2'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});
 }
 tick(); setInterval(tick,1000);
 
-// ── NAV ────────────────────────────────────────────────────
-window.irA = m=>{document.getElementById('s-menu').style.display='none';document.getElementById('s-'+m).style.display='block';};
-window.volverMenu = ()=>{document.getElementById('s-areas').style.display='none';document.getElementById('s-menu').style.display='block';resetForm();};
+// ── NAVEGACIÓN ─────────────────────────────────────────────
+window.irA = m=>{
+  document.getElementById('s-menu').style.display='none';
+  document.getElementById('s-'+m).style.display='block';
+};
+window.volverMenu = ()=>{
+  document.getElementById('s-areas').style.display='none';
+  document.getElementById('s-menu').style.display='block';
+  resetForm();
+};
 
 // ── FORMULARIO ─────────────────────────────────────────────
 function poblarAreas(){
   const sel=document.getElementById('sel-area');
   while(sel.options.length>1) sel.remove(1);
-  Object.entries(CFG.areas||{}).forEach(([k,a])=>{ if(a.activa) sel.add(new Option(a.nombre,k)); });
+  Object.entries(CFG.areas||{}).sort((a,b)=>a[1].nombre.localeCompare(b[1].nombre))
+    .forEach(([k,a])=>{ if(a.activa) sel.add(new Option(a.nombre,k)); });
 }
 
 window.onArea = ()=>{
   const area=document.getElementById('sel-area').value;
   EA={area,termo:null,lugar:null,specs:null};
-  ['fld-termo','fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
+  ocultarCampos(['fld-termo','fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env']);
   const sel=document.getElementById('sel-termo');
   sel.innerHTML='<option value="">— Seleccionar termohigrómetro —</option>';
   if(!area) return;
-  Object.entries(CFG.areas[area]?.termos||{}).forEach(([k,t])=>{
-    if(t.estado==='activo') sel.add(new Option(k,k));
-  });
+  const termos=CFG.areas[area]?.termos||{};
+  const activos=Object.entries(termos).filter(([,t])=>t.estado==='activo');
+  if(!activos.length){
+    document.getElementById('fld-termo').style.display='block';
+    sel.innerHTML='<option value="">Sin termohigrómetros activos</option>';
+    return;
+  }
+  activos.forEach(([k])=>sel.add(new Option(k,k)));
   document.getElementById('fld-termo').style.display='block';
 };
 
 window.onTermo = ()=>{
   const area=EA.area, termo=document.getElementById('sel-termo').value;
   EA.termo=termo; EA.lugar=null;
-  ['fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
+  ocultarCampos(['fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env']);
   const sel=document.getElementById('sel-lugar');
   sel.innerHTML='<option value="">— Seleccionar lugar —</option>';
   if(!termo) return;
   const lugares=CFG.areas[area]?.termos[termo]?.lugares||[];
+  if(!lugares.length){
+    document.getElementById('fld-lugar').style.display='block';
+    sel.innerHTML='<option value="">Sin lugares configurados</option>';
+    return;
+  }
   lugares.forEach(l=>sel.add(new Option(l,l)));
   document.getElementById('fld-lugar').style.display='block';
   if(lugares.length===1){sel.value=lugares[0];onLugar();}
@@ -454,8 +502,8 @@ window.onLugar = ()=>{
   const lugar=document.getElementById('sel-lugar').value;
   if(!lugar) return;
   EA.lugar=lugar;
-  const termo=CFG.areas[EA.area]?.termos[EA.termo];
-  const specs=termo?.specs?.[lugar]||{};
+  const t=CFG.areas[EA.area]?.termos[EA.termo];
+  const specs=t?.specs?.[lugar]||{};
   EA.specs=specs;
   const partes=[];
   if(specs.tmin!=null||specs.tmax!=null) partes.push(`T°: ${specs.tmin??'-'} – ${specs.tmax??'-'}°C`);
@@ -467,12 +515,17 @@ window.onLugar = ()=>{
   setTimeout(()=>document.getElementById('card-med').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
 };
 
+function ocultarCampos(ids){ ids.forEach(id=>document.getElementById(id).style.display='none'); }
+
 // ── INTERPOLACIÓN ──────────────────────────────────────────
 function interp(v,pts){
   if(!pts||pts.length<2) return 0;
-  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
-  if(v<=xs[1]) return ys[0]+(ys[1]-ys[0])/(xs[1]-xs[0])*(v-xs[0]);
-  return ys[1]+(ys[2]-ys[1])/(xs[2]-xs[1])*(v-xs[1]);
+  const xs=pts.map(p=>Number(p.x)), ys=pts.map(p=>Number(p.y));
+  const valid=xs.map((x,i)=>({x,y:ys[i]})).filter(p=>!isNaN(p.x)&&!isNaN(p.y)).sort((a,b)=>a.x-b.x);
+  if(valid.length<2) return 0;
+  if(v<=valid[1].x) return valid[0].y+(valid[1].y-valid[0].y)/(valid[1].x-valid[0].x)*(v-valid[0].x);
+  const last=valid.length-1;
+  return valid[last-1].y+(valid[last].y-valid[last-1].y)/(valid[last].x-valid[last-1].x)*(v-valid[last-1].x);
 }
 
 window.calcCorr = ()=>{
@@ -482,17 +535,17 @@ window.calcCorr = ()=>{
   const tv=parseFloat(document.getElementById('inp-t').value);
   const hv=parseFloat(document.getElementById('inp-h').value);
   let alertas=[];
-  if(!isNaN(tv)&&t?.ct){
-    const c=interp(tv,t.ct), corr=Math.round((tv+c)*10)/10;
+  if(!isNaN(tv)&&t?.ct?.length){
+    const corr=Math.round((tv+interp(tv,t.ct))*10)/10;
     const f=(specs?.tmin!=null&&corr<specs.tmin)||(specs?.tmax!=null&&corr>specs.tmax);
     document.getElementById('cv-t').innerHTML=`<span class="${f?'c-err':'c-ok'}">Corr: ${corr}°C ${f?'⚠️':'✓'}</span>`;
-    if(f) alertas.push(`T° corregida ${corr}°C fuera de rango [${specs.tmin??'-'}, ${specs.tmax??'-'}]`);
+    if(f) alertas.push(`T° ${corr}°C fuera de rango [${specs.tmin??'-'}, ${specs.tmax??'-'}]`);
   } else document.getElementById('cv-t').innerHTML='';
-  if(!isNaN(hv)&&t?.ch){
-    const c=interp(hv,t.ch), corr=Math.round(hv+c);
+  if(!isNaN(hv)&&t?.ch?.length){
+    const corr=Math.round(hv+interp(hv,t.ch));
     const f=(specs?.hmin!=null&&corr<specs.hmin)||(specs?.hmax!=null&&corr>specs.hmax);
     document.getElementById('cv-h').innerHTML=`<span class="${f?'c-err':'c-ok'}">Corr: ${corr}% ${f?'⚠️':'✓'}</span>`;
-    if(f) alertas.push(`HR corregida ${corr}% fuera de rango [${specs.hmin??'-'}, ${specs.hmax??'-'}]`);
+    if(f) alertas.push(`HR ${corr}% fuera de rango [${specs.hmin??'-'}, ${specs.hmax??'-'}]`);
   } else document.getElementById('cv-h').innerHTML='';
   const box=document.getElementById('alerta');
   if(alertas.length){box.className='alerta a-err';box.innerHTML='⚠️ <strong>FUERA DE RANGO:</strong> '+alertas.join(' — ');box.style.display='block';}
@@ -508,58 +561,47 @@ async function cargarGrafica(){
   document.getElementById('graf-per').textContent=`${String(mes).padStart(2,'0')}/${anio}`;
   document.getElementById('card-graf').style.display='block';
   try{
-    const q=query(collection(db,'registros'),where('area','==',area),where('termo','==',termo),where('lugar','==',lugar),where('mes','==',mes),where('anio','==',anio),orderBy('timestamp','asc'));
+    const q=query(collection(db,'registros'),
+      where('area','==',area),where('termo','==',termo),where('lugar','==',lugar),
+      where('mes','==',mes),where('anio','==',anio),orderBy('timestamp','asc'));
     const snap=await getDocs(q);
     const regs=snap.docs.map(d=>d.data());
-    // Eje X: solo día. Tooltip: día + hora
     const labels=regs.map(r=>String(r.dia));
-    const tooltips=regs.map(r=>`Día ${r.dia} ${r.hora}`);
-    renderGraf('gT','Temperatura °C',labels,tooltips,regs.map(r=>r.temperatura),regs.map(r=>r.temp_corregida),specs?.tmin,specs?.tmax);
-    renderGraf('gH','Humedad %HR',labels,tooltips,regs.map(r=>r.humedad),regs.map(r=>r.hum_corregida),specs?.hmin,specs?.hmax);
-  }catch(e){console.error('Gráfica:',e);}
+    const tips=regs.map(r=>`Día ${r.dia} ${r.hora}`);
+    renderGraf('gT','Temperatura °C',labels,tips,regs.map(r=>r.temperatura),regs.map(r=>r.temp_corregida),specs?.tmin,specs?.tmax);
+    renderGraf('gH','Humedad %HR',labels,tips,regs.map(r=>r.humedad),regs.map(r=>r.hum_corregida),specs?.hmin,specs?.hmax);
+  }catch(e){ console.error('Gráfica:',e); }
 }
 
-function renderGraf(id,ttl,labels,tooltips,indData,corrData,lMin,lMax){
+function renderGraf(id,ttl,labels,tips,ind,corr,lMin,lMax){
   const ctx=document.getElementById(id).getContext('2d');
-  if(window['_c_'+id]) window['_c_'+id].destroy();
+  if(window['_c'+id]) window['_c'+id].destroy();
   const n=labels.length;
-  const datasets=[
-    {label:'Indicación',data:indData,borderColor:'#94A3B8',backgroundColor:'rgba(148,163,184,0.08)',pointRadius:3,borderWidth:1.5,tension:0.3},
-    {label:'Corregida',data:corrData,borderColor:'#2EAA6E',backgroundColor:'rgba(46,170,110,0.08)',pointRadius:4,borderWidth:2,tension:0.3}
+  const ds=[
+    {label:'Indicación',data:ind,borderColor:'#94A3B8',backgroundColor:'rgba(148,163,184,0.07)',pointRadius:3,borderWidth:1.5,tension:0.3},
+    {label:'Corregida',data:corr,borderColor:'#2EAA6E',backgroundColor:'rgba(46,170,110,0.07)',pointRadius:4,borderWidth:2,tension:0.3}
   ];
-  if(lMin!=null) datasets.push({label:`Mín (${lMin})`,data:Array(n).fill(lMin),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5,fill:false});
-  if(lMax!=null) datasets.push({label:`Máx (${lMax})`,data:Array(n).fill(lMax),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5,fill:false});
-  window['_c_'+id]=new Chart(ctx,{
-    type:'line',
-    data:{labels,datasets},
-    options:{
-      responsive:true,
-      plugins:{
-        legend:{display:true,position:'bottom',labels:{font:{size:10},boxWidth:12}},
-        title:{display:true,text:ttl,font:{size:12}},
-        tooltip:{
-          callbacks:{
-            title:(items)=>tooltips[items[0].dataIndex]||labels[items[0].dataIndex],
-            label:(item)=>`${item.dataset.label}: ${item.raw}`
-          }
-        }
-      },
-      scales:{
-        x:{ticks:{font:{size:9},maxTicksLimit:15},title:{display:true,text:'Día',font:{size:9}}},
-        y:{ticks:{font:{size:10}}}
-      }
-    }
-  });
+  if(lMin!=null) ds.push({label:`Mín(${lMin})`,data:Array(n).fill(lMin),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5,fill:false});
+  if(lMax!=null) ds.push({label:`Máx(${lMax})`,data:Array(n).fill(lMax),borderColor:'#DC2626',borderDash:[5,5],pointRadius:0,borderWidth:1.5,fill:false});
+  window['_c'+id]=new Chart(ctx,{type:'line',data:{labels,datasets:ds},options:{
+    responsive:true,
+    plugins:{
+      legend:{display:true,position:'bottom',labels:{font:{size:10},boxWidth:12}},
+      title:{display:true,text:ttl,font:{size:12}},
+      tooltip:{callbacks:{title:items=>tips[items[0].dataIndex]||'',label:item=>`${item.dataset.label}: ${item.raw}`}}
+    },
+    scales:{x:{ticks:{font:{size:9},maxTicksLimit:16},title:{display:true,text:'Día',font:{size:9}}},y:{ticks:{font:{size:10}}}}
+  }});
 }
 
-// ── ENVIAR ─────────────────────────────────────────────────
+// ── ENVIAR REGISTRO ────────────────────────────────────────
 window.enviar = async()=>{
   const {area,termo:tk,lugar,specs}=EA;
   const tv=parseFloat(document.getElementById('inp-t').value);
   const hv=parseFloat(document.getElementById('inp-h').value);
   const resp=document.getElementById('inp-resp').value.trim();
   const obs=document.getElementById('inp-obs').value.trim();
-  if(!area||!tk||!lugar){mostrarToast('Completa ubicación','err');return;}
+  if(!area||!tk||!lugar){mostrarToast('Completa la ubicación','err');return;}
   if(isNaN(tv)){mostrarToast('Ingresa la temperatura','err');return;}
   if(isNaN(hv)){mostrarToast('Ingresa la humedad','err');return;}
   if(!resp){mostrarToast('Ingresa tu código Crystal','err');return;}
@@ -576,25 +618,29 @@ window.enviar = async()=>{
       responsable:resp,observaciones:obs,
       dia:ahora.getDate(),mes:ahora.getMonth()+1,anio:ahora.getFullYear(),
       hora:ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
-      marca_temporal:ahora.toLocaleString('es-CO'),timestamp:serverTimestamp()
+      marca_temporal:ahora.toLocaleString('es-CO'),
+      timestamp:serverTimestamp()
     });
+    // Respaldo Google Sheets
     const form=new FormData();
     form.append('data',JSON.stringify({marca_temporal:ahora.toLocaleString('es-CO'),area,lugar_muestreo:lugar,codigo_equipo:tk,temperatura:tv,humedad:hv,responsable:resp,observaciones:obs}));
     fetch("https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec",{method:'POST',mode:'no-cors',body:form}).catch(()=>{});
     document.getElementById('form-areas').style.display='none';
     document.getElementById('s-exito').style.display='block';
     document.getElementById('suc-res').innerHTML=`<strong>${tk}</strong><br>${lugar}<br>🌡️ ${tv}°C → <strong>${corrT}°C</strong> &nbsp; 💧 ${hv}% → <strong>${corrH}%</strong><br><small style="color:var(--g400)">${ahora.toLocaleString('es-CO')}</small>`;
-  }catch(e){mostrarToast('Error: '+e.message,'err');}
-  finally{btn.disabled=false;btn.textContent='Guardar registro';}
+  }catch(e){ mostrarToast('Error: '+e.message,'err'); }
+  finally{ btn.disabled=false; btn.textContent='Guardar registro'; }
 };
-window.nuevoReg=()=>{document.getElementById('form-areas').style.display='block';document.getElementById('s-exito').style.display='none';resetForm();};
+
+window.nuevoReg=()=>{ document.getElementById('form-areas').style.display='block'; document.getElementById('s-exito').style.display='none'; resetForm(); };
+
 function resetForm(){
   ['sel-area','sel-termo','sel-lugar','inp-t','inp-h','inp-resp','inp-obs'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   ['cv-t','cv-h'].forEach(id=>document.getElementById(id).innerHTML='');
   document.getElementById('alerta').style.display='none';
   EA={area:null,termo:null,lugar:null,specs:null};
-  ['fld-termo','fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env'].forEach(id=>document.getElementById(id).style.display='none');
-  ['_c_gT','_c_gH'].forEach(k=>{if(window[k]){window[k].destroy();window[k]=null;}});
+  ocultarCampos(['fld-termo','fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env']);
+  ['_cgT','_cgH'].forEach(k=>{if(window[k]){window[k].destroy();window[k]=null;}});
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -604,12 +650,21 @@ function poblarLoginUsr(){
   sel.innerHTML='<option value="">— Seleccionar —</option>';
   (CFG.usuarios||[]).forEach(u=>sel.add(new Option(u.nombre,u.id)));
 }
-window.abrirAdmin=()=>{poblarLoginUsr();document.getElementById('adm-login').style.display='block';document.getElementById('adm-cont').style.display='none';document.getElementById('log-clave').value='';document.getElementById('adm-ovl').classList.add('show');};
+
+window.abrirAdmin=()=>{
+  poblarLoginUsr();
+  document.getElementById('adm-login').style.display='block';
+  document.getElementById('adm-cont').style.display='none';
+  document.getElementById('log-clave').value='';
+  document.getElementById('adm-ovl').classList.add('show');
+};
 window.cerrarP=(id)=>document.getElementById(id).classList.remove('show');
 window.cerrarOvl=(e,id)=>{if(e.target===document.getElementById(id))cerrarP(id);};
 window.cerrarModal=(id)=>document.getElementById(id).classList.remove('show');
+
 window.loginAdmin=()=>{
-  const uid=document.getElementById('log-usr').value, clave=document.getElementById('log-clave').value;
+  const uid=document.getElementById('log-usr').value;
+  const clave=document.getElementById('log-clave').value;
   if(!uid){mostrarToast('Selecciona usuario','err');return;}
   const u=(CFG.usuarios||[]).find(u=>u.id===uid);
   if(!u||u.clave!==clave){mostrarToast('Clave incorrecta','err');return;}
@@ -619,36 +674,40 @@ window.loginAdmin=()=>{
   document.getElementById('ses-nom').textContent=u.nombre;
   document.getElementById('tab-btn-usr').style.display=u.rol==='superadmin'?'block':'none';
   regAud('Inicio de sesión','—');
-  renderAreas();renderTermos();renderCal();renderAud();
+  renderAreas(); renderTermos(); renderCal(); renderAud();
   if(u.rol==='superadmin') renderUsrs();
 };
-window.logoutAdmin=()=>{SES=null;cerrarP('adm-ovl');};
-window.cambTab=(btn,id)=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('act'));btn.classList.add('act');document.getElementById(id).classList.add('act');};
+window.logoutAdmin=()=>{ SES=null; cerrarP('adm-ovl'); };
+window.cambTab=(btn,id)=>{
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act'); document.getElementById(id).classList.add('act');
+};
 
 // ── ÁREAS ──────────────────────────────────────────────────
 function renderAreas(){
   const cont=document.getElementById('cont-areas');
-  const areas=Object.entries(CFG.areas||{});
-  if(!areas.length){cont.innerHTML='<div class="empty">No hay áreas configuradas</div>';return;}
+  const areas=Object.entries(CFG.areas||{}).sort((a,b)=>a[1].nombre.localeCompare(b[1].nombre));
+  if(!areas.length){ cont.innerHTML='<div class="empty">No hay áreas. Crea la primera.</div>'; return; }
   cont.innerHTML=areas.map(([k,a])=>`
     <div class="area-adm-row">
       <div class="area-nom">${a.nombre}</div>
       <span class="area-badge ${a.activa?'a-activa':'a-inactiva'}">${a.activa?'Activa':'Inactiva'}</span>
       <button class="btn-edit" onclick="abrirModalArea('${k}')">Editar</button>
-      <button class="btn-edit" onclick="abrirModalTermo(null,'${k}')">+ Termo</button>
+      <button class="btn-edit" onclick="abrirModalTermo(null,'${k}')">+Termo</button>
     </div>`).join('');
 }
+
 window.abrirModalArea=(key)=>{
   editAreaKey=key;
+  document.getElementById('ma-ttl').textContent=key?'Editar área':'Nueva área';
   if(key){
     const a=CFG.areas[key];
-    document.getElementById('ma-ttl').textContent='Editar área';
     document.getElementById('ma-nom').value=a.nombre;
     document.getElementById('ma-key').value=key;
     document.getElementById('ma-key').disabled=true;
     document.getElementById('ma-est').value=String(a.activa);
   } else {
-    document.getElementById('ma-ttl').textContent='Nueva área';
     document.getElementById('ma-nom').value='';
     document.getElementById('ma-key').value='';
     document.getElementById('ma-key').disabled=false;
@@ -656,91 +715,132 @@ window.abrirModalArea=(key)=>{
   }
   document.getElementById('modal-area').classList.add('show');
 };
+
 window.guardarArea=async()=>{
   const nom=document.getElementById('ma-nom').value.trim();
-  const key=editAreaKey||document.getElementById('ma-key').value.trim().toLowerCase().replace(/\s/g,'_');
+  const key=editAreaKey||document.getElementById('ma-key').value.trim().toLowerCase().replace(/\s+/g,'_');
   const activa=document.getElementById('ma-est').value==='true';
   if(!nom||!key){mostrarToast('Completa los campos','err');return;}
   if(!CFG.areas) CFG.areas={};
-  const es_nuevo=!editAreaKey;
-  if(es_nuevo) CFG.areas[key]={nombre:nom,activa,termos:{}};
-  else{CFG.areas[key].nombre=nom;CFG.areas[key].activa=activa;}
+  const nuevo=!editAreaKey;
+  if(nuevo) CFG.areas[key]={nombre:nom,activa,termos:{}};
+  else{ CFG.areas[key].nombre=nom; CFG.areas[key].activa=activa; }
   await saveCFG();
-  regAud(es_nuevo?'Área creada':'Área editada',nom);
-  cerrarModal('modal-area');renderAreas();poblarAreas();mostrarToast('Área guardada ✓','ok');
+  regAud(nuevo?'Área creada':'Área editada',nom);
+  cerrarModal('modal-area'); renderAreas(); poblarAreas();
+  mostrarToast('Área guardada ✓','ok');
 };
 
 // ── TERMOS ─────────────────────────────────────────────────
 function renderTermos(){
   const cont=document.getElementById('cont-termos');
   cont.innerHTML='';
-  const areas=SES?.rol==='superadmin'?Object.entries(CFG.areas||{}):Object.entries(CFG.areas||{}).filter(([k])=>k===SES?.area);
-  if(!areas.length){cont.innerHTML='<div class="empty">Sin termos</div>';return;}
+  const areas=SES?.rol==='superadmin'
+    ? Object.entries(CFG.areas||{}).sort((a,b)=>a[1].nombre.localeCompare(b[1].nombre))
+    : Object.entries(CFG.areas||{}).filter(([k])=>k===SES?.area);
+  if(!areas.length){ cont.innerHTML='<div class="empty">Sin áreas configuradas</div>'; return; }
   areas.forEach(([ak,av])=>{
     const sec=document.createElement('div');
     sec.className='area-sec';
     const termos=Object.entries(av.termos||{});
-    sec.innerHTML=`<button class="area-sec-hdr" onclick="toggleSec(this)"><span>${av.nombre} <small style="color:var(--g400)">(${termos.length})</small></span><span>▾</span></button>
-    <div class="area-sec-body">${termos.map(([tk,t])=>`
-      <div class="eq-row">
-        <div class="eq-hdr">
-          <span class="eq-code">${tk}</span>
-          <div style="display:flex;gap:6px;align-items:center">
-            <span class="est-badge est-${t.estado}">${t.estado==='activo'?'✓ Activo':t.estado==='calibracion'?'⟳ Calibración':'✕ Dañado'}</span>
-            <button class="btn-edit" onclick="abrirModalTermo('${tk}','${ak}')">Editar</button>
-          </div>
-        </div>
-        <div style="font-size:12px;color:var(--g600)">Lugares: ${(t.lugares||[]).join(', ')||'—'}</div>
-      </div>`).join('')}
-    </div>`;
+    sec.innerHTML=`
+      <button class="area-sec-hdr" onclick="toggleSec(this)">
+        <span>${av.nombre} <small style="color:var(--g400)">(${termos.length} termos)</small></span><span>▾</span>
+      </button>
+      <div class="area-sec-body">
+        ${termos.length?termos.map(([tk,t])=>`
+          <div class="eq-row">
+            <div class="eq-hdr">
+              <span class="eq-code">${tk}</span>
+              <div style="display:flex;gap:6px;align-items:center">
+                <span class="est-badge est-${t.estado}">${t.estado==='activo'?'✓ Activo':t.estado==='calibracion'?'⟳ Calibración':'✕ Dañado'}</span>
+                <button class="btn-edit" onclick="abrirModalTermo('${tk}','${ak}')">Editar</button>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--g600)">Lugares: ${(t.lugares||[]).join(', ')||'—'}</div>
+            <div style="font-size:11px;color:var(--g400);margin-top:3px">Corrección T°: ${t.ct?.length?t.ct.length+' puntos':'sin datos'} &nbsp;|&nbsp; HR: ${t.ch?.length?t.ch.length+' puntos':'sin datos'}</div>
+          </div>`).join(''):'<div class="empty">Sin termohigrómetros en esta área</div>'}
+      </div>`;
     cont.appendChild(sec);
   });
 }
-window.toggleSec=(btn)=>{const b=btn.nextElementSibling;b.classList.toggle('open');btn.querySelector('span:last-child').textContent=b.classList.contains('open')?'▴':'▾';};
+
+window.toggleSec=(btn)=>{
+  const b=btn.nextElementSibling;
+  b.classList.toggle('open');
+  btn.querySelector('span:last-child').textContent=b.classList.contains('open')?'▴':'▾';
+};
 
 window.abrirModalTermo=(tk,ak)=>{
   editTermoKey=tk; editTermoArea=ak;
-  // Poblar áreas
   const selA=document.getElementById('mt-area');
   selA.innerHTML='';
   Object.entries(CFG.areas||{}).forEach(([k,a])=>selA.add(new Option(a.nombre,k)));
   selA.value=ak;
+  document.getElementById('mt-ttl').textContent=tk?'Editar termohigrómetro':'Nuevo termohigrómetro';
+  document.getElementById('mt-cod').disabled=!!tk;
   if(tk){
     const t=CFG.areas[ak]?.termos[tk]||{};
-    document.getElementById('mt-ttl').textContent='Editar termohigrómetro';
     document.getElementById('mt-cod').value=tk;
-    document.getElementById('mt-cod').disabled=true;
     document.getElementById('mt-est').value=t.estado||'activo';
     // Lugares
-    const lugaresDiv=document.getElementById('mt-lugares');
-    lugaresDiv.innerHTML=(t.lugares||[]).map((l,i)=>`
-      <div class="row-inp"><input type="text" class="sm lug-inp" value="${l}" placeholder="Lugar"><button class="btn-del" onclick="this.parentElement.remove()">×</button></div>`).join('');
+    document.getElementById('mt-lugares').innerHTML=(t.lugares||[]).map(l=>`
+      <div class="row-inp"><input type="text" class="sm lug-inp" value="${l}" placeholder="Lugar"><button class="btn-del" onclick="this.parentElement.remove();actualizarSpecs()">×</button></div>`).join('');
     // Corrección T
-    const ct=t.ct||[{x:'',y:''},{x:'',y:''},{x:'',y:''}];
-    document.querySelectorAll('.ct-x').forEach((inp,i)=>inp.value=ct[i]?.x??'');
-    document.querySelectorAll('.ct-y').forEach((inp,i)=>inp.value=ct[i]?.y??'');
+    document.getElementById('mt-ct').innerHTML='';
+    (t.ct||[]).forEach(p=>addPuntoCorrValor('mt-ct','ct',p.x,p.y));
+    if(!(t.ct||[]).length) [0,1,2].forEach(()=>addPuntoCorr('mt-ct','ct'));
     // Corrección H
-    const ch=t.ch||[{x:'',y:''},{x:'',y:''},{x:'',y:''}];
-    document.querySelectorAll('.ch-x').forEach((inp,i)=>inp.value=ch[i]?.x??'');
-    document.querySelectorAll('.ch-y').forEach((inp,i)=>inp.value=ch[i]?.y??'');
-    // Specs por lugar
-    renderSpecsModal(t.lugares||[], t.specs||{});
+    document.getElementById('mt-ch').innerHTML='';
+    (t.ch||[]).forEach(p=>addPuntoCorrValor('mt-ch','ch',p.x,p.y));
+    if(!(t.ch||[]).length) [0,1,2].forEach(()=>addPuntoCorr('mt-ch','ch'));
+    // Specs
+    actualizarSpecs(t.specs||{});
   } else {
-    document.getElementById('mt-ttl').textContent='Nuevo termohigrómetro';
     document.getElementById('mt-cod').value='';
-    document.getElementById('mt-cod').disabled=false;
     document.getElementById('mt-est').value='activo';
     document.getElementById('mt-lugares').innerHTML='';
-    document.querySelectorAll('.ct-x,.ct-y,.ch-x,.ch-y').forEach(inp=>inp.value='');
+    document.getElementById('mt-ct').innerHTML='';
+    document.getElementById('mt-ch').innerHTML='';
     document.getElementById('mt-specs').innerHTML='';
+    [0,1,2].forEach(()=>{ addPuntoCorr('mt-ct','ct'); addPuntoCorr('mt-ch','ch'); });
   }
   document.getElementById('modal-termo').classList.add('show');
 };
 
-function renderSpecsModal(lugares, specs){
-  const cont=document.getElementById('mt-specs');
-  cont.innerHTML=lugares.map(l=>{
-    const s=specs[l]||{tmin:'',tmax:'',hmin:'',hmax:''};
+function addPuntoCorrValor(contId,cls,x,y){
+  const div=document.getElementById(contId);
+  const row=document.createElement('div');
+  row.className='corr-row';
+  row.innerHTML=`<input type="number" step="0.01" value="${x??''}" placeholder="x" class="${cls}-x">
+    <input type="number" step="0.01" value="${y??''}" placeholder="y" class="${cls}-y">
+    <button class="btn-del" onclick="this.parentElement.remove()" style="width:28px;height:28px;font-size:13px">×</button>`;
+  div.appendChild(row);
+}
+
+window.addPuntoCorr=(contId,cls)=>addPuntoCorrValor(contId,cls,'','');
+
+window.addLugar=()=>{
+  document.getElementById('mt-lugares').insertAdjacentHTML('beforeend',`
+    <div class="row-inp"><input type="text" class="sm lug-inp" placeholder="Nombre del lugar" oninput="actualizarSpecs()"><button class="btn-del" onclick="this.parentElement.remove();actualizarSpecs()">×</button></div>`);
+};
+
+function actualizarSpecs(existingSpecs={}){
+  const lugares=Array.from(document.querySelectorAll('.lug-inp')).map(i=>i.value.trim()).filter(v=>v);
+  // Leer specs actuales del DOM
+  const specsDOM={};
+  document.querySelectorAll('#mt-specs .specs-row').forEach(row=>{
+    const l=row.dataset.lugar;
+    if(l) specsDOM[l]={
+      tmin:row.querySelector('.sp-tmin').value,
+      tmax:row.querySelector('.sp-tmax').value,
+      hmin:row.querySelector('.sp-hmin').value,
+      hmax:row.querySelector('.sp-hmax').value
+    };
+  });
+  const merged={...existingSpecs,...specsDOM};
+  document.getElementById('mt-specs').innerHTML=lugares.map(l=>{
+    const s=merged[l]||{};
     return `<div class="specs-row" data-lugar="${l}">
       <span style="font-size:11px">${l}</span>
       <input type="number" step="0.1" value="${s.tmin??''}" placeholder="—" class="sp-tmin">
@@ -751,42 +851,14 @@ function renderSpecsModal(lugares, specs){
   }).join('');
 }
 
-window.addLugarModal=()=>{
-  const div=document.getElementById('mt-lugares');
-  div.insertAdjacentHTML('beforeend',`<div class="row-inp"><input type="text" class="sm lug-inp" placeholder="Nombre del lugar"><button class="btn-del" onclick="this.parentElement.remove()">×</button></div>`);
-  // Actualizar specs
-  const lugares=Array.from(document.querySelectorAll('.lug-inp')).map(i=>i.value.trim()).filter(v=>v);
-  const specsExist={};
-  document.querySelectorAll('#mt-specs .specs-row').forEach(row=>{
-    const l=row.dataset.lugar;
-    specsExist[l]={tmin:row.querySelector('.sp-tmin').value,tmax:row.querySelector('.sp-tmax').value,hmin:row.querySelector('.sp-hmin').value,hmax:row.querySelector('.sp-hmax').value};
-  });
-  renderSpecsModal(lugares,specsExist);
-};
-
-// Al cambiar lugar actualizar specs
-document.getElementById('mt-lugares').addEventListener('input',()=>{
-  const lugares=Array.from(document.querySelectorAll('.lug-inp')).map(i=>i.value.trim()).filter(v=>v);
-  const specsExist={};
-  document.querySelectorAll('#mt-specs .specs-row').forEach(row=>{
-    const l=row.dataset.lugar;
-    specsExist[l]={tmin:row.querySelector('.sp-tmin').value,tmax:row.querySelector('.sp-tmax').value,hmin:row.querySelector('.sp-hmin').value,hmax:row.querySelector('.sp-hmax').value};
-  });
-  renderSpecsModal(lugares,specsExist);
-});
-
 window.guardarTermo=async()=>{
   const ak=document.getElementById('mt-area').value;
   const tk=editTermoKey||document.getElementById('mt-cod').value.trim();
   const estado=document.getElementById('mt-est').value;
   if(!ak||!tk){mostrarToast('Completa los campos','err');return;}
   const lugares=Array.from(document.querySelectorAll('.lug-inp')).map(i=>i.value.trim()).filter(v=>v);
-  const ctX=[...document.querySelectorAll('.ct-x')].map(i=>parseFloat(i.value));
-  const ctY=[...document.querySelectorAll('.ct-y')].map(i=>parseFloat(i.value));
-  const chX=[...document.querySelectorAll('.ch-x')].map(i=>parseFloat(i.value));
-  const chY=[...document.querySelectorAll('.ch-y')].map(i=>parseFloat(i.value));
-  const ct=ctX.map((x,i)=>({x,y:ctY[i]})).filter(p=>!isNaN(p.x)&&!isNaN(p.y));
-  const ch=chX.map((x,i)=>({x,y:chY[i]})).filter(p=>!isNaN(p.x)&&!isNaN(p.y));
+  const ct=[...document.querySelectorAll('.ct-x')].map((inp,i)=>({x:parseFloat(inp.value),y:parseFloat(document.querySelectorAll('.ct-y')[i].value)})).filter(p=>!isNaN(p.x)&&!isNaN(p.y));
+  const ch=[...document.querySelectorAll('.ch-x')].map((inp,i)=>({x:parseFloat(inp.value),y:parseFloat(document.querySelectorAll('.ch-y')[i].value)})).filter(p=>!isNaN(p.x)&&!isNaN(p.y));
   const specs={};
   document.querySelectorAll('#mt-specs .specs-row').forEach(row=>{
     const l=row.dataset.lugar;
@@ -799,45 +871,48 @@ window.guardarTermo=async()=>{
   });
   if(!CFG.areas[ak]) CFG.areas[ak]={nombre:'',activa:true,termos:{}};
   if(!CFG.areas[ak].termos) CFG.areas[ak].termos={};
-  const es_nuevo=!editTermoKey;
   CFG.areas[ak].termos[tk]={estado,lugares,ct,ch,specs};
   await saveCFG();
-  regAud(es_nuevo?'Termo creado':'Termo editado',`${tk} en ${CFG.areas[ak].nombre}`);
-  cerrarModal('modal-termo');renderTermos();poblarAreas();mostrarToast('Termo guardado ✓','ok');
+  regAud(editTermoKey?'Termo editado':'Termo creado',`${tk} — ${CFG.areas[ak].nombre}`);
+  cerrarModal('modal-termo'); renderTermos(); poblarAreas();
+  mostrarToast('Termo guardado ✓','ok');
 };
 
 // ── CALIBRACIÓN ────────────────────────────────────────────
 function renderCal(){
   const cont=document.getElementById('cont-cal');
-  cont.innerHTML='<div style="font-size:13px;color:var(--g600);margin-bottom:12px">Termos actualmente en calibración o dañados.</div>';
-  const areas=SES?.rol==='superadmin'?Object.entries(CFG.areas||{}):Object.entries(CFG.areas||{}).filter(([k])=>k===SES?.area);
+  cont.innerHTML='<div style="font-size:13px;color:var(--g600);margin-bottom:12px">Termos en calibración o dañados. Edítalos para reactivarlos o reasignar lugares.</div>';
+  const areas=SES?.rol==='superadmin'
+    ? Object.entries(CFG.areas||{})
+    : Object.entries(CFG.areas||{}).filter(([k])=>k===SES?.area);
   let hay=false;
   areas.forEach(([ak,av])=>{
     Object.entries(av.termos||{}).forEach(([tk,t])=>{
       if(t.estado!=='activo'){
         hay=true;
-        cont.insertAdjacentHTML('beforeend',`<div class="calib-box">
-          <strong>${t.estado==='calibracion'?'⟳':'✕'} ${tk} — ${t.estado==='calibracion'?'En calibración':'Dañado'}</strong>
-          <div>Área: ${av.nombre}</div>
-          <div>Lugares originales: <em>${(t.lugares||[]).join(', ')||'—'}</em></div>
-          <button class="btn-edit" style="margin-top:6px" onclick="abrirModalTermo('${tk}','${ak}')">Editar / Reactivar</button>
-        </div>`);
+        cont.insertAdjacentHTML('beforeend',`
+          <div class="calib-box">
+            <strong>${t.estado==='calibracion'?'⟳':'✕'} ${tk} — ${t.estado==='calibracion'?'En calibración':'Dañado'}</strong>
+            <div>Área: ${av.nombre}</div>
+            <div>Lugares: <em>${(t.lugares||[]).join(', ')||'—'}</em></div>
+            <button class="btn-edit" style="margin-top:6px" onclick="abrirModalTermo('${tk}','${ak}')">Editar / Reactivar</button>
+          </div>`);
       }
     });
   });
-  if(!hay) cont.insertAdjacentHTML('beforeend','<div class="empty">No hay termos en calibración ni dañados.</div>');
+  if(!hay) cont.insertAdjacentHTML('beforeend','<div class="empty">No hay termos en calibración ni dañados ✓</div>');
 }
 
 // ── AUDITORÍA ──────────────────────────────────────────────
 async function regAud(accion,detalle){
   if(!CFG.auditoria) CFG.auditoria=[];
   CFG.auditoria.unshift({quien:SES?.nombre||'Sistema',rol:SES?.rol||'—',cuando:new Date().toLocaleString('es-CO'),accion,detalle});
-  if(CFG.auditoria.length>200) CFG.auditoria=CFG.auditoria.slice(0,200);
+  if(CFG.auditoria.length>300) CFG.auditoria=CFG.auditoria.slice(0,300);
   await saveCFG();
 }
 function renderAud(){
   const cont=document.getElementById('cont-aud');
-  const regs=(CFG.auditoria||[]).filter(r=>SES?.rol==='superadmin'||r.quien===SES?.nombre);
+  const regs=(CFG.auditoria||[]).filter(r=>SES?.rol==='superadmin'||SES?.rol==='coordinador'||r.quien===SES?.nombre);
   cont.innerHTML=regs.length?regs.slice(0,60).map(r=>`
     <div class="aud-row">
       <div style="display:flex;justify-content:space-between"><span class="aud-quien">${r.quien}</span><span class="aud-cuando">${r.cuando}</span></div>
@@ -850,35 +925,43 @@ function renderUsrs(){
   const cont=document.getElementById('cont-usr');
   cont.innerHTML=(CFG.usuarios||[]).map(u=>`
     <div class="usr-row">
-      <div><div class="usr-nom">${u.nombre}</div><div class="usr-area">${u.rol==='superadmin'?'Super Admin':u.rol+(u.area&&u.area!=='todas'?' — '+(CFG.areas[u.area]?.nombre||u.area):'')}</div></div>
+      <div>
+        <div class="usr-nom">${u.nombre}</div>
+        <div class="usr-area">${u.rol==='superadmin'?'Super Admin':u.rol==='coordinador'?'Coordinador':u.rol+(u.area&&u.area!=='todas'?' — '+(CFG.areas[u.area]?.nombre||u.area):'')}</div>
+      </div>
       <button class="btn-edit" onclick="abrirModalUsr('${u.id}')">Editar</button>
     </div>`).join('');
 }
+
 window.toggleAreaUsr=()=>{
   const rol=document.getElementById('mu-rol').value;
   document.getElementById('mu-area-fld').style.display=(rol==='lider'||rol==='auxiliar')?'block':'none';
 };
+
 window.abrirModalUsr=(uid)=>{
   editUsrId=uid;
   const selA=document.getElementById('mu-area');
-  selA.innerHTML='<option value="todas">Todas</option>';
-  Object.entries(CFG.areas||{}).forEach(([k,a])=>selA.add(new Option(a.nombre,k)));
+  selA.innerHTML='<option value="todas">Todas las áreas</option>';
+  Object.entries(CFG.areas||{}).sort((a,b)=>a[1].nombre.localeCompare(b[1].nombre))
+    .forEach(([k,a])=>selA.add(new Option(a.nombre,k)));
+  document.getElementById('mu-ttl').textContent=uid?'Editar usuario':'Nuevo usuario';
   if(uid){
     const u=(CFG.usuarios||[]).find(u=>u.id===uid);
-    document.getElementById('mu-ttl').textContent='Editar usuario';
     document.getElementById('mu-nom').value=u.nombre;
     document.getElementById('mu-rol').value=u.rol;
     document.getElementById('mu-area').value=u.area||'todas';
     document.getElementById('mu-clave').value='';
     document.getElementById('mu-clave').placeholder='Dejar vacío para no cambiar';
   } else {
-    document.getElementById('mu-ttl').textContent='Nuevo usuario';
     ['mu-nom','mu-clave'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('mu-clave').placeholder='Nueva clave';
+    document.getElementById('mu-rol').value='auxiliar';
+    document.getElementById('mu-area').value='todas';
   }
   toggleAreaUsr();
   document.getElementById('modal-usr').classList.add('show');
 };
+
 window.guardarUsr=async()=>{
   const nom=document.getElementById('mu-nom').value.trim();
   const rol=document.getElementById('mu-rol').value;
@@ -888,24 +971,27 @@ window.guardarUsr=async()=>{
   if(!CFG.usuarios) CFG.usuarios=[];
   if(editUsrId){
     const u=CFG.usuarios.find(u=>u.id===editUsrId);
-    u.nombre=nom;u.rol=rol;u.area=area;if(clave)u.clave=clave;
-    regAud('Usuario editado',nom);
+    u.nombre=nom; u.rol=rol; u.area=area;
+    if(clave) u.clave=clave;
+    regAud('Usuario editado',nom+' — '+rol);
   } else {
     if(!clave){mostrarToast('Ingresa una clave','err');return;}
     CFG.usuarios.push({id:'u_'+Date.now(),nombre:nom,rol,area,clave});
     regAud('Usuario creado',nom+' — '+rol);
   }
-  await saveCFG();cerrarModal('modal-usr');renderUsrs();poblarLoginUsr();mostrarToast('Usuario guardado ✓','ok');
+  await saveCFG();
+  cerrarModal('modal-usr'); renderUsrs(); poblarLoginUsr();
+  mostrarToast('Usuario guardado ✓','ok');
 };
-window.cerrarModalUsr=()=>cerrarModal('modal-usr');
 
 // ── TOAST ──────────────────────────────────────────────────
 window.mostrarToast=(msg,tipo='')=>{
   const t=document.getElementById('toast');
-  t.textContent=msg;t.className=`toast ${tipo} show`;
+  t.textContent=msg; t.className=`toast ${tipo} show`;
   setTimeout(()=>t.classList.remove('show'),2800);
 };
 
+// ── INIT ───────────────────────────────────────────────────
 cargarCFG();
 </script>
 </body>
