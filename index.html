@@ -1101,21 +1101,22 @@ window.generarExcel=async()=>{
       registros:regsPorTermo
     };
 
-    const encoded = encodeURIComponent(JSON.stringify(payload));
-    const resp=await fetch(`${APPS_SCRIPT_EXCEL_URL}?data=${encoded}`,{
-      method:'GET',
-      mode:'cors'
+    // Enviar via FormData (no-cors) — Apps Script llena el Sheets
+    const form = new FormData();
+    form.append('data', JSON.stringify(payload));
+    await fetch(APPS_SCRIPT_EXCEL_URL, {
+      method:'POST',
+      mode:'no-cors',
+      body: form
     });
-    const data=await resp.json();
 
-    if(data.ok){
-      estado.style.background='var(--vc)'; estado.style.color='var(--vo)';
-      estado.innerHTML=`✅ Excel generado: <a href="${data.url}" target="_blank" style="color:var(--vo);font-weight:600">${data.nombre}</a>`;
-      window.open(data.url,'_blank');
-    } else {
-      estado.style.background='var(--rc)'; estado.style.color='var(--r)';
-      estado.textContent='❌ Error: '+(data.error||'No se pudo generar el Excel');
-    }
+    // Esperar 4 segundos para que el script procese
+    await new Promise(r => setTimeout(r, 4000));
+
+    const urlSheets = `https://docs.google.com/spreadsheets/d/1FS6narUjCsus0FAj_yFJj0-3kxF1KeU2g1pU41SM658/edit`;
+    estado.style.background='var(--vc)'; estado.style.color='var(--vo)';
+    estado.innerHTML=`✅ Datos enviados. <a href="${urlSheets}" target="_blank" style="color:var(--vo);font-weight:600">Abrir Excel en Drive →</a>`;
+    window.open(urlSheets,'_blank');
   }catch(e){
     estado.style.background='var(--rc)'; estado.style.color='var(--r)';
     estado.textContent='❌ Error: '+e.message;
