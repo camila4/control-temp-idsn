@@ -296,6 +296,7 @@ hr.div{border:none;border-top:1px solid var(--g200);margin:12px 0;}
       <button class="tab" onclick="cambTab(this,'tab-cal')">Calibración</button>
       <button class="tab" onclick="cambTab(this,'tab-usr')" id="tab-btn-usr" style="display:none">Usuarios</button>
       <button class="tab" onclick="cambTab(this,'tab-aud')">Auditoría</button>
+      <button class="tab" onclick="cambTab(this,'tab-dl');prepDl()" id="tab-btn-dl">📥 Excel</button>
     </div>
     <div class="tab-c act" id="tab-areas">
       <div id="cont-areas"></div>
@@ -308,6 +309,27 @@ hr.div{border:none;border-top:1px solid var(--g200);margin:12px 0;}
       <button class="btn-save" onclick="abrirModalUsr(null)">+ Nuevo usuario</button>
     </div>
     <div class="tab-c" id="tab-aud"><div id="cont-aud"></div></div>
+    <div class="tab-c" id="tab-dl">
+      <div style="font-size:13px;color:var(--g600);margin-bottom:14px">Genera el Excel oficial por área y mes. El archivo se descarga directamente.</div>
+      <div class="fld"><label>Área</label><select id="dl-area"></select></div>
+      <div class="fld"><label>Año</label><input type="number" id="dl-anio" value="2026" min="2020" max="2030"></div>
+      <div class="fld"><label>Mes</label>
+        <select id="dl-mes">
+          <option value="1">Enero</option><option value="2">Febrero</option>
+          <option value="3">Marzo</option><option value="4">Abril</option>
+          <option value="5">Mayo</option><option value="6">Junio</option>
+          <option value="7">Julio</option><option value="8">Agosto</option>
+          <option value="9">Septiembre</option><option value="10">Octubre</option>
+          <option value="11">Noviembre</option><option value="12">Diciembre</option>
+        </select>
+      </div>
+      <div id="dl-estado" style="display:none;font-size:13px;padding:10px;border-radius:8px;margin-bottom:10px;background:var(--vc);color:var(--vo)"></div>
+      <button class="btn-save" onclick="generarExcel()" id="btn-dl">📥 Generar Excel en Drive</button>
+      <div style="font-size:11px;color:var(--g400);margin-top:8px">
+        El archivo se genera en Google Drive y se abre automáticamente.<br>
+        Desde Drive puedes descargarlo como Excel o PDF.
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -694,7 +716,8 @@ function renderAreas(){
       <div class="area-nom">${a.nombre}</div>
       <span class="area-badge ${a.activa?'a-activa':'a-inactiva'}">${a.activa?'Activa':'Inactiva'}</span>
       <button class="btn-edit" onclick="abrirModalArea('${k}')">Editar</button>
-      <button class="btn-edit" onclick="abrirModalTermo(null,'${k}')">+Termo</button>
+      <button class="btn-edit" onclick="abrirModalTermo(null,'${k}')" style="color:var(--v)">+Termo</button>
+      <button class="btn-edit" onclick="eliminarArea('${k}')" style="color:var(--r);border-color:var(--rc)">Eliminar</button>
     </div>`).join('');
 }
 
@@ -942,6 +965,7 @@ function renderUsrs(){
         <div class="usr-area">${u.rol==='superadmin'?'Super Admin':u.rol==='coordinador'?'Coordinador':u.rol+(u.area&&u.area!=='todas'?' — '+(CFG.areas[u.area]?.nombre||u.area):'')}</div>
       </div>
       <button class="btn-edit" onclick="abrirModalUsr('${u.id}')">Editar</button>
+      <button class="btn-edit" onclick="eliminarUsr('${u.id}')" style="color:var(--r);border-color:var(--rc)">Eliminar</button>
     </div>`).join('');
 }
 
@@ -994,6 +1018,110 @@ window.guardarUsr=async()=>{
   await saveCFG();
   cerrarModal('modal-usr'); renderUsrs(); poblarLoginUsr();
   mostrarToast('Usuario guardado ✓','ok');
+};
+
+// ── ELIMINAR ÁREA ─────────────────────────────────────────
+window.eliminarArea=async(key)=>{
+  const nombre=CFG.areas[key]?.nombre||key;
+  if(!confirm(`¿Eliminar el área "${nombre}"? Se eliminarán también todos sus termos. Esta acción no se puede deshacer.`)) return;
+  delete CFG.areas[key];
+  await saveCFG();
+  regAud('Área eliminada',nombre);
+  renderAreas(); renderTermos(); poblarAreas();
+  mostrarToast('Área eliminada','ok');
+};
+
+// ── ELIMINAR USUARIO ───────────────────────────────────────
+window.eliminarUsr=async(uid)=>{
+  if(uid==='superadmin'){mostrarToast('No se puede eliminar el Super Admin','err');return;}
+  const u=(CFG.usuarios||[]).find(u=>u.id===uid);
+  if(!u) return;
+  if(!confirm(`¿Eliminar el usuario "${u.nombre}"?`)) return;
+  CFG.usuarios=CFG.usuarios.filter(u=>u.id!==uid);
+  await saveCFG();
+  regAud('Usuario eliminado',u.nombre);
+  renderUsrs(); poblarLoginUsr();
+  mostrarToast('Usuario eliminado','ok');
+};
+
+// ── DESCARGA EXCEL ─────────────────────────────────────────
+const APPS_SCRIPT_EXCEL_URL = "https://script.google.com/macros/s/AKfycbwf1kVsnuWKTA7EhxR9xdyCf6kkFUULO5d_3d2uavuOKfGaISAd1ux1QaY-lbKhDwVrvw/exec";
+
+window.prepDl=()=>{
+  const sel=document.getElementById('dl-area');
+  sel.innerHTML='';
+  Object.entries(CFG.areas||{}).filter(([,a])=>a.activa)
+    .sort((a,b)=>a[1].nombre.localeCompare(b[1].nombre))
+    .forEach(([k,a])=>sel.add(new Option(a.nombre,k)));
+  // Mes actual
+  const ahora=new Date();
+  document.getElementById('dl-anio').value=ahora.getFullYear();
+  document.getElementById('dl-mes').value=ahora.getMonth()+1;
+};
+
+window.generarExcel=async()=>{
+  const areaKey=document.getElementById('dl-area').value;
+  const anio=parseInt(document.getElementById('dl-anio').value);
+  const mes=parseInt(document.getElementById('dl-mes').value);
+  if(!areaKey){mostrarToast('Selecciona un área','err');return;}
+
+  const btn=document.getElementById('btn-dl');
+  const estado=document.getElementById('dl-estado');
+  btn.disabled=true; btn.textContent='Generando...';
+  estado.style.display='block';
+  estado.textContent='⏳ Consultando registros en Firebase...';
+  estado.style.background='var(--nc)'; estado.style.color='var(--n)';
+
+  try{
+    // Consultar registros del mes desde Firebase
+    const q=query(collection(db,'registros'),
+      where('area','==',areaKey),
+      where('mes','==',mes),
+      where('anio','==',anio));
+    const snap=await getDocs(q);
+    const regs=snap.docs.map(d=>d.data());
+
+    // Organizar por termo → lugar → registros
+    const regsPorTermo={};
+    regs.forEach(r=>{
+      if(!regsPorTermo[r.termo]) regsPorTermo[r.termo]={};
+      if(!regsPorTermo[r.termo][r.lugar]) regsPorTermo[r.termo][r.lugar]=[];
+      regsPorTermo[r.termo][r.lugar].push(r);
+    });
+
+    estado.textContent=`✓ ${regs.length} registros encontrados. Generando Excel en Drive...`;
+
+    const areaData=CFG.areas[areaKey];
+    const payload={
+      accion:'generar_excel',
+      area_key:areaKey,
+      area_nombre:areaData.nombre,
+      anio,mes,
+      termos:areaData.termos||{},
+      registros:regsPorTermo
+    };
+
+    const resp=await fetch(APPS_SCRIPT_EXCEL_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const data=await resp.json();
+
+    if(data.ok){
+      estado.style.background='var(--vc)'; estado.style.color='var(--vo)';
+      estado.innerHTML=`✅ Excel generado: <a href="${data.url}" target="_blank" style="color:var(--vo);font-weight:600">${data.nombre}</a>`;
+      window.open(data.url,'_blank');
+    } else {
+      estado.style.background='var(--rc)'; estado.style.color='var(--r)';
+      estado.textContent='❌ Error: '+(data.error||'No se pudo generar el Excel');
+    }
+  }catch(e){
+    estado.style.background='var(--rc)'; estado.style.color='var(--r)';
+    estado.textContent='❌ Error: '+e.message;
+  }finally{
+    btn.disabled=false; btn.textContent='📥 Generar Excel en Drive';
+  }
 };
 
 // ── TOAST ──────────────────────────────────────────────────
