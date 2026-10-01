@@ -312,16 +312,8 @@ hr.div{border:none;border-top:1px solid var(--g200);margin:12px 0;}
     <div class="tab-c" id="tab-dl">
       <div style="font-size:13px;color:var(--g600);margin-bottom:14px">Genera el Excel oficial por área y mes. El archivo se descarga directamente.</div>
       <div class="fld"><label>Área</label><select id="dl-area"></select></div>
-      <div class="fld"><label>Año</label><input type="number" id="dl-anio" value="2026" min="2020" max="2030"></div>
-      <div class="fld"><label>Mes</label>
-        <select id="dl-mes">
-          <option value="1">Enero</option><option value="2">Febrero</option>
-          <option value="3">Marzo</option><option value="4">Abril</option>
-          <option value="5">Mayo</option><option value="6">Junio</option>
-          <option value="7">Julio</option><option value="8">Agosto</option>
-          <option value="9">Septiembre</option><option value="10">Octubre</option>
-          <option value="11">Noviembre</option><option value="12">Diciembre</option>
-        </select>
+      <div style="font-size:12px;background:var(--vc);color:var(--vo);padding:10px;border-radius:8px;margin-bottom:10px">
+        💡 El mes que se actualiza en cada hoja depende del valor en la celda <strong>C7</strong> del Google Sheets. Cambia C7 para ver otro mes.
       </div>
       <div id="dl-estado" style="display:none;font-size:13px;padding:10px;border-radius:8px;margin-bottom:10px;background:var(--vc);color:var(--vo)"></div>
       <button class="btn-save" onclick="generarExcel()" id="btn-dl">📥 Generar Excel en Drive</button>
@@ -1073,11 +1065,10 @@ window.generarExcel=async()=>{
   estado.style.background='var(--nc)'; estado.style.color='var(--n)';
 
   try{
-    // Consultar registros del mes desde Firebase
+    // Consultar TODOS los registros del área (sin filtro de mes)
+    // El Apps Script filtra por el mes que tiene cada hoja en C7
     const q=query(collection(db,'registros'),
-      where('area','==',areaKey),
-      where('mes','==',mes),
-      where('anio','==',anio));
+      where('area','==',areaKey));
     const snap=await getDocs(q);
     const regs=snap.docs.map(d=>d.data());
 
@@ -1089,14 +1080,13 @@ window.generarExcel=async()=>{
       regsPorTermo[r.termo][r.lugar].push(r);
     });
 
-    estado.textContent=`✓ ${regs.length} registros encontrados. Generando Excel en Drive...`;
+    estado.textContent=`✓ ${regs.length} registros encontrados. Actualizando Excel en Drive...`;
 
     const areaData=CFG.areas[areaKey];
     const payload={
       accion:'generar_excel',
       area_key:areaKey,
       area_nombre:areaData.nombre,
-      anio,mes,
       termos:areaData.termos||{},
       registros:regsPorTermo
     };
