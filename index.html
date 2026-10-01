@@ -1101,10 +1101,10 @@ window.generarExcel=async()=>{
       registros:regsPorTermo
     };
 
-    const resp=await fetch(APPS_SCRIPT_EXCEL_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
+    const encoded = encodeURIComponent(JSON.stringify(payload));
+    const resp=await fetch(`${APPS_SCRIPT_EXCEL_URL}?data=${encoded}`,{
+      method:'GET',
+      mode:'cors'
     });
     const data=await resp.json();
 
