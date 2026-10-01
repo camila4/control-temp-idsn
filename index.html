@@ -333,6 +333,11 @@ hr.div{border:none;border-top:1px solid var(--g200);margin:12px 0;}
   <div class="fld"><label>Nombre del área</label><input type="text" id="ma-nom" placeholder="Ej: Virología e Inmunoserología"></div>
   <div class="fld"><label>Clave interna (sin espacios, sin tildes)</label><input type="text" id="ma-key" placeholder="Ej: virologia"></div>
   <div class="fld"><label>Estado</label><select id="ma-est"><option value="true">Activa</option><option value="false">Inactiva</option></select></div>
+  <div class="fld">
+    <label>ID del Google Sheets</label>
+    <input type="text" id="ma-sheets" placeholder="Pega aquí el ID del Sheets del área">
+    <div style="font-size:11px;color:var(--g400);margin-top:4px">Lo encuentras en la URL: docs.google.com/spreadsheets/d/<strong>ESTE_ES_EL_ID</strong>/edit</div>
+  </div>
   <div class="modal-btns">
     <button class="btn-cnl" onclick="cerrarModal('modal-area')">Cancelar</button>
     <button class="btn-cfm" onclick="guardarArea()">Guardar</button>
@@ -494,7 +499,7 @@ window.onArea = ()=>{
   document.getElementById('fld-termo').style.display='block';
 };
 
-window.onTermo = ()=>{
+window.onTermo = async()=>{
   const area=EA.area, termo=document.getElementById('sel-termo').value;
   EA.termo=termo; EA.lugar=null;
   ocultarCampos(['fld-lugar','info-lugar','card-med','card-graf','card-resp','btn-env']);
@@ -507,7 +512,40 @@ window.onTermo = ()=>{
     sel.innerHTML='<option value="">Sin lugares configurados</option>';
     return;
   }
-  lugares.forEach(l=>sel.add(new Option(l,l)));
+
+  // Consultar lugares ya registrados hoy para este termo
+  try{
+    const ahora=new Date();
+    const q=query(collection(db,'registros'),
+      where('area','==',area),
+      where('termo','==',termo),
+      where('dia','==',ahora.getDate()),
+      where('mes','==',ahora.getMonth()+1),
+      where('anio','==',ahora.getFullYear()));
+    const snap=await getDocs(q);
+    const yaRegistrados=new Set(snap.docs.map(d=>d.data().lugar));
+
+    // Ordenar: primero los NO registrados, luego los ya registrados
+    const pendientes=lugares.filter(l=>!yaRegistrados.has(l));
+    const registrados=lugares.filter(l=>yaRegistrados.has(l));
+
+    pendientes.forEach(l=>sel.add(new Option(l,l)));
+    if(registrados.length){
+      const sep=document.createElement('option');
+      sep.disabled=true;
+      sep.text='── Ya registrados hoy ──';
+      sel.add(sep);
+      registrados.forEach(l=>{
+        const opt=new Option(`✓ ${l}`,l);
+        opt.style.color='#94A3B8';
+        sel.add(opt);
+      });
+    }
+  }catch(e){
+    // Si falla la consulta, mostrar todos normal
+    lugares.forEach(l=>sel.add(new Option(l,l)));
+  }
+
   document.getElementById('fld-lugar').style.display='block';
   if(lugares.length===1){sel.value=lugares[0];onLugar();}
 };
@@ -623,7 +661,7 @@ window.enviar = async()=>{
   btn.disabled=true; btn.textContent='Guardando...';
   const t=CFG.areas[area]?.termos[tk];
   const corrT=Math.round((tv+interp(tv,t?.ct||[]))*10)/10;
-  const corrH=Math.round(hv+interp(hv,t?.ch||[]));
+  const corrH=Math.round((hv+interp(hv,t?.ch||[]))*10)/10;
   const ahora=new Date();
   try{
     await addDoc(collection(db,'registros'),{
@@ -635,10 +673,22 @@ window.enviar = async()=>{
       marca_temporal:ahora.toLocaleString('es-CO'),
       timestamp:serverTimestamp()
     });
-    // Respaldo Google Sheets
-    const form=new FormData();
-    form.append('data',JSON.stringify({marca_temporal:ahora.toLocaleString('es-CO'),area,lugar_muestreo:lugar,codigo_equipo:tk,temperatura:tv,humedad:hv,responsable:resp,observaciones:obs}));
-    fetch("https://script.google.com/macros/s/AKfycbyb5h2ZPqY2Y-6p6ELa6wkt7gpwPr-foaXxT3wp02QWmt47d_IF1Vf1a7ME5kBlk_aFiA/exec",{method:'POST',mode:'no-cors',body:form}).catch(()=>{});
+    // Actualizar Sheets automáticamente con el nuevo registro
+    const t=CFG.areas[area]?.termos[tk];
+    const sheetsId=CFG.areas[area]?.sheets_id||'';
+    if(!sheetsId){ console.warn('Área sin Sheets configurado:',area); }
+    const payloadSheets={
+      sheets_id:sheetsId,
+      termo:tk, lugar, mes:ahora.getMonth()+1, anio:ahora.getFullYear(),
+      dia:ahora.getDate(), hora:ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'}),
+      temperatura:tv, humedad:hv,
+      temp_corregida:corrT, hum_corregida:corrH,
+      responsable:resp, observaciones:obs,
+      ct:t?.ct||[], ch:t?.ch||[]
+    };
+    const formSheets=new FormData();
+    formSheets.append('data',JSON.stringify(payloadSheets));
+    fetch(APPS_SCRIPT_EXCEL_URL,{method:'POST',mode:'no-cors',body:formSheets}).catch(()=>{});
     document.getElementById('form-areas').style.display='none';
     document.getElementById('s-exito').style.display='block';
     document.getElementById('suc-res').innerHTML=`<strong>${tk}</strong><br>${lugar}<br>🌡️ ${tv}°C → <strong>${corrT}°C</strong> &nbsp; 💧 ${hv}% → <strong>${corrH}%</strong><br><small style="color:var(--g400)">${ahora.toLocaleString('es-CO')}</small>`;
@@ -705,7 +755,10 @@ function renderAreas(){
   if(!areas.length){ cont.innerHTML='<div class="empty">No hay áreas. Crea la primera.</div>'; return; }
   cont.innerHTML=areas.map(([k,a])=>`
     <div class="area-adm-row">
-      <div class="area-nom">${a.nombre}</div>
+      <div class="area-nom">
+        ${a.nombre}
+        ${a.sheets_id?'<div style="font-size:10px;color:var(--g400);margin-top:2px">📊 Sheets configurado</div>':'<div style="font-size:10px;color:var(--n);margin-top:2px">⚠️ Sin Sheets configurado</div>'}
+      </div>
       <span class="area-badge ${a.activa?'a-activa':'a-inactiva'}">${a.activa?'Activa':'Inactiva'}</span>
       <button class="btn-edit" onclick="abrirModalArea('${k}')">Editar</button>
       <button class="btn-edit" onclick="abrirModalTermo(null,'${k}')" style="color:var(--v)">+Termo</button>
@@ -722,11 +775,13 @@ window.abrirModalArea=(key)=>{
     document.getElementById('ma-key').value=key;
     document.getElementById('ma-key').disabled=true;
     document.getElementById('ma-est').value=String(a.activa);
+    document.getElementById('ma-sheets').value=a.sheets_id||'';
   } else {
     document.getElementById('ma-nom').value='';
     document.getElementById('ma-key').value='';
     document.getElementById('ma-key').disabled=false;
     document.getElementById('ma-est').value='true';
+    document.getElementById('ma-sheets').value='';
   }
   document.getElementById('modal-area').classList.add('show');
 };
@@ -737,9 +792,10 @@ window.guardarArea=async()=>{
   const activa=document.getElementById('ma-est').value==='true';
   if(!nom||!key){mostrarToast('Completa los campos','err');return;}
   if(!CFG.areas) CFG.areas={};
+  const sheets_id=document.getElementById('ma-sheets').value.trim();
   const nuevo=!editAreaKey;
-  if(nuevo) CFG.areas[key]={nombre:nom,activa,termos:{}};
-  else{ CFG.areas[key].nombre=nom; CFG.areas[key].activa=activa; }
+  if(nuevo) CFG.areas[key]={nombre:nom,activa,sheets_id,termos:{}};
+  else{ CFG.areas[key].nombre=nom; CFG.areas[key].activa=activa; CFG.areas[key].sheets_id=sheets_id; }
   await saveCFG();
   regAud(nuevo?'Área creada':'Área editada',nom);
   cerrarModal('modal-area'); renderAreas(); poblarAreas();
